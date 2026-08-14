@@ -1,0 +1,17 @@
+<resources>
+
+    <string name="ok">OK</string>
+    <string name="error_dialog">Sorry there was an error.\nTry again later.</string>
+    <string name="unknown_error">Unknown Error</string>
+    <string name="retry">Try again</string>
+    <string name="edit">Edit</string>
+    <string name="open">Open %1$s</string>
+
+    <string name="alttp">A Link to the Past</string>
+
+    <string name="welcome_hero">Welcome, Hero</string>
+    <string name="begin_journey">To begin your journey, we need to first verify you original %1$s ROM file</string>
+    <string name="select_base_rom">Select Base ROM</string>
+    <string name="select_rom_legal">Select your legally owned %1$s (Zelda no Densetsu: Kamigami no Triforce v1.0) ROM to enable the randomizer engine.</string>
+    <string name="select_rom_file">Select ROM File</string>
+</resources>
