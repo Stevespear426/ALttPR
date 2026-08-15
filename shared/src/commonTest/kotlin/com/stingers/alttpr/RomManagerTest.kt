@@ -1,6 +1,6 @@
 package com.stingers.alttpr
 
-import com.stingers.alttpr.domain.RomManager
+import com.stingers.alttpr.repository.RomManager
 import kotlin.test.Test
 import kotlin.test.assertFalse
 

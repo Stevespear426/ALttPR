@@ -1,4 +1,4 @@
-package com.stingers.alttpr.data.db
+package com.stingers.alttpr.repository.local
 
 import android.content.Context
 import androidx.room3.Room

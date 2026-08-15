@@ -1,9 +1,9 @@
 package com.stingers.alttpr.di
 
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import com.stingers.alttpr.data.db.AppDatabase
-import com.stingers.alttpr.data.db.RomDao
-import com.stingers.alttpr.data.db.getDatabaseBuilder
+import com.stingers.alttpr.repository.local.AppDatabase
+import com.stingers.alttpr.repository.local.RomDao
+import com.stingers.alttpr.repository.local.getDatabaseBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import org.koin.core.annotation.Module

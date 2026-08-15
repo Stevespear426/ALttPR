@@ -1,15 +1,17 @@
-package com.stingers.alttpr.domain
+package com.stingers.alttpr.repository
 
-import com.stingers.alttpr.network.AlttprService
-import com.stingers.alttpr.data.db.RomDao
-import com.stingers.alttpr.data.db.RomEntity
-import com.stingers.alttpr.domain.model.GameMode
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
+import com.stingers.alttpr.repository.local.RomDao
+import com.stingers.alttpr.model.RomEntity
+import com.stingers.alttpr.repository.local.RomStorage
+import com.stingers.alttpr.model.GameMode
+import com.stingers.alttpr.repository.remote.AlttprService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.toLocalDateTime
 import org.koin.core.annotation.Singleton
+import kotlin.time.Clock
 
 @Singleton
 class AlttprRepository(
@@ -48,7 +50,7 @@ class AlttprRepository(
             romDao.insertRom(
                 RomEntity(
                     hash = hash,
-                    createdAt = kotlin.time.Clock.System.now().toEpochMilliseconds(),
+                    createdAt = Clock.System.now().toEpochMilliseconds(),
                     localFileName = filename,
                     gameMode = GameMode.DAILY_CHALLENGE
                 )
@@ -60,7 +62,7 @@ class AlttprRepository(
     }
 
     private fun getCurrentTimestampFormatted(): String {
-        val currentInstant = kotlin.time.Clock.System.now()
+        val currentInstant = Clock.System.now()
         val dateTime = currentInstant.toLocalDateTime(TimeZone.currentSystemDefault())
         val month = dateTime.monthNumber.toString().padStart(2, '0')
         val day = dateTime.dayOfMonth.toString().padStart(2, '0')

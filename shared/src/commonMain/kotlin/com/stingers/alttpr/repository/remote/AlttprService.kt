@@ -1,5 +1,7 @@
-package com.stingers.alttpr.network
+package com.stingers.alttpr.repository.remote
 
+import com.stingers.alttpr.model.DailyResponse
+import com.stingers.alttpr.model.SeedResponse
 import de.jensklingenberg.ktorfit.http.GET
 import de.jensklingenberg.ktorfit.http.Path
 import de.jensklingenberg.ktorfit.http.Url

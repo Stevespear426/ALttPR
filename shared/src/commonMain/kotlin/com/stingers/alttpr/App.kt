@@ -10,7 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.stingers.alttpr.common.components.PageLoadingView
 import com.stingers.alttpr.screens.main.MainScreen
-import com.stingers.alttpr.screens.upload.UploadRomView
+import com.stingers.alttpr.screens.upload.UploadRomScreen
 import com.stingers.alttpr.theme.ZeldaTheme
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -23,7 +23,7 @@ fun App() {
             val state by viewModel.state.collectAsState()
             when {
                 state.loading -> PageLoadingView()
-                state.needsRom -> UploadRomView {
+                state.needsRom -> UploadRomScreen {
                     viewModel.saveRom(it)
                 }
 

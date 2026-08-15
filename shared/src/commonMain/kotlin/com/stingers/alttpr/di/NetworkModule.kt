@@ -1,7 +1,7 @@
 package com.stingers.alttpr.di
 
-import com.stingers.alttpr.network.AlttprService
-import com.stingers.alttpr.network.createAlttprService
+import com.stingers.alttpr.repository.remote.AlttprService
+import com.stingers.alttpr.repository.remote.createAlttprService
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

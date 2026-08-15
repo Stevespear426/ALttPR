@@ -1,10 +1,11 @@
-package com.stingers.alttpr.data.db
+package com.stingers.alttpr.repository.local
 
 import androidx.paging.PagingSource
 import androidx.room3.Dao
 import androidx.room3.Insert
 import androidx.room3.OnConflictStrategy
 import androidx.room3.Query
+import com.stingers.alttpr.model.RomEntity
 
 @Dao
 interface RomDao {

@@ -39,7 +39,7 @@ import org.jetbrains.compose.resources.stringResource
 
 
 @Composable
-fun UploadRomView(saveRome: (file: PlatformFile) -> Unit) {
+fun UploadRomScreen(saveRome: (file: PlatformFile) -> Unit) {
     val romRequest = rememberFilePickerLauncher(
         type = FileKitType.File(extensions = listOf("smc", "sfc")),
         mode = FileKitMode.Single,
@@ -94,16 +94,16 @@ fun UploadRomView(saveRome: (file: PlatformFile) -> Unit) {
 
 @Preview(showBackground = true)
 @Composable
-fun UploadRomViewLightPreview() {
+fun UploadRomScreenLightPreview() {
     PreviewLightTheme {
-        UploadRomView {}
+        UploadRomScreen {}
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun UploadRomViewDarkPreview() {
+fun UploadRomScreenDarkPreview() {
     PreviewDarkTheme {
-        UploadRomView {}
+        UploadRomScreen {}
     }
 }

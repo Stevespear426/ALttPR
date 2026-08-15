@@ -1,5 +1,6 @@
-package com.stingers.alttpr.domain
+package com.stingers.alttpr.repository
 
+import com.stingers.alttpr.repository.local.RomStorage
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.exists
 import io.github.vinceglb.filekit.readBytes

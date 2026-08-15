@@ -2,8 +2,8 @@ package com.stingers.alttpr
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.stingers.alttpr.domain.AlttprRepository
-import com.stingers.alttpr.domain.RomManager
+import com.stingers.alttpr.repository.AlttprRepository
+import com.stingers.alttpr.repository.RomManager
 import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow

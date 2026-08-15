@@ -1,4 +1,4 @@
-package com.stingers.alttpr.domain
+package com.stingers.alttpr.repository.local
 
 import io.github.vinceglb.filekit.PlatformFile
 

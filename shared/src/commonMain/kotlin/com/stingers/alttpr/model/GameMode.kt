@@ -1,4 +1,4 @@
-package com.stingers.alttpr.domain.model
+package com.stingers.alttpr.model
 
 import alttpr.shared.generated.resources.Res
 import alttpr.shared.generated.resources.*

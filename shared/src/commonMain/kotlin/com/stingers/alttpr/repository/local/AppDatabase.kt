@@ -1,4 +1,4 @@
-package com.stingers.alttpr.data.db
+package com.stingers.alttpr.repository.local
 
 import androidx.room3.ConstructedBy
 import androidx.room3.DaoReturnTypeConverters
@@ -6,6 +6,7 @@ import androidx.room3.Database
 import androidx.room3.RoomDatabase
 import androidx.room3.RoomDatabaseConstructor
 import androidx.room3.paging.PagingSourceDaoReturnTypeConverter
+import com.stingers.alttpr.model.RomEntity
 
 @Database(
     entities = [RomEntity::class],

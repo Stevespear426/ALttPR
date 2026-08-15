@@ -1,4 +1,4 @@
-package com.stingers.alttpr.network
+package com.stingers.alttpr.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
