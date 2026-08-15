@@ -6,15 +6,17 @@ import kotlin.test.assertFalse
 
 class RomManagerTest {
 
+    val instance: RomManager = RomManager()
+
     @Test
     fun testVerifyRomBytesInvalid() {
         val dummyBytes = byteArrayOf(1, 2, 3, 4, 5)
-        assertFalse(RomManager.verifyRomBytes(dummyBytes))
+        assertFalse(instance.verifyRomBytes(dummyBytes))
     }
 
     @Test
     fun testVerifyRomBytesWithCorrectCrc() {
         val emptyBytes = ByteArray(0)
-        assertFalse(RomManager.verifyRomBytes(emptyBytes))
+        assertFalse(instance.verifyRomBytes(emptyBytes))
     }
 }

@@ -2,6 +2,7 @@ package com.stingers.alttpr
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.stingers.alttpr.domain.AlttprRepository
 import com.stingers.alttpr.domain.RomManager
 import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +13,8 @@ import org.koin.core.annotation.KoinViewModel
 
 @KoinViewModel
 class AppViewModel constructor(
-    private val romManager: RomManager
+    private val romManager: RomManager,
+    private val alttprRepository: AlttprRepository
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(AppState(loading = true))
@@ -40,6 +42,12 @@ class AppViewModel constructor(
             if (result.isSuccess) {
                 _state.update { it.copy(needsRom = false) }
             }
+        }
+    }
+
+    fun createDailySeed() {
+        viewModelScope.launch {
+            alttprRepository.createDailySeed()
         }
     }
 }

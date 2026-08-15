@@ -27,7 +27,11 @@ fun App() {
                     viewModel.saveRom(it)
                 }
 
-                else -> MainScreen()
+                else -> MainScreen(
+                    onCreateDaily = {
+                        viewModel.createDailySeed()
+                    }
+                )
             }
         }
     }

@@ -15,13 +15,13 @@ import platform.Foundation.writeToFile
 
 actual object RomStorage {
     @OptIn(ExperimentalForeignApi::class)
-    private fun getStorageDir(): NSURL? {
+    private fun getStorageDirs(): Pair<NSURL?, NSURL?> {
         val fileManager = NSFileManager.defaultManager
         val urls = fileManager.URLsForDirectory(NSDocumentDirectory, NSUserDomainMask)
-        val documentDirectory = urls.firstOrNull() as? NSURL ?: return null
-        val appDir = documentDirectory.URLByAppendingPathComponent("alttpr") ?: return null
-        val baseRomDir = appDir.URLByAppendingPathComponent("base_rom") ?: return null
-        val generatedDir = appDir.URLByAppendingPathComponent("generated_seeds")
+        val documentDirectory = urls.firstOrNull() as? NSURL ?: return null to null
+        val appDir = documentDirectory.URLByAppendingPathComponent("alttpr") ?: return null to null
+        val baseRomDir = appDir.URLByAppendingPathComponent("base_rom") ?: return null to null
+        val generatedDir = appDir.URLByAppendingPathComponent("generated_seeds") ?: return null to null
         
         val fileManagerInstance = NSFileManager.defaultManager
         listOf(baseRomDir, generatedDir).forEach { url ->
@@ -31,20 +31,37 @@ actual object RomStorage {
                 }
             }
         }
-        return baseRomDir
+        return baseRomDir to generatedDir
     }
 
     actual suspend fun getBaseRomFile(): PlatformFile? {
-        val dir = getStorageDir() ?: return null
-        val fileUrl = dir.URLByAppendingPathComponent("alttp_base.sfc") ?: return null
+        val (baseRomDir, _) = getStorageDirs()
+        val fileUrl = baseRomDir?.URLByAppendingPathComponent("alttp_base.sfc") ?: return null
         return fileUrl.path?.let { PlatformFile(it) }
     }
 
     @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
     actual suspend fun saveBaseRomBytes(bytes: ByteArray): Result<Unit> {
         return try {
-            val dir = getStorageDir() ?: return Result.failure(IllegalStateException("Documents directory not found"))
-            val fileUrl = dir.URLByAppendingPathComponent("alttp_base.sfc") ?: return Result.failure(IllegalStateException("File URL error"))
+            val (baseRomDir, _) = getStorageDirs()
+            val fileUrl = baseRomDir?.URLByAppendingPathComponent("alttp_base.sfc") ?: return Result.failure(IllegalStateException("File URL error"))
+            val path = fileUrl.path ?: return Result.failure(IllegalStateException("File path error"))
+            
+            val nsData = bytes.usePinned { pinned ->
+                NSData.create(bytes = pinned.addressOf(0), length = bytes.size.toULong())
+            }
+            nsData.writeToFile(path, atomically = true)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
+    actual suspend fun saveGeneratedSeed(filename: String, bytes: ByteArray): Result<Unit> {
+        return try {
+            val (_, generatedDir) = getStorageDirs()
+            val fileUrl = generatedDir?.URLByAppendingPathComponent(filename) ?: return Result.failure(IllegalStateException("File URL error"))
             val path = fileUrl.path ?: return Result.failure(IllegalStateException("File path error"))
             
             val nsData = bytes.usePinned { pinned ->

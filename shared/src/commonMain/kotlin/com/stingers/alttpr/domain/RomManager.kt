@@ -73,35 +73,6 @@ class RomManager {
     }
 
     /**
-     * Applies the ALttPR JSON patch dictionary directly to a copy of the base ROM.
-     *
-     * @param patchData The raw patch list returned by the ALttPR API
-     * @return A newly patched SFC ROM byte array ready for saving
-     */
-    suspend fun applyPatch(patchData: List<Map<String, List<Int>>>): ByteArray {
-        // Clone the original ROM bytes so we don't mutate the base ROM in memory
-        val baseFile = RomStorage.getBaseRomFile()
-        val baseRom = baseFile?.readBytes() ?: return ByteArray(0)
-        val patchedRom = baseRom.copyOf()
-
-        for (patchMap in patchData) {
-            for ((offsetStr, byteValues) in patchMap) {
-                val offset = offsetStr.toIntOrNull() ?: continue
-
-                // Overwrite original bytes with patched seed values at the specified offset
-                for (i in byteValues.indices) {
-                    val targetIndex = offset + i
-                    if (targetIndex < patchedRom.size) {
-                        patchedRom[targetIndex] = byteValues[i].toByte()
-                    }
-                }
-            }
-        }
-
-        return patchedRom
-    }
-
-    /**
      * Applies a BPS patch using 100% Kotlin Multiplatform standard library functions.
      * Safe for commonMain (Android, iOS, Desktop, WebAssembly).
      */
