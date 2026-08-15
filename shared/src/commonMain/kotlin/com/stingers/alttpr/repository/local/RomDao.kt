@@ -6,6 +6,7 @@ import androidx.room3.Insert
 import androidx.room3.OnConflictStrategy
 import androidx.room3.Query
 import com.stingers.alttpr.model.RomEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RomDao {
@@ -17,6 +18,9 @@ interface RomDao {
 
     @Query("SELECT * FROM roms WHERE hash = :hash")
     suspend fun getRom(hash: String): RomEntity
+
+    @Query("SELECT * FROM roms WHERE hash = :hash")
+    fun getRomFlow(hash: String): Flow<RomEntity>
 
     @Query("DELETE FROM roms WHERE hash = :hash")
     suspend fun deleteRom(hash: String)

@@ -89,6 +89,12 @@ kotlin {
             implementation(libs.room.runtime)
             api(libs.room3.paging)
             implementation(libs.sqlite.bundled)
+
+            // Navigation 3
+            implementation(libs.navigation3.ui)
+
+            // DataStore Preferences
+            implementation("androidx.datastore:datastore-preferences:1.2.1")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

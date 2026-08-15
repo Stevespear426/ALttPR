@@ -3,6 +3,6 @@ package com.stingers.alttpr.di
 import org.koin.core.annotation.ComponentScan
 import org.koin.core.annotation.Module
 
-@Module(includes = [NetworkModule::class, DatabaseModule::class])
+@Module(includes = [NetworkModule::class, DatabaseModule::class, PreferencesModule::class])
 @ComponentScan("com.stingers.alttpr")
 class AppModule

@@ -28,6 +28,7 @@ paging = "3.5.1"
 ktor = "3.5.2"
 ktorfit = "2.7.5"
 kotlinx-datetime = "0.8.0"
+nav3 = "1.1.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -74,6 +75,7 @@ sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sql
 
 androidx-paging-common = { module = "androidx.paging:paging-common", version.ref = "paging" }
 androidx-paging-compose = { module = "androidx.paging:paging-compose", version.ref = "paging" }
+navigation3-ui = { module = "org.jetbrains.androidx.navigation3:navigation3-ui", version.ref = "nav3" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

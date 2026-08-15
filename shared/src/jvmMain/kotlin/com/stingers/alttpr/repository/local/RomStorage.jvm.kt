@@ -45,4 +45,9 @@ actual object RomStorage {
             Result.failure(e)
         }
     }
+
+    actual suspend fun getGeneratedSeedFile(filename: String): PlatformFile? {
+        val file = File(getGeneratedSeedsDir(), filename)
+        return if (file.exists()) PlatformFile(file) else null
+    }
 }

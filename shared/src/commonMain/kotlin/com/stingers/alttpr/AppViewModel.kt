@@ -2,9 +2,10 @@ package com.stingers.alttpr
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.stingers.alttpr.navigation.NavigationManager
+import com.stingers.alttpr.navigation.Screen
 import com.stingers.alttpr.repository.AlttprRepository
 import com.stingers.alttpr.repository.RomManager
-import io.github.vinceglb.filekit.PlatformFile
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -14,7 +15,8 @@ import org.koin.core.annotation.KoinViewModel
 @KoinViewModel
 class AppViewModel constructor(
     private val romManager: RomManager,
-    private val alttprRepository: AlttprRepository
+    private val alttprRepository: AlttprRepository,
+    private val navigationManager: NavigationManager
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(AppState(loading = true))
@@ -30,29 +32,28 @@ class AppViewModel constructor(
             _state.update {
                 it.copy(
                     loading = false,
-                    needsRom = !isValid
+                    needsBaseRom = !isValid
                 )
             }
-        }
-    }
-
-    fun saveRom(rom: PlatformFile) {
-        viewModelScope.launch {
-            val result = romManager.saveAndVerifyRom(rom)
-            if (result.isSuccess) {
-                _state.update { it.copy(needsRom = false) }
+            if (!isValid) {
+                navigationManager.setRoot(Screen.UploadRom)
+            } else {
+                navigationManager.setRoot(Screen.Main)
             }
         }
     }
 
     fun createDailySeed() {
         viewModelScope.launch {
-            alttprRepository.createDailySeed()
+            val result = alttprRepository.createDailySeed()
+            result.onSuccess { hash ->
+                navigationManager.navigateTo(Screen.EditRom(hash))
+            }
         }
     }
 }
 
 data class AppState(
     val loading: Boolean = false,
-    val needsRom: Boolean = true,
+    val needsBaseRom: Boolean = true,
 )

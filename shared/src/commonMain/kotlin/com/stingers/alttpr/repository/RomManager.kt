@@ -1,5 +1,10 @@
 package com.stingers.alttpr.repository
 
+import com.stingers.alttpr.computeMd5Hex
+import com.stingers.alttpr.model.HeartColor
+import com.stingers.alttpr.model.HeartSpeed
+import com.stingers.alttpr.model.MenuSpeed
+import com.stingers.alttpr.model.RomEntity
 import com.stingers.alttpr.repository.local.RomStorage
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.exists
@@ -48,6 +53,56 @@ class RomManager {
         return actualCrc == EXPECTED_CRC32
     }
 
+    suspend fun getPatchedRomBytes(
+        romEntity: RomEntity,
+        hash: String,
+        heartSpeed: HeartSpeed = HeartSpeed.NORMAL,
+        menuSpeed: MenuSpeed = MenuSpeed.NORMAL,
+        heartColor: HeartColor = HeartColor.RED,
+        quickSwap: Boolean = true,
+        enableMusic: Boolean = true,
+        msuResume: Boolean = true,
+        reduceFlashing: Boolean = false,
+    ): ByteArray? {
+
+        // 1. Get base rom
+        val baseFile = RomStorage.getBaseRomFile()
+        val sourceRom = baseFile?.readBytes()?.clone() ?: return null
+
+        // 2. Get base rom patch
+        val bpsFile = RomStorage.getGeneratedSeedFile(romEntity.localFileName) ?: return null
+        val bpsBytes = bpsFile.readBytes()
+
+        // 3. Apply base rom patch
+        val basePatchedBytes = applyBasePatch(sourceRom, bpsBytes, romEntity.md5)
+        if (basePatchedBytes.isEmpty()) return null
+
+        // 4. Expand rom size if needed
+        val expandedPatchedBytes = expandSize(basePatchedBytes, romEntity.size)
+        if (expandedPatchedBytes.isEmpty()) return null
+
+        // 5. Apply seed patch
+        val seedPatchedBytes = applySeedPatch(expandedPatchedBytes, romEntity.patch)
+        if (seedPatchedBytes.isEmpty()) return null
+
+        // 6. Apply settings values
+        val finalRomBytes = applySettings(
+            romBytes = seedPatchedBytes,
+            seedHash = hash,
+            heartSpeed = heartSpeed,
+            menuSpeed = menuSpeed,
+            heartColor = heartColor,
+            quickSwap = quickSwap,
+            reduceFlashing = reduceFlashing,
+            enableMusic = enableMusic,
+            msuResume = msuResume
+        )
+        if (finalRomBytes.isEmpty()) return null
+
+        // 6. Update checksum and return
+        return updateChecksum(finalRomBytes)
+    }
+
     @OptIn(ExperimentalUnsignedTypes::class)
     private fun calculateCrc32(bytes: ByteArray): UInt {
         var crc = 0xFFFFFFFFu
@@ -74,13 +129,9 @@ class RomManager {
     }
 
     /**
-     * Applies a BPS patch using 100% Kotlin Multiplatform standard library functions.
-     * Safe for commonMain (Android, iOS, Desktop, WebAssembly).
+     * Applies a BPS patch
      */
-    suspend fun applyPatch(bpsBytes: ByteArray): ByteArray {
-        // Clone the original ROM bytes so we don't mutate the base ROM in memory
-        val baseFile = RomStorage.getBaseRomFile()
-        val sourceRom = baseFile?.readBytes() ?: return ByteArray(0)
+    fun applyBasePatch(sourceRom: ByteArray, bpsBytes: ByteArray, md5: String): ByteArray {
 
         var patchOffset = 0
 
@@ -121,6 +172,7 @@ class RomManager {
                         targetReadOff++
                     }
                 }
+
                 1 -> { // TargetRead: Copy bytes directly embedded inside the patch stream
                     // KMP Replacement for System.arraycopy
                     bpsBytes.copyInto(
@@ -132,6 +184,7 @@ class RomManager {
                     patchOffset += length
                     targetReadOff += length
                 }
+
                 2 -> { // SourceCopy: Relative offset copy from source ROM
                     val offsetData = readVlq(bpsBytes) { patchOffset++ }
                     val negative = (offsetData and 1L) == 1L
@@ -143,6 +196,7 @@ class RomManager {
                         targetRom[targetReadOff++] = sourceRom[sourceRelativeOff++]
                     }
                 }
+
                 3 -> { // TargetCopy: Relative offset copy from target output (RLE/duplication)
                     val offsetData = readVlq(bpsBytes) { patchOffset++ }
                     val negative = (offsetData and 1L) == 1L
@@ -157,8 +211,132 @@ class RomManager {
             }
         }
 
+        val computedMd5 = computeMd5Hex(targetRom)
+        if (!computedMd5.equals(md5, ignoreCase = true)) {
+            return ByteArray(0)
+        }
         return targetRom
     }
+
+    /**
+     * Applies the ALttPR JSON patch dictionary directly to a copy of the base ROM.
+     *
+     * @param baseRom The unmodified "A Link to the Past (USA).sfc" (1,048,576 bytes)
+     * @param patchData The raw patch list returned by the ALttPR API
+     * @return A newly patched SFC ROM byte array ready for saving
+     */
+    fun applySeedPatch(baseRom: ByteArray, patchData: List<Map<String, List<Int>>>): ByteArray {
+        // Clone the original ROM bytes so we don't mutate the base ROM in memory
+        val patchedRom = baseRom.copyOf()
+
+        for (patchMap in patchData) {
+            for ((offsetStr, byteValues) in patchMap) {
+                val offset = offsetStr.toIntOrNull() ?: continue
+
+                // Overwrite original bytes with patched seed values at the specified offset
+                for (i in byteValues.indices) {
+                    val targetIndex = offset + i
+                    if (targetIndex < patchedRom.size) {
+                        patchedRom[targetIndex] = byteValues[i].toByte()
+                    }
+                }
+            }
+        }
+
+        return patchedRom
+    }
+
+    fun expandSize(baseRom: ByteArray, size: Int): ByteArray {
+        if (size > 2) {
+            val newSize = size * (1024 * 1024)
+            val resizeSize = minOf(newSize, baseRom.size)
+            val replacement = ByteArray(resizeSize)
+            baseRom.copyInto(replacement, 0, 0, resizeSize)
+            return replacement
+        }
+        return baseRom
+    }
+
+    /**
+     * Mutates raw ROM bytes with user-selected UI settings.
+     */
+    fun applySettings(
+        romBytes: ByteArray,
+        seedHash: String,
+        title: String = "VT ${seedHash.take(18)}".padEnd(21, ' '),
+        heartSpeed: HeartSpeed = HeartSpeed.OFF,
+        menuSpeed: MenuSpeed = MenuSpeed.NORMAL,
+        heartColor: HeartColor = HeartColor.RED,
+        quickSwap: Boolean = true,
+        reduceFlashing: Boolean = false,
+        enableMusic: Boolean = false,
+        msuResume: Boolean = true
+    ): ByteArray {
+
+        title.encodeToByteArray().copyInto(
+            destination = romBytes,
+            destinationOffset = 0x7FC0,
+            startIndex = 0,
+            endIndex = minOf(title.length, 21)
+        )
+
+        // 2. Item Quickswap
+        romBytes[0x18004B] = if (quickSwap) 0x01.toByte() else 0x00.toByte()
+
+        // 3. Heart Beep Speed
+        romBytes[0x180033] = heartSpeed.value
+
+        // 4. Menu Speed
+        romBytes[0x180048] = menuSpeed.value
+
+        // 5. Heart Color
+        romBytes[0x187020] = heartColor.value
+
+        // 6. Reduce Flashing / Photosensitivity
+        if (reduceFlashing) {
+            romBytes[0x18017F] = 0x01.toByte()
+        }
+
+        // 7. Background Music Toggle
+        if (!enableMusic) {
+            romBytes[0x18021A] = 0x01.toByte()
+        }
+
+        // Menu speed (default: normal)
+        val isInstant = menuSpeed == MenuSpeed.INSTANT
+        romBytes[0x18021D] = menuSpeed.value
+        romBytes[0x6dd9a] = if (isInstant) 0x20.toByte() else 0x11.toByte()
+        romBytes[0x6df2a] = if (isInstant) 0x20.toByte() else 0x11.toByte()
+        romBytes[0x6e0e9] = if (isInstant) 0x20.toByte() else 0x11.toByte()
+
+        if (!msuResume) {
+            romBytes[0x18021D] = 0x00.toByte()
+            romBytes[0x18021E] = 0x00.toByte()
+        }
+
+        return romBytes
+    }
+
+    fun updateChecksum(baseRom: ByteArray): ByteArray {
+        val rom = baseRom.copyOf()
+        // Checksum fix is done last
+        var total = 0
+        for (i in rom.indices) {
+            if (i !in 0x7FDC..0x7FDF) {
+                total += rom[i].toInt() and 0xFF
+            }
+        }
+        val checksum = (total + 0x1FE) and 0xFFFF
+        val inverse = checksum xor 0xFFFF
+
+        rom[0x7FDC] = (inverse and 0xFF).toByte()
+        rom[0x7FDD] = (inverse shr 8).toByte()
+        rom[0x7FDE] = (checksum and 0xFF).toByte()
+        rom[0x7FDF] = (checksum shr 8).toByte()
+
+        return rom
+    }
+
 
     private inline fun readVlq(bytes: ByteArray, onReadByte: () -> Int): Long {
         var value = 0L

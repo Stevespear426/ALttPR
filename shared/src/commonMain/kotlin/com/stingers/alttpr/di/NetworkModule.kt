@@ -4,7 +4,10 @@ import com.stingers.alttpr.repository.remote.AlttprService
 import com.stingers.alttpr.repository.remote.createAlttprService
 import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
+import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.core.annotation.Module
@@ -17,10 +20,17 @@ class NetworkModule {
     fun provideHttpClient(): HttpClient {
         return HttpClient {
             install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                    isLenient = true
-                })
+                json(
+                    Json {
+                        ignoreUnknownKeys = true
+                        isLenient = true
+                        coerceInputValues = true
+                    }, contentType = ContentType.Any
+                )
+
+            }
+            install(DefaultRequest) {
+                headers.append(HttpHeaders.Accept, "application/json")
             }
         }
     }

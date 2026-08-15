@@ -73,4 +73,12 @@ actual object RomStorage {
             Result.failure(e)
         }
     }
+
+    actual suspend fun getGeneratedSeedFile(filename: String): PlatformFile? {
+        val (_, generatedDir) = getStorageDirs()
+        val fileUrl = generatedDir?.URLByAppendingPathComponent(filename) ?: return null
+        val path = fileUrl.path ?: return null
+        val file = io.github.vinceglb.filekit.PlatformFile(path)
+        return if (file.exists()) file else null
+    }
 }

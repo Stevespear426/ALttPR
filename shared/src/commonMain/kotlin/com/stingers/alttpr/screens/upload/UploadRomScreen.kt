@@ -30,22 +30,29 @@ import androidx.compose.ui.unit.dp
 import com.stingers.alttpr.common.components.PrimaryButton
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
-import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.dialogs.FileKitMode
 import io.github.vinceglb.filekit.dialogs.FileKitType
 import io.github.vinceglb.filekit.dialogs.compose.rememberFilePickerLauncher
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.koin.compose.viewmodel.koinViewModel
 
 
 @Composable
-fun UploadRomScreen(saveRome: (file: PlatformFile) -> Unit) {
+fun UploadRomScreen(
+    viewModel: UploadViewModel = koinViewModel()
+) {
+    UploadRomScreen(viewModel::precessEvent)
+}
+
+@Composable
+fun UploadRomScreen(processEvent: (event: UploadRomEvent) -> Unit) {
     val romRequest = rememberFilePickerLauncher(
         type = FileKitType.File(extensions = listOf("smc", "sfc")),
         mode = FileKitMode.Single,
     ) { file ->
         file?.let {
-            saveRome(file)
+            processEvent(UploadRomEvent.SaveRom(it))
         }
     }
     Column(
@@ -80,7 +87,10 @@ fun UploadRomScreen(saveRome: (file: PlatformFile) -> Unit) {
                     style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold),
                 )
                 Text(
-                    text = stringResource(Res.string.select_rom_legal, stringResource(Res.string.alttp)),
+                    text = stringResource(
+                        Res.string.select_rom_legal,
+                        stringResource(Res.string.alttp)
+                    ),
                     style = MaterialTheme.typography.titleMedium,
                     textAlign = TextAlign.Center
                 )

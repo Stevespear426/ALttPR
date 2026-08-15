@@ -1,5 +1,6 @@
 package com.stingers.alttpr.repository.local
 
+import androidx.room3.ColumnTypeConverters
 import androidx.room3.ConstructedBy
 import androidx.room3.DaoReturnTypeConverters
 import androidx.room3.Database
@@ -14,6 +15,7 @@ import com.stingers.alttpr.model.RomEntity
     autoMigrations = [],
     exportSchema = true
 )
+@ColumnTypeConverters(Converters::class)
 @ConstructedBy(AppDatabaseConstructor::class)
 @DaoReturnTypeConverters(PagingSourceDaoReturnTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {

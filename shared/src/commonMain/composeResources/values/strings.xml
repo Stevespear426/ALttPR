@@ -25,4 +25,28 @@
     <string name="gamemode_super_quick">Super Quick</string>
     <string name="gamemode_nightmare">Nightmare</string>
     <string name="gamemode_daily_challenge">DailyChallenge</string>
+
+    <string name="menu_speed_title">Menu Speed</string>
+    <string name="heart_speed_title">Heart Speed</string>
+    <string name="heart_color_title">Heart Color</string>
+    <string name="background_music_title">Background Music</string>
+    <string name="quick_swap_title">Item Quickswap</string>
+    <string name="reduce_flashing_title">Reduce Flashing</string>
+    <string name="msu_resume_title">MSU-1 Resume</string>
+    <string name="pallet_shuffle_title">Palette Shuffle</string>
+    <string name="shuffle_sfx_title">Shuffle SFX</string>
+
+    <string name="heart_color_red">Red</string>
+    <string name="heart_color_blue">Blue</string>
+    <string name="heart_color_green">Green</string>
+    <string name="heart_color_yellow">Yellow</string>
+
+    <string name="instant">Instant</string>
+    <string name="normal">Normal</string>
+    <string name="half">Half</string>
+    <string name="double">Double</string>
+    <string name="triple">Triple</string>
+    <string name="off">OFF</string>
+    <string name="quarter">Quarter</string>
+    <string name="quadruple">Quadruple</string>
 </resources>
