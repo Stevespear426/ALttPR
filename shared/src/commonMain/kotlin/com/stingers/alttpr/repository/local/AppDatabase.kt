@@ -8,10 +8,11 @@ import androidx.room3.RoomDatabase
 import androidx.room3.RoomDatabaseConstructor
 import androidx.room3.paging.PagingSourceDaoReturnTypeConverter
 import com.stingers.alttpr.model.RomEntity
+import com.stingers.alttpr.model.Sprite
 
 @Database(
-    entities = [RomEntity::class],
-    version = 1,
+    entities = [RomEntity::class, Sprite::class],
+    version = 2,
     autoMigrations = [],
     exportSchema = true
 )
@@ -20,6 +21,7 @@ import com.stingers.alttpr.model.RomEntity
 @DaoReturnTypeConverters(PagingSourceDaoReturnTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun romDao(): RomDao
+    abstract fun spriteDao(): SpriteDao
 }
 
 @Suppress("KotlinNoActualForExpect")

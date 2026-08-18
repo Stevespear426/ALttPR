@@ -15,7 +15,19 @@ class Converters {
     @ColumnTypeConverter
     fun toPatchList(value: String?): List<Map<String, List<Int>>>? {
         return value?.let {
-            try { json.decodeFromString(it) } catch (_: Exception) { null }
+            try { json.decodeFromString<List<Map<String, List<Int>>>>(it) } catch (_: Exception) { null }
+        }
+    }
+
+    @ColumnTypeConverter
+    fun fromStringList(value: List<String>?): String? {
+        return value?.let { json.encodeToString(it) }
+    }
+
+    @ColumnTypeConverter
+    fun toStringList(value: String?): List<String>? {
+        return value?.let {
+            try { json.decodeFromString<List<String>>(it) } catch (_: Exception) { emptyList() }
         }
     }
 }

@@ -3,6 +3,9 @@ package com.stingers.alttpr.common
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp
 
+
+const val SPRITES_URL = "https://alttpr.com/sprites"
+
 const val PREFERENCE_PADDING = 16
 
 val SETTINGS_PREFERENCE_PADDING = PaddingValues(horizontal = PREFERENCE_PADDING.dp)

@@ -6,6 +6,8 @@ import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
 import com.stingers.alttpr.model.RomEntity
+import com.stingers.alttpr.model.Sprite
+import com.stingers.alttpr.repository.AlttprRepository
 import com.stingers.alttpr.repository.RomManager
 import com.stingers.alttpr.repository.RomPrefs
 import com.stingers.alttpr.repository.local.RomDao
@@ -13,6 +15,7 @@ import com.stingers.alttpr.utils.combine
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.openFileSaver
 import io.github.vinceglb.filekit.write
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -25,8 +28,13 @@ class EditRomViewModel(
     @InjectedParam private val hash: String,
     private val romDao: RomDao,
     private val romManager: RomManager,
-    private val romPrefs: RomPrefs
+    private val romPrefs: RomPrefs,
+    private val alttprRepository: AlttprRepository
 ) : ViewModel() {
+
+    val sprites = MutableStateFlow(emptyList<Sprite>())
+
+    val sprite = MutableStateFlow<Sprite?>(null)
 
     val state: StateFlow<EditRomState> = combine(
         romPrefs.quickSwap,
@@ -36,6 +44,8 @@ class EditRomViewModel(
         romPrefs.heartSpeed,
         romPrefs.menuSpeed,
         romPrefs.heartColor,
+        sprite,
+        sprites,
         romDao.getRomFlow(hash)
     ) { quickSwap,
         reduceFlashing,
@@ -44,6 +54,8 @@ class EditRomViewModel(
         heartSpeed,
         menuSpeed,
         heartColor,
+        sprite,
+        sprites,
         romEntity ->
         EditRomState(
             hash = hash,
@@ -54,6 +66,8 @@ class EditRomViewModel(
             heartSpeed = heartSpeed,
             menuSpeed = menuSpeed,
             heartColor = heartColor,
+            selectedSprite = sprite,
+            availableSprites = sprites,
             romEntity = romEntity
         )
     }.stateIn(
@@ -74,6 +88,9 @@ class EditRomViewModel(
                 is EditRomEvent.SetQuickSwap -> romPrefs.setQuickSwap(event.value)
                 is EditRomEvent.SetReduceFlashing -> romPrefs.setReduceFlashing(event.value)
                 is EditRomEvent.SetMsuResume -> romPrefs.setMsuResume(event.value)
+                is EditRomEvent.SetSprite -> {
+                    sprite.value = event.value
+                }
             }
         }
     }
@@ -104,8 +121,22 @@ class EditRomViewModel(
             quickSwap = state.value.quickSwap,
             reduceFlashing = state.value.reduceFlashing,
             enableMusic = state.value.enableMusic,
-            msuResume = state.value.msuResume
+            msuResume = state.value.msuResume,
+            sprite = state.value.selectedSprite
         )
+    }
+
+    fun getSprites() {
+        viewModelScope.launch {
+            val result = alttprRepository.getSprites()
+            result.onSuccess { newSprites ->
+                sprites.value = newSprites
+            }
+        }
+    }
+
+    init {
+        getSprites()
     }
 }
 
@@ -119,5 +150,7 @@ data class EditRomState(
     val reduceFlashing: Boolean = false,
     val enableMusic: Boolean = true,
     val msuResume: Boolean = true,
+    val availableSprites: List<Sprite> = emptyList(),
+    val selectedSprite: Sprite? = null,
     val romEntity: RomEntity? = null
 )

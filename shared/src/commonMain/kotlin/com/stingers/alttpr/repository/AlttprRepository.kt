@@ -2,9 +2,14 @@ package com.stingers.alttpr.repository
 
 import com.stingers.alttpr.model.GameMode
 import com.stingers.alttpr.model.RomEntity
+import com.stingers.alttpr.model.Sprite
+import com.stingers.alttpr.platform.NetworkManager
 import com.stingers.alttpr.repository.local.RomDao
 import com.stingers.alttpr.repository.local.RomStorage
+import com.stingers.alttpr.repository.local.SpriteDao
 import com.stingers.alttpr.repository.remote.AlttprService
+import io.github.vinceglb.filekit.exists
+import io.github.vinceglb.filekit.readBytes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
@@ -14,8 +19,59 @@ import kotlin.time.Clock
 @Singleton
 class AlttprRepository(
     private val alttprService: AlttprService,
-    private val romDao: RomDao
+    private val romDao: RomDao,
+    private val spriteDao: SpriteDao
 ) {
+
+    suspend fun getSprites(): Result<List<Sprite>> = withContext(Dispatchers.IO) {
+        try {
+            if (NetworkManager.isNetworkConnected()) {
+                val sprites = alttprService.getSprites()
+                spriteDao.insertSprites(sprites)
+                Result.success(sprites)
+            } else {
+                val downloadedSprites = spriteDao.getDownloadedSprites()
+                Result.success(downloadedSprites)
+            }
+        } catch (e: Exception) {
+            try {
+                // Fallback to downloaded sprites in case of network exception
+                val downloadedSprites = spriteDao.getDownloadedSprites()
+                Result.success(downloadedSprites)
+            } catch (dbEx: Exception) {
+                Result.failure(e)
+            }
+        }
+    }
+
+    suspend fun getSpriteBytes(sprite: Sprite): ByteArray? = withContext(Dispatchers.IO) {
+        try {
+            val fileName = "sprite_${sprite.name.hashCode()}_v${sprite.version}.zspr"
+            val existingFile = RomStorage.getSpriteFile(fileName)
+            
+            if (existingFile != null && existingFile.exists() && sprite.downloadedFile == fileName) {
+                return@withContext existingFile.readBytes()
+            }
+
+            if (!NetworkManager.isNetworkConnected()) {
+                return@withContext existingFile?.readBytes()
+            }
+
+            val fileUrl = sprite.fileUrl
+            if (fileUrl.isBlank()) return@withContext null
+
+            val bytes = alttprService.getSpriteFile(fileUrl)
+            if (bytes.isNotEmpty()) {
+                RomStorage.saveSpriteFile(fileName, bytes)
+                val updatedSprite = sprite.copy(downloadedFile = fileName)
+                spriteDao.insertSprites(listOf(updatedSprite))
+                return@withContext bytes
+            }
+            null
+        } catch (e: Exception) {
+            null
+        }
+    }
 
     suspend fun createDailySeed(): Result<String> = withContext(Dispatchers.IO) {
         try {

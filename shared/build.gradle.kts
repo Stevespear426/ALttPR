@@ -94,7 +94,14 @@ kotlin {
             implementation(libs.navigation3.ui)
 
             // DataStore Preferences
-            implementation("androidx.datastore:datastore-preferences:1.2.1")
+            implementation(libs.androidx.datastore.preferences)
+
+            //Coil
+            // Coil Deps
+            implementation(libs.coil)
+            implementation(libs.coil.network.ktor)
+            implementation(libs.coil.compose)
+            implementation(libs.coil.svg)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

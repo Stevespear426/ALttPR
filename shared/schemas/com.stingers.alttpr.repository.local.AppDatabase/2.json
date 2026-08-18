@@ -1,0 +1,270 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 2,
+    "identityHash": "40c2de7b9a09260e46cc79a828ffe19a",
+    "entities": [
+      {
+        "tableName": "roms",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hash` TEXT NOT NULL, `md5` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `localFileName` TEXT NOT NULL, `gameMode` TEXT NOT NULL, `logic` TEXT, `generated` TEXT, `size` INTEGER NOT NULL, `patch` TEXT NOT NULL, `meta_name` TEXT, `meta_entryCrystalsGanon` TEXT, `meta_entryCrystalsTower` TEXT, `meta_worlds` INTEGER, `meta_itemPlacement` TEXT, `meta_itemPool` TEXT, `meta_itemFunctionality` TEXT, `meta_dungeonItems` TEXT, `meta_logic` TEXT, `meta_accessibility` TEXT, `meta_romMode` TEXT, `meta_goal` TEXT, `meta_build` TEXT, `meta_mode` TEXT, `meta_weapons` TEXT, `meta_worldId` INTEGER, `meta_tournament` INTEGER, `meta_size` INTEGER, `meta_hints` TEXT, `meta_spoilers` TEXT, `meta_allowQuickswap` INTEGER, `meta_pseudoboots` INTEGER, `meta_enemizerBossShuffle` TEXT, `meta_enemizerEnemyShuffle` TEXT, `meta_enemizerEnemyDamage` TEXT, `meta_enemizerEnemyHealth` TEXT, `meta_enemizerPotShuffle` TEXT, PRIMARY KEY(`hash`))",
+        "fields": [
+          {
+            "fieldPath": "hash",
+            "columnName": "hash",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "md5",
+            "columnName": "md5",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "localFileName",
+            "columnName": "localFileName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "gameMode",
+            "columnName": "gameMode",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "logic",
+            "columnName": "logic",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "generated",
+            "columnName": "generated",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "size",
+            "columnName": "size",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "patch",
+            "columnName": "patch",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "meta.name",
+            "columnName": "meta_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.entryCrystalsGanon",
+            "columnName": "meta_entryCrystalsGanon",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.entryCrystalsTower",
+            "columnName": "meta_entryCrystalsTower",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.worlds",
+            "columnName": "meta_worlds",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "meta.itemPlacement",
+            "columnName": "meta_itemPlacement",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.itemPool",
+            "columnName": "meta_itemPool",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.itemFunctionality",
+            "columnName": "meta_itemFunctionality",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.dungeonItems",
+            "columnName": "meta_dungeonItems",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.logic",
+            "columnName": "meta_logic",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.accessibility",
+            "columnName": "meta_accessibility",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.romMode",
+            "columnName": "meta_romMode",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.goal",
+            "columnName": "meta_goal",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.build",
+            "columnName": "meta_build",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.mode",
+            "columnName": "meta_mode",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.weapons",
+            "columnName": "meta_weapons",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.worldId",
+            "columnName": "meta_worldId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "meta.tournament",
+            "columnName": "meta_tournament",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "meta.size",
+            "columnName": "meta_size",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "meta.hints",
+            "columnName": "meta_hints",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.spoilers",
+            "columnName": "meta_spoilers",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.allowQuickswap",
+            "columnName": "meta_allowQuickswap",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "meta.pseudoboots",
+            "columnName": "meta_pseudoboots",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "meta.enemizerBossShuffle",
+            "columnName": "meta_enemizerBossShuffle",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.enemizerEnemyShuffle",
+            "columnName": "meta_enemizerEnemyShuffle",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.enemizerEnemyDamage",
+            "columnName": "meta_enemizerEnemyDamage",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.enemizerEnemyHealth",
+            "columnName": "meta_enemizerEnemyHealth",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.enemizerPotShuffle",
+            "columnName": "meta_enemizerPotShuffle",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "hash"
+          ]
+        }
+      },
+      {
+        "tableName": "sprites",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`fileUrl` TEXT NOT NULL, `name` TEXT NOT NULL, `author` TEXT NOT NULL, `previewUrl` TEXT, `tags` TEXT NOT NULL, `usage` TEXT NOT NULL, `version` INTEGER NOT NULL, `downloadedFile` TEXT, PRIMARY KEY(`fileUrl`))",
+        "fields": [
+          {
+            "fieldPath": "fileUrl",
+            "columnName": "fileUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "author",
+            "columnName": "author",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "previewUrl",
+            "columnName": "previewUrl",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "tags",
+            "columnName": "tags",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "usage",
+            "columnName": "usage",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "version",
+            "columnName": "version",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "downloadedFile",
+            "columnName": "downloadedFile",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": [
+            "fileUrl"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '40c2de7b9a09260e46cc79a828ffe19a')"
+    ]
+  }
+}

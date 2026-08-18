@@ -1,6 +1,7 @@
 package com.stingers.alttpr.repository.local
 
 import io.github.vinceglb.filekit.PlatformFile
+import io.github.vinceglb.filekit.exists
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.cinterop.BetaInteropApi
 import kotlinx.cinterop.usePinned
@@ -22,9 +23,10 @@ actual object RomStorage {
         val appDir = documentDirectory.URLByAppendingPathComponent("alttpr") ?: return null to null
         val baseRomDir = appDir.URLByAppendingPathComponent("base_rom") ?: return null to null
         val generatedDir = appDir.URLByAppendingPathComponent("generated_seeds") ?: return null to null
+        val spritesDir = appDir.URLByAppendingPathComponent("sprites") ?: return null to null
         
         val fileManagerInstance = NSFileManager.defaultManager
-        listOf(baseRomDir, generatedDir).forEach { url ->
+        listOf(baseRomDir, generatedDir, spritesDir).forEach { url ->
             url?.path?.let { p ->
                 if (!fileManagerInstance.fileExistsAtPath(p)) {
                     fileManagerInstance.createDirectoryAtPath(p, withIntermediateDirectories = true, attributes = null, error = null)
@@ -79,6 +81,46 @@ actual object RomStorage {
         val fileUrl = generatedDir?.URLByAppendingPathComponent(filename) ?: return null
         val path = fileUrl.path ?: return null
         val file = io.github.vinceglb.filekit.PlatformFile(path)
+        return if (file.exists()) file else null
+    }
+
+    @OptIn(ExperimentalForeignApi::class)
+    private fun getSpritesDir(): NSURL? {
+        val fileManager = NSFileManager.defaultManager
+        val urls = fileManager.URLsForDirectory(NSDocumentDirectory, NSUserDomainMask)
+        val documentDirectory = urls.firstOrNull() as? NSURL ?: return null
+        val appDir = documentDirectory.URLByAppendingPathComponent("alttpr") ?: return null
+        val spritesDir = appDir.URLByAppendingPathComponent("sprites") ?: return null
+        spritesDir.path?.let { p ->
+            if (!fileManager.fileExistsAtPath(p)) {
+                fileManager.createDirectoryAtPath(p, withIntermediateDirectories = true, attributes = null, error = null)
+            }
+        }
+        return spritesDir
+    }
+
+    @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
+    actual suspend fun saveSpriteFile(filename: String, bytes: ByteArray): Result<Unit> {
+        return try {
+            val spritesDir = getSpritesDir() ?: return Result.failure(IllegalStateException("Directory error"))
+            val fileUrl = spritesDir.URLByAppendingPathComponent(filename) ?: return Result.failure(IllegalStateException("File URL error"))
+            val path = fileUrl.path ?: return Result.failure(IllegalStateException("File path error"))
+            
+            val nsData = bytes.usePinned { pinned ->
+                NSData.create(bytes = pinned.addressOf(0), length = bytes.size.toULong())
+            }
+            nsData.writeToFile(path, atomically = true)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    actual suspend fun getSpriteFile(filename: String): PlatformFile? {
+        val spritesDir = getSpritesDir() ?: return null
+        val fileUrl = spritesDir.URLByAppendingPathComponent(filename) ?: return null
+        val path = fileUrl.path ?: return null
+        val file = PlatformFile(path)
         return if (file.exists()) file else null
     }
 }

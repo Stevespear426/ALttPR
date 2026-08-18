@@ -3,6 +3,7 @@ package com.stingers.alttpr.di
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import com.stingers.alttpr.repository.local.AppDatabase
 import com.stingers.alttpr.repository.local.RomDao
+import com.stingers.alttpr.repository.local.SpriteDao
 import com.stingers.alttpr.repository.local.getDatabaseBuilder
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
@@ -23,5 +24,10 @@ class DatabaseModule {
     @Singleton
     fun provideRomDao(database: AppDatabase): RomDao {
         return database.romDao()
+    }
+
+    @Singleton
+    fun provideSpriteDao(database: AppDatabase): SpriteDao {
+        return database.spriteDao()
     }
 }

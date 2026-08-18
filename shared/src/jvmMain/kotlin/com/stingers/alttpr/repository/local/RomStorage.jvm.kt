@@ -21,6 +21,12 @@ actual object RomStorage {
         return dir
     }
 
+    private fun getSpritesDir(): File {
+        val dir = File(getStorageRoot(), "sprites")
+        if (!dir.exists()) dir.mkdirs()
+        return dir
+    }
+
     actual suspend fun getBaseRomFile(): PlatformFile? {
         val file = File(getBaseRomDir(), "alttp_base.sfc")
         return PlatformFile(file)
@@ -48,6 +54,21 @@ actual object RomStorage {
 
     actual suspend fun getGeneratedSeedFile(filename: String): PlatformFile? {
         val file = File(getGeneratedSeedsDir(), filename)
+        return if (file.exists()) PlatformFile(file) else null
+    }
+
+    actual suspend fun saveSpriteFile(filename: String, bytes: ByteArray): Result<Unit> {
+        return try {
+            val file = File(getSpritesDir(), filename)
+            file.writeBytes(bytes)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    actual suspend fun getSpriteFile(filename: String): PlatformFile? {
+        val file = File(getSpritesDir(), filename)
         return if (file.exists()) PlatformFile(file) else null
     }
 }

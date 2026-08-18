@@ -34,6 +34,7 @@ import com.stingers.alttpr.common.PREFERENCE_PADDING
 import com.stingers.alttpr.common.components.HeaderPage
 import com.stingers.alttpr.common.components.PageLoadingView
 import com.stingers.alttpr.common.preferences.MenuPreference
+import com.stingers.alttpr.common.preferences.SpritePreference
 import com.stingers.alttpr.common.preferences.SwitchPreference
 import com.stingers.alttpr.model.GameMode
 import com.stingers.alttpr.model.HeartColor
@@ -175,6 +176,16 @@ fun EditRomScreen(
                                 text = "Created: ${romEntity.generated}",
                                 style = MaterialTheme.typography.bodyLarge
                             )
+                        }
+                    }
+                }
+                if (availableSprites.isNotEmpty()) {
+                    item {
+                        SpritePreference(
+                            currentItem = selectedSprite,
+                            items = availableSprites
+                        ) {
+                            processEvent(EditRomEvent.SetSprite(it))
                         }
                     }
                 }
