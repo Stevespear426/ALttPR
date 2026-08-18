@@ -1,9 +1,19 @@
 package com.stingers.alttpr
 
-interface Platform {
-    val name: String
+enum class PlatformType {
+    Android,
+    iOS,
+    Desktop,
 }
 
-expect fun getPlatform(): Platform
+enum class Features {
+    Share
+}
+
+expect val platformType: PlatformType
+
+expect fun getPlatformFeatures(): List<Features>
+
+fun hasFeature(feature: Features) = getPlatformFeatures().contains(feature)
 
 expect fun computeMd5Hex(bytes: ByteArray): String

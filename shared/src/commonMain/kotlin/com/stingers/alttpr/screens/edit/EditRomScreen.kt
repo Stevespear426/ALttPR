@@ -30,12 +30,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.stingers.alttpr.Features
 import com.stingers.alttpr.common.PREFERENCE_PADDING
 import com.stingers.alttpr.common.components.HeaderPage
 import com.stingers.alttpr.common.components.PageLoadingView
 import com.stingers.alttpr.common.preferences.MenuPreference
 import com.stingers.alttpr.common.preferences.SpritePreference
 import com.stingers.alttpr.common.preferences.SwitchPreference
+import com.stingers.alttpr.hasFeature
 import com.stingers.alttpr.model.GameMode
 import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.HeartSpeed
@@ -94,13 +96,15 @@ fun EditRomTopBar(
                     contentDescription = "Save Button"
                 )
             }
-            IconButton({
-                processEvent(EditRomEvent.ShareFile)
-            }) {
-                Icon(
-                    painterResource(Res.drawable.ic_share),
-                    contentDescription = "Share Button"
-                )
+            if (hasFeature(Features.Share)) {
+                IconButton({
+                    processEvent(EditRomEvent.ShareFile)
+                }) {
+                    Icon(
+                        painterResource(Res.drawable.ic_share),
+                        contentDescription = "Share Button"
+                    )
+                }
             }
         }
     )
