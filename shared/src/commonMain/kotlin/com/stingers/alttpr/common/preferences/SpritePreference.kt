@@ -1,7 +1,6 @@
 package com.stingers.alttpr.common.preferences
 
 import alttpr.shared.generated.resources.Res
-import alttpr.shared.generated.resources.heart_color_title
 import alttpr.shared.generated.resources.ic_arrow_drop_down
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
@@ -9,21 +8,17 @@ import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -32,17 +27,12 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import coil3.compose.AsyncImage
 import com.stingers.alttpr.common.MENU_PADDING_VALUES
 import com.stingers.alttpr.common.SETTINGS_PREFERENCE_PADDING
-import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.Sprite
-import com.stingers.alttpr.theme.PreviewDarkTheme
-import com.stingers.alttpr.theme.PreviewLightTheme
-import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.painterResource
-import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun SpritePreference(
@@ -76,11 +66,12 @@ fun SpritePreference(
                     AsyncImage(
                         model = preview,
                         contentDescription = currentItem.name,
-                        modifier = Modifier.size(24.dp).padding(end = 4.dp)
+                        modifier = Modifier.size(42.dp).padding(end = 4.dp)
                     )
                 }
                 Text(
                     text = currentItem?.name?.takeIf { it.isNotBlank() } ?: "Default",
+                    style = MaterialTheme.typography.titleMedium
                 )
                 Spacer(Modifier.width(4.dp))
                 Icon(
@@ -91,16 +82,22 @@ fun SpritePreference(
             DropdownMenu(expanded = showMenu, onDismissRequest = { showMenu = false }) {
                 items.forEach { item ->
                     DropdownMenuItem(
+                        modifier = Modifier.fillMaxWidth().padding(8.dp),
                         leadingIcon = {
                             item.previewUrl?.let { preview ->
                                 AsyncImage(
                                     model = preview,
                                     contentDescription = item.name,
-                                    modifier = Modifier.size(24.dp)
+                                    modifier = Modifier.size(42.dp)
                                 )
                             }
                         },
-                        text = { Text(item.name) },
+                        text = {
+                            Text(
+                                text = item.name,
+                                style = MaterialTheme.typography.titleMedium
+                            )
+                        },
                         onClick = {
                             onItemChange(item)
                             showMenu = false

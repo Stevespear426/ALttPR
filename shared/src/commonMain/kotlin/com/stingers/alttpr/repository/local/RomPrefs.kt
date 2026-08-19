@@ -1,4 +1,4 @@
-package com.stingers.alttpr.repository
+package com.stingers.alttpr.repository.local
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences

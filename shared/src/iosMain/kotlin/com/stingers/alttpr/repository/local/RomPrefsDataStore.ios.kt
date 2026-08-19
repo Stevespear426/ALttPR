@@ -18,6 +18,6 @@ actual fun createDataStore(): DataStore<Preferences> = createDataStore(
             create = false,
             error = null,
         )
-        requireNotNull(documentDirectory).path + "/rom_prefs.preferences_pb"
+        requireNotNull(documentDirectory).path + "/" + DATA_STORE_FILE_NAME
     }
 )

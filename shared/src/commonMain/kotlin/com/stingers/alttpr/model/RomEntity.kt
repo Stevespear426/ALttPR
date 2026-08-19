@@ -17,5 +17,5 @@ data class RomEntity(
     val size: Int = 2,
     @Embedded(prefix = "meta_")
     val meta: SpoilerMeta? = null,
-    val patch:List<Map<String, List<Int>>> = emptyList(),
+    val patch: List<Map<String, List<Int>>> = emptyList(),
 )

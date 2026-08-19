@@ -9,6 +9,6 @@ actual fun createDataStore(): DataStore<Preferences> = createDataStore(
         val userHome = System.getProperty("user.home") ?: "."
         val appDir = File(userHome, ".alttpr")
         if (!appDir.exists()) appDir.mkdirs()
-        File(appDir, "rom_prefs.preferences_pb").absolutePath
+        File(appDir, DATA_STORE_FILE_NAME).absolutePath
     }
 )

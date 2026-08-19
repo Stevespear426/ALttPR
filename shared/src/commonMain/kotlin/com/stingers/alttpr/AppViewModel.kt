@@ -15,7 +15,6 @@ import org.koin.core.annotation.KoinViewModel
 @KoinViewModel
 class AppViewModel constructor(
     private val romManager: RomManager,
-    private val alttprRepository: AlttprRepository,
     private val navigationManager: NavigationManager
 ) : ViewModel() {
 
@@ -39,15 +38,6 @@ class AppViewModel constructor(
                 navigationManager.setRoot(Screen.UploadRom)
             } else {
                 navigationManager.setRoot(Screen.Main)
-            }
-        }
-    }
-
-    fun createDailySeed() {
-        viewModelScope.launch {
-            val result = alttprRepository.createDailySeed()
-            result.onSuccess { hash ->
-                navigationManager.navigateTo(Screen.EditRom(hash))
             }
         }
     }

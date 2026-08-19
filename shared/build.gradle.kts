@@ -1,8 +1,10 @@
+import com.codingfeline.buildkonfig.compiler.FieldSpec
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidMultiplatformLibrary)
+    alias(libs.plugins.buildKonfig)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.koin.compiler)
@@ -16,6 +18,23 @@ room3 {
     schemaDirectory("$projectDir/schemas")
 }
 
+val versionMajor = libs.versions.major.get().toInt()
+val versionMinor = libs.versions.minor.get().toInt()
+val versionBug = libs.versions.bug.get().toInt()
+val versionString = "${versionMajor}.${versionMinor}.${versionBug}"
+
+buildkonfig {
+    packageName = "com.stingers.alttpr"
+
+    defaultConfigs {
+        buildConfigField(FieldSpec.Type.STRING, "VERSION_NAME", versionString)
+        buildConfigField(FieldSpec.Type.STRING, "KTOR_VERSION", libs.versions.ktor.get())
+        buildConfigField(FieldSpec.Type.STRING, "KTORFIT_VERSION", libs.versions.ktorfit.get())
+        buildConfigField(FieldSpec.Type.STRING, "KOIN_VERSION", libs.versions.koin.get())
+        buildConfigField(FieldSpec.Type.STRING, "COIL_VERSION", libs.versions.coil.get())
+        buildConfigField(FieldSpec.Type.STRING, "FILEKIT_VERSION", libs.versions.filekit.get())
+    }
+}
 
 kotlin {
     listOf(

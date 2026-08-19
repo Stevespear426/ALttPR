@@ -15,6 +15,12 @@ sealed interface Screen : NavKey {
 
     @Serializable
     data class EditRom(val hash: String) : Screen
+
+    @Serializable
+    data object Licenses : Screen
+
+    @Serializable
+    data object Randomizer : Screen
 }
 
 @Singleton

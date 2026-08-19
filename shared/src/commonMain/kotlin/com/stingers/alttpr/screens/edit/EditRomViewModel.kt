@@ -10,7 +10,7 @@ import com.stingers.alttpr.model.RomEntity
 import com.stingers.alttpr.model.Sprite
 import com.stingers.alttpr.repository.AlttprRepository
 import com.stingers.alttpr.repository.RomManager
-import com.stingers.alttpr.repository.RomPrefs
+import com.stingers.alttpr.repository.local.RomPrefs
 import com.stingers.alttpr.repository.local.RomDao
 import com.stingers.alttpr.utils.combine
 import io.github.vinceglb.filekit.FileKit

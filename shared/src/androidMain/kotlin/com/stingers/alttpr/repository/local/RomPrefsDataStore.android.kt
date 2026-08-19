@@ -11,6 +11,6 @@ actual fun createDataStore(): DataStore<Preferences> {
         val ctx: Context by inject()
     }.ctx
     return createDataStore(
-        producePath = { context.filesDir.resolve("rom_prefs.preferences_pb").absolutePath }
+        producePath = { context.filesDir.resolve(DATA_STORE_FILE_NAME).absolutePath }
     )
 }

@@ -1,28 +1,51 @@
 package com.stingers.alttpr.screens.main
 
-import alttpr.shared.generated.resources.Res
-import alttpr.shared.generated.resources.create_daily
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.stingers.alttpr.common.components.PrimaryButton
+import com.stingers.alttpr.screens.generator.GeneratorScreen
+import com.stingers.alttpr.screens.library.LibraryScreen
+import com.stingers.alttpr.screens.settings.SettingsScreen
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
+import kotlinx.coroutines.launch
+
 
 @Composable
-fun MainScreen(onCreateDaily: () -> Unit = {}) {
+fun MainScreen() {
 
-    Column(modifier = Modifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text("Start Modding...")
+    val screens: List<@Composable () -> Unit> = listOf(
+        { GeneratorScreen() },
+        { LibraryScreen() },
+        { SettingsScreen() }
+    )
 
-        PrimaryButton(Res.string.create_daily) {
-            onCreateDaily()
+    val scope = rememberCoroutineScope()
+    val pagerState = rememberPagerState(pageCount = { screens.size })
+    val setCurrentPage: (index: Int) -> Unit = {
+        scope.launch {
+            if (it != pagerState.currentPage) {
+                pagerState.scrollToPage(it)
+            }
         }
     }
+    Column(Modifier.fillMaxSize()) {
+        HorizontalPager(
+            state = pagerState,
+            modifier = Modifier.weight(1f),
+            beyondViewportPageCount = 0,
+            userScrollEnabled = false,
+        ) { index ->
+            screens[index]()
+        }
+        BottomBar(pagerState.currentPage, setCurrentPage)
+    }
+
 }
 
 @Preview(showBackground = true)
