@@ -4,11 +4,11 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import java.io.File
 
-actual fun createDataStore(): DataStore<Preferences> = createDataStore(
+actual fun createPrefsDataStore(fileName: String): DataStore<Preferences> = createPrefsDataStore(
     producePath = {
         val userHome = System.getProperty("user.home") ?: "."
         val appDir = File(userHome, ".alttpr")
         if (!appDir.exists()) appDir.mkdirs()
-        File(appDir, DATA_STORE_FILE_NAME).absolutePath
+        File(appDir, fileName).absolutePath
     }
 )

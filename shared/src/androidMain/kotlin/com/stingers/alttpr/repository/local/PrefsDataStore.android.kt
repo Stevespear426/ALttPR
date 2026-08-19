@@ -6,11 +6,11 @@ import androidx.datastore.preferences.core.Preferences
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 
-actual fun createDataStore(): DataStore<Preferences> {
+actual fun createPrefsDataStore(fileName: String): DataStore<Preferences> {
     val context: Context = object : KoinComponent {
         val ctx: Context by inject()
     }.ctx
-    return createDataStore(
-        producePath = { context.filesDir.resolve(DATA_STORE_FILE_NAME).absolutePath }
+    return createPrefsDataStore(
+        producePath = { context.filesDir.resolve(fileName).absolutePath }
     )
 }

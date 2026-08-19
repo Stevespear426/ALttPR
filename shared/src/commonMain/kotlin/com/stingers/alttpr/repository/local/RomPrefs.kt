@@ -10,11 +10,12 @@ import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.koin.core.annotation.Named
 import org.koin.core.annotation.Singleton
 
 @Singleton
 class RomPrefs(
-    private val dataStore: DataStore<Preferences>
+    @Named("romPrefs") private val dataStore: DataStore<Preferences>
 ) {
     private object PreferencesKeys {
         val QUICK_SWAP = booleanPreferencesKey("quick_swap")

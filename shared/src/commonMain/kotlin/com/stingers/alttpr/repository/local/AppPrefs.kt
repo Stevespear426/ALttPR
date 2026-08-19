@@ -6,11 +6,13 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import org.koin.core.annotation.InjectedParam
+import org.koin.core.annotation.Named
 import org.koin.core.annotation.Singleton
 
 @Singleton
 class AppPrefs(
-    private val dataStore: DataStore<Preferences>
+    @Named("appPrefs") private val dataStore: DataStore<Preferences>
 ) {
     private object PreferencesKeys {
         val DEBUG_MODE = booleanPreferencesKey("debug_mode")
