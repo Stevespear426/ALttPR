@@ -17,7 +17,7 @@ interface RomDao {
     fun getRoms(): PagingSource<Int, RomEntity>
 
     @Query("SELECT * FROM roms WHERE hash = :hash")
-    suspend fun getRom(hash: String): RomEntity
+    suspend fun getRom(hash: String): RomEntity?
 
     @Query("SELECT * FROM roms WHERE hash = :hash")
     fun getRomFlow(hash: String): Flow<RomEntity>

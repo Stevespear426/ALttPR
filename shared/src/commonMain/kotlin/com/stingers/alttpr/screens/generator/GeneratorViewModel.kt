@@ -36,7 +36,6 @@ class GeneratorViewModel(
             val result = alttprRepository.createDailySeed()
             result.onSuccess { hash ->
                 navigationManager.navigateTo(Screen.EditRom(hash))
-                delay(5.seconds)
                 state.value = GeneratorState(loading = false)
             }
             result.onFailure {

@@ -86,6 +86,12 @@ class AlttprRepository(
 
     suspend fun fetchPatchAndSeedInfo(hash: String): Result<String> = withContext(Dispatchers.IO) {
         try {
+            // Check if we already have a saved RomEntity for this hash
+            val existingRom = romDao.getRom(hash)
+            if (existingRom != null) {
+                return@withContext Result.success(hash)
+            }
+
             // 1. GET https://alttpr.com/api/h/{hash} -> retrieves base patch file
             val basePatchResponse = alttprService.getBasePatchInfo(hash)
             val bpsLocation = basePatchResponse.bpsLocation
@@ -97,18 +103,18 @@ class AlttprRepository(
                 return@withContext Result.failure(IllegalStateException("Failed to download BPS patch"))
             }
 
-            // 3. GET https://alttpr.com/hash/{hash} -> retrieves seed patch
+            // 3. Format filename: ALTTPR_(hash).bps
+            val filename = "ALTTPR_${hash}.bps"
+
+            // 4. Save BPS patch to generated seeds bucket
+            RomStorage.saveGeneratedSeed(filename, bpsBytes)
+
+            // 5. GET https://alttpr.com/hash/{hash} -> retrieves seed patch
             val seedDetails = alttprService.getSeedPatch(hash)
 
             if (seedDetails.patch.isNullOrEmpty()) {
                 return@withContext Result.failure(IllegalStateException("Failed to download JSON patch"))
             }
-
-            // 4. Format filename: ALTTPR_(hash).bps
-            val filename = "ALTTPR_${hash}.bps"
-
-            // 5. Save BPS patch to generated seeds bucket
-            RomStorage.saveGeneratedSeed(filename, bpsBytes)
 
             // 6. Save record into database
             romDao.insertRom(
