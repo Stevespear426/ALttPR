@@ -1,7 +1,9 @@
 package com.stingers.alttpr.screens.randomizer
 
 import alttpr.shared.generated.resources.Res
+import alttpr.shared.generated.resources.generate_game
 import alttpr.shared.generated.resources.randomizer
+import alttpr.shared.generated.resources.select_preset
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,6 +14,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -20,6 +24,9 @@ import androidx.compose.ui.unit.dp
 import com.stingers.alttpr.common.PREFERENCE_PADDING
 import com.stingers.alttpr.common.components.HeaderPage
 import com.stingers.alttpr.common.components.PageLoadingView
+import com.stingers.alttpr.common.components.PrimaryButton
+import com.stingers.alttpr.common.preferences.MenuPreference
+import com.stingers.alttpr.model.RandomizerGameMode
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
 import org.jetbrains.compose.resources.stringResource
@@ -32,7 +39,7 @@ fun RandomizerScreen(viewModel: RandomizerViewModel = koinViewModel()) {
         state.loading -> PageLoadingView()
         else -> HeaderPage(stringResource(Res.string.randomizer)) {
             Box(modifier = Modifier.padding(it)) {
-                RandomizerScreen(state, viewModel::processEvent)
+                RandomizerScreen(viewModel::processEvent)
             }
         }
     }
@@ -40,10 +47,9 @@ fun RandomizerScreen(viewModel: RandomizerViewModel = koinViewModel()) {
 
 @Composable
 fun RandomizerScreen(
-    randomizerState: RandomizerState,
     processEvent: (event: RandomizerEvent) -> Unit
 ) {
-
+    var currentMode by mutableStateOf(RandomizerGameMode.DEFAULT)
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = spacedBy(16.dp),
@@ -51,6 +57,21 @@ fun RandomizerScreen(
     ) {
         item {
             Text("RandomizerScreen")
+        }
+        item {
+            MenuPreference(
+                Res.string.select_preset,
+                currentItem = currentMode,
+                items = RandomizerGameMode.entries,
+                titleResForItem = { it.title }) {
+                currentMode = it
+            }
+        }
+
+        item {
+            PrimaryButton(Res.string.generate_game) {
+                processEvent(RandomizerEvent.GenerateGame(currentMode))
+            }
         }
     }
 }
@@ -69,7 +90,7 @@ fun RandomizerScreenLightPreview(
     @PreviewParameter(RandomizerStateParameterProvider::class) item: RandomizerState
 ) {
     PreviewLightTheme {
-        RandomizerScreen(item) {}
+        RandomizerScreen {}
     }
 }
 
@@ -79,6 +100,6 @@ fun RandomizerScreenDarkPreview(
     @PreviewParameter(RandomizerStateParameterProvider::class) item: RandomizerState
 ) {
     PreviewDarkTheme {
-        RandomizerScreen(item) {}
+        RandomizerScreen {}
     }
 }

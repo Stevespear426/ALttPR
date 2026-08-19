@@ -1,8 +1,8 @@
 package com.stingers.alttpr.repository
 
-import com.stingers.alttpr.model.GameMode
 import com.stingers.alttpr.model.RomEntity
 import com.stingers.alttpr.model.Sprite
+import com.stingers.alttpr.model.api.GenerateSeedRequest
 import com.stingers.alttpr.platform.NetworkManager
 import com.stingers.alttpr.repository.local.RomDao
 import com.stingers.alttpr.repository.local.RomStorage
@@ -48,7 +48,7 @@ class AlttprRepository(
         try {
             val fileName = "sprite_${sprite.name.hashCode()}_v${sprite.version}.zspr"
             val existingFile = RomStorage.getSpriteFile(fileName)
-            
+
             if (existingFile != null && existingFile.exists() && sprite.downloadedFile == fileName) {
                 return@withContext existingFile.readBytes()
             }
@@ -78,6 +78,18 @@ class AlttprRepository(
             // GET https://alttpr.com/api/daily -> gets hash
             val dailyResponse = alttprService.getDaily()
             val hash = dailyResponse.hash
+            return@withContext fetchPatchAndSeedInfo(hash)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun generateRandomizerSeed(
+        request: GenerateSeedRequest
+    ): Result<String> = withContext(Dispatchers.IO) {
+        try {
+            val response = alttprService.generateSeed(request)
+            val hash = response.hash
             return@withContext fetchPatchAndSeedInfo(hash)
         } catch (e: Exception) {
             Result.failure(e)
@@ -123,7 +135,7 @@ class AlttprRepository(
                     md5 = basePatchResponse.md5,
                     createdAt = Clock.System.now().toEpochMilliseconds(),
                     localFileName = filename,
-                    gameMode = GameMode.DAILY_CHALLENGE,
+//                    gameMode = GameMode.DAILY_CHALLENGE,
                     logic = seedDetails.logic,
                     generated = seedDetails.generated,
                     size = seedDetails.size ?: 2,

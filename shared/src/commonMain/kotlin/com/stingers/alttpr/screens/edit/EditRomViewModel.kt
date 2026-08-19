@@ -2,7 +2,6 @@ package com.stingers.alttpr.screens.edit
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.stingers.alttpr.model.GameMode
 import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
@@ -21,7 +20,6 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-import kotlinx.datetime.toLocalDateTime
 import org.koin.core.annotation.InjectedParam
 import org.koin.core.annotation.KoinViewModel
 
@@ -112,15 +110,9 @@ class EditRomViewModel(
         file?.write(patchedBytes)
     }
 
+
     private fun getFileName(romEntity: RomEntity): String {
-       return if (romEntity.gameMode == GameMode.DAILY_CHALLENGE) {
-             "alttpr - ${romEntity.meta?.logic.orEmpty()}-${romEntity.meta?.mode.orEmpty()}-${romEntity.meta?.goal.orEmpty()}_$hash"
-        } else {
-            val instant = kotlinx.datetime.Instant.fromEpochMilliseconds(romEntity.createdAt)
-            val datetime = instant.toLocalDateTime(kotlinx.datetime.TimeZone.currentSystemDefault())
-            val dateString = "${datetime.month.name.take(3).lowercase().replaceFirstChar { it.uppercase() }} ${datetime.day}, ${datetime.year}"
-           "alttpr - Daily Challenge_${dateString}_$hash"
-        }
+       return "alttpr - ${romEntity.meta?.getFileName().orEmpty()}_$hash"
     }
 
     private suspend fun getRomBytes(romEntity: RomEntity): ByteArray? {

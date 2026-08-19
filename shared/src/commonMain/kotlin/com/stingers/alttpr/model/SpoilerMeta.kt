@@ -32,4 +32,13 @@ data class SpoilerMeta(
     @SerialName("enemizer.enemy_damage") val enemizerEnemyDamage: String? = null,
     @SerialName("enemizer.enemy_health") val enemizerEnemyHealth: String? = null,
     @SerialName("enemizer.pot_shuffle") val enemizerPotShuffle: String? = null
-)
+) {
+
+    fun getFileName(): String {
+        return if (name.isNullOrEmpty()) {
+            "${logic.orEmpty()}-${mode.orEmpty()}-${goal.orEmpty()}"
+        } else {
+            name
+        }
+    }
+}

@@ -38,7 +38,6 @@ import com.stingers.alttpr.common.preferences.MenuPreference
 import com.stingers.alttpr.common.preferences.SpritePreference
 import com.stingers.alttpr.common.preferences.SwitchPreference
 import com.stingers.alttpr.hasFeature
-import com.stingers.alttpr.model.GameMode
 import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
@@ -58,7 +57,7 @@ import kotlin.time.Clock
 fun EditRomScreen(
     hash: String,
 ) {
-    val viewModel: EditRomViewModel = koinViewModel(parameters = { parametersOf(hash) })
+    val viewModel: EditRomViewModel = koinViewModel(key = hash, parameters = { parametersOf(hash) })
     val state by viewModel.state.collectAsState()
     when {
         state.loading -> PageLoadingView()
@@ -116,7 +115,7 @@ fun EditRomScreen(
     state: EditRomState,
     processEvent: (event: EditRomEvent) -> Unit,
 ) {
-    val title = state.romEntity?.meta?.name.orEmpty()
+    val title = state.romEntity?.meta?.getFileName().orEmpty()
     with(state) {
         HeaderPage(
             title = title,
@@ -287,7 +286,6 @@ class EditRomStateParameterProvider : PreviewParameterProvider<EditRomState> {
                 md5 = "12412",
                 createdAt = Clock.System.now().toEpochMilliseconds(),
                 localFileName = "file.sfc",
-                gameMode = GameMode.DAILY_CHALLENGE,
                 logic = "NoGlitch",
                 generated = "2026-08-17T00:01:00+00:00",
                 meta = SpoilerMeta(

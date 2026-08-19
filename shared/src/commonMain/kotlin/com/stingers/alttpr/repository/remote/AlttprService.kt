@@ -6,9 +6,13 @@ import com.stingers.alttpr.model.DailyResponse
 import com.stingers.alttpr.model.SeedDetailsResponse
 import com.stingers.alttpr.model.Sprite
 import de.jensklingenberg.ktorfit.http.GET
+import de.jensklingenberg.ktorfit.http.POST
+import de.jensklingenberg.ktorfit.http.Body
 import de.jensklingenberg.ktorfit.http.Headers
 import de.jensklingenberg.ktorfit.http.Path
 import de.jensklingenberg.ktorfit.http.Url
+import com.stingers.alttpr.model.api.GenerateSeedRequest
+import com.stingers.alttpr.model.api.GenerateSeedResponse
 
 interface AlttprService {
 
@@ -30,4 +34,8 @@ interface AlttprService {
 
     @GET
     suspend fun getSpriteFile(@Url url: String): ByteArray
+
+    @POST("api/randomizer")
+    @Headers("Accept: application/json", "Content-Type: application/json")
+    suspend fun generateSeed(@Body request: GenerateSeedRequest): GenerateSeedResponse
 }

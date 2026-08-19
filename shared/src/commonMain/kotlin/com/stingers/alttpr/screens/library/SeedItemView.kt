@@ -1,5 +1,7 @@
 package com.stingers.alttpr.screens.library
 
+import alttpr.shared.generated.resources.Res
+import alttpr.shared.generated.resources.edit
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +20,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.stingers.alttpr.common.PREFERENCE_PADDING
-import com.stingers.alttpr.model.GameMode
+import com.stingers.alttpr.common.components.PrimaryButton
 import com.stingers.alttpr.model.RomEntity
 import com.stingers.alttpr.model.SpoilerMeta
 import com.stingers.alttpr.theme.PreviewDarkTheme
@@ -26,7 +28,10 @@ import com.stingers.alttpr.theme.PreviewLightTheme
 import kotlin.time.Clock
 
 @Composable
-fun SeedItemView(romEntity: RomEntity) {
+fun SeedItemView(
+    romEntity: RomEntity,
+    processEvent: (event: LibraryEvent) -> Unit
+) {
     var expended by mutableStateOf(false)
     val textModifier = Modifier
     with(romEntity) {
@@ -35,7 +40,7 @@ fun SeedItemView(romEntity: RomEntity) {
         }.wrapContentHeight().fillMaxWidth()) {
             Column(modifier = Modifier.padding(PREFERENCE_PADDING.dp)) {
                 meta?.let {
-                    Text(it.name.orEmpty())
+                    Text(it.getFileName())
                 }
                 Text(generated.orEmpty())
             }
@@ -76,6 +81,10 @@ fun SeedItemView(romEntity: RomEntity) {
                         }
                     }
                 }
+
+                PrimaryButton(Res.string.edit) {
+                    processEvent(LibraryEvent.OpenEditSeed(romEntity))
+                }
             }
         }
     }
@@ -88,7 +97,7 @@ class RomEntityParameterProvider : PreviewParameterProvider<RomEntity> {
             md5 = "12412",
             createdAt = Clock.System.now().toEpochMilliseconds(),
             localFileName = "file.sfc",
-            gameMode = GameMode.DAILY_CHALLENGE,
+//            gameMode = GameMode.DAILY_CHALLENGE,
             logic = "NoGlitch",
             generated = "2026-08-17T00:01:00+00:00",
             meta = SpoilerMeta(
@@ -111,7 +120,7 @@ fun SeedItemViewLightPreview(
     @PreviewParameter(RomEntityParameterProvider::class) item: RomEntity
 ) {
     PreviewLightTheme {
-        SeedItemView(item)
+        SeedItemView(item) {}
     }
 }
 
@@ -121,6 +130,6 @@ fun SeedItemViewDarkPreview(
     @PreviewParameter(RomEntityParameterProvider::class) item: RomEntity
 ) {
     PreviewDarkTheme {
-        SeedItemView(item)
+        SeedItemView(item) {}
     }
 }

@@ -8,6 +8,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.stingers.alttpr.model.RomEntity
 import com.stingers.alttpr.navigation.NavigationManager
+import com.stingers.alttpr.navigation.Screen
 import com.stingers.alttpr.repository.local.RomDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
@@ -32,6 +33,7 @@ class LibraryViewModel(
         viewModelScope.launch {
             when (event) {
                 is LibraryEvent.RemoveSeed -> {}
+                is LibraryEvent.OpenEditSeed -> navigationManager.navigateTo(Screen.EditRom(event.value.hash))
             }
         }
     }

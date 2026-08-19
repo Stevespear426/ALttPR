@@ -11,7 +11,7 @@ data class RomEntity(
     val md5: String,
     val createdAt: Long,
     val localFileName: String,
-    val gameMode: GameMode,
+//    val gameMode: GameMode,
     val logic: String? = null,
     val generated: String? = null,
     val size: Int = 2,

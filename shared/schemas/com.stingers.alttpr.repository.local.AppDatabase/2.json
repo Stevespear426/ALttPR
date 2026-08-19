@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "40c2de7b9a09260e46cc79a828ffe19a",
+    "identityHash": "e7e7233f5f07686c3a8e437380c55850",
     "entities": [
       {
         "tableName": "roms",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hash` TEXT NOT NULL, `md5` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `localFileName` TEXT NOT NULL, `gameMode` TEXT NOT NULL, `logic` TEXT, `generated` TEXT, `size` INTEGER NOT NULL, `patch` TEXT NOT NULL, `meta_name` TEXT, `meta_entryCrystalsGanon` TEXT, `meta_entryCrystalsTower` TEXT, `meta_worlds` INTEGER, `meta_itemPlacement` TEXT, `meta_itemPool` TEXT, `meta_itemFunctionality` TEXT, `meta_dungeonItems` TEXT, `meta_logic` TEXT, `meta_accessibility` TEXT, `meta_romMode` TEXT, `meta_goal` TEXT, `meta_build` TEXT, `meta_mode` TEXT, `meta_weapons` TEXT, `meta_worldId` INTEGER, `meta_tournament` INTEGER, `meta_size` INTEGER, `meta_hints` TEXT, `meta_spoilers` TEXT, `meta_allowQuickswap` INTEGER, `meta_pseudoboots` INTEGER, `meta_enemizerBossShuffle` TEXT, `meta_enemizerEnemyShuffle` TEXT, `meta_enemizerEnemyDamage` TEXT, `meta_enemizerEnemyHealth` TEXT, `meta_enemizerPotShuffle` TEXT, PRIMARY KEY(`hash`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hash` TEXT NOT NULL, `md5` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `localFileName` TEXT NOT NULL, `logic` TEXT, `generated` TEXT, `size` INTEGER NOT NULL, `patch` TEXT NOT NULL, `meta_name` TEXT, `meta_entryCrystalsGanon` TEXT, `meta_entryCrystalsTower` TEXT, `meta_worlds` INTEGER, `meta_itemPlacement` TEXT, `meta_itemPool` TEXT, `meta_itemFunctionality` TEXT, `meta_dungeonItems` TEXT, `meta_logic` TEXT, `meta_accessibility` TEXT, `meta_romMode` TEXT, `meta_goal` TEXT, `meta_build` TEXT, `meta_mode` TEXT, `meta_weapons` TEXT, `meta_worldId` INTEGER, `meta_tournament` INTEGER, `meta_size` INTEGER, `meta_hints` TEXT, `meta_spoilers` TEXT, `meta_allowQuickswap` INTEGER, `meta_pseudoboots` INTEGER, `meta_enemizerBossShuffle` TEXT, `meta_enemizerEnemyShuffle` TEXT, `meta_enemizerEnemyDamage` TEXT, `meta_enemizerEnemyHealth` TEXT, `meta_enemizerPotShuffle` TEXT, PRIMARY KEY(`hash`))",
         "fields": [
           {
             "fieldPath": "hash",
@@ -29,12 +29,6 @@
           {
             "fieldPath": "localFileName",
             "columnName": "localFileName",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "gameMode",
-            "columnName": "gameMode",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -264,7 +258,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '40c2de7b9a09260e46cc79a828ffe19a')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e7e7233f5f07686c3a8e437380c55850')"
     ]
   }
 }

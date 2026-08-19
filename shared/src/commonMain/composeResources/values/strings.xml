@@ -71,4 +71,6 @@
     <string name="custom">CUSTOM</string>
     <string name="licence_version">v%1$s</string>
     <string name="all_trademarks">All trademarks are the property of their respective owners.</string>
+
+    <string name="select_preset">Select Preset</string>
 </resources>

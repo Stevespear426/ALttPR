@@ -2,6 +2,7 @@ package com.stingers.alttpr.screens.generator
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.stingers.alttpr.model.RandomizerGameMode
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.navigation.Screen
 import com.stingers.alttpr.repository.AlttprRepository
@@ -24,7 +25,7 @@ class GeneratorViewModel(
         viewModelScope.launch {
             when (event) {
                 GeneratorEvent.GenerateDaily -> createDailySeed()
-                GeneratorEvent.GenerateRandom -> {}
+                GeneratorEvent.GenerateRandom -> createRandomSeed()
                 is GeneratorEvent.NavigateTo -> navigationManager.navigateTo(event.value)
             }
         }
@@ -34,6 +35,21 @@ class GeneratorViewModel(
         state.value = GeneratorState(loading = true)
         viewModelScope.launch {
             val result = alttprRepository.createDailySeed()
+            result.onSuccess { hash ->
+                navigationManager.navigateTo(Screen.EditRom(hash))
+                state.value = GeneratorState(loading = false)
+            }
+            result.onFailure {
+                state.value = GeneratorState(loading = false)
+            }
+        }
+    }
+
+    fun createRandomSeed() {
+        state.value = GeneratorState(loading = true)
+        viewModelScope.launch {
+            val randomMode = RandomizerGameMode.entries.filterNot { it == RandomizerGameMode.CUSTOM }.random()
+            val result = alttprRepository.generateRandomizerSeed(randomMode.request())
             result.onSuccess { hash ->
                 navigationManager.navigateTo(Screen.EditRom(hash))
                 state.value = GeneratorState(loading = false)
