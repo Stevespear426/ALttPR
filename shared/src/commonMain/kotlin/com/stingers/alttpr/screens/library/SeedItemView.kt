@@ -20,6 +20,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.stingers.alttpr.common.PREFERENCE_PADDING
+import com.stingers.alttpr.common.components.HashCodeRow
 import com.stingers.alttpr.common.components.PrimaryButton
 import com.stingers.alttpr.model.RomEntity
 import com.stingers.alttpr.model.SpoilerMeta
@@ -41,6 +42,10 @@ fun SeedItemView(
             Column(modifier = Modifier.padding(PREFERENCE_PADDING.dp)) {
                 meta?.let {
                     Text(it.getFileName())
+                }
+
+                romEntity.getHashCode()?.let {
+                    HashCodeRow(it)
                 }
                 Text(generated.orEmpty())
             }
