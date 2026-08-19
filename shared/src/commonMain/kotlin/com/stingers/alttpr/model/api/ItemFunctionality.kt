@@ -1,8 +1,15 @@
 package com.stingers.alttpr.model.api
 
-enum class ItemFunctionality(val value: String) {
-    Normal("normal"),
-    Hard("hard"),
-    Expert("expert"),
-    Superexpert("superexpert"),
+import alttpr.shared.generated.resources.Res
+import alttpr.shared.generated.resources.normal
+import alttpr.shared.generated.resources.enemy_health_hard
+import alttpr.shared.generated.resources.enemy_health_expert
+import alttpr.shared.generated.resources.item_functionality_super_expert
+import org.jetbrains.compose.resources.StringResource
+
+enum class ItemFunctionality(val title: StringResource, val value: String) {
+    Normal(Res.string.normal, "normal"),
+    Hard(Res.string.enemy_health_hard, "hard"),
+    Expert(Res.string.enemy_health_expert, "expert"),
+    Superexpert(Res.string.item_functionality_super_expert, "superexpert"),
 }

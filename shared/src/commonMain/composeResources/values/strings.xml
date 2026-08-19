@@ -63,7 +63,7 @@
     <string name="settings">Settings</string>
     <string name="debug_mode">Enable Debug</string>
     <string name="licences">Third Party Licenses</string>
-    <string name="licences_message">See what libraries we're using</string>
+    <string name="licences_message">See what libraries we\'re using</string>
 
     <string name="mit">MIT</string>
     <string name="apache">APACHE 2.0</string>
@@ -73,4 +73,285 @@
     <string name="all_trademarks">All trademarks are the property of their respective owners.</string>
 
     <string name="select_preset">Select Preset</string>
+
+    <!-- Accessibility -->
+    <string name="accessibility_items">Items</string>
+    <string name="accessibility_locations">Locations</string>
+    <string name="accessibility_beatable">Beatable</string>
+
+    <!-- Boss Shuffle -->
+    <string name="boss_shuffle_none">None</string>
+    <string name="boss_shuffle_simple">Simple</string>
+    <string name="boss_shuffle_full">Full</string>
+    <string name="boss_shuffle_random">Random</string>
+
+    <!-- Bottle Api -->
+    <string name="bottle_empty">Empty Bottle</string>
+    <string name="bottle_red_potion">Red Potion</string>
+    <string name="bottle_green_potion">Green Potion</string>
+    <string name="bottle_blue_potion">Blue Potion</string>
+    <string name="bottle_bee">Bee</string>
+    <string name="bottle_fairy">Fairy</string>
+    <string name="bottle_gold_bee">Golden Bee</string>
+
+    <!-- Bottle Location -->
+    <string name="bottle_location_waterfall_fairy">Waterfall Fairy</string>
+    <string name="bottle_location_pyramid_fairy">Pyramid Fairy</string>
+
+    <!-- Clock Mode -->
+    <string name="clock_mode_off">Off</string>
+    <string name="clock_mode_stopwatch">Stopwatch</string>
+    <string name="clock_mode_ohko">OHKO</string>
+    <string name="clock_mode_continue">Continue</string>
+    <string name="clock_mode_stop">Stop</string>
+    <string name="clock_mode_end">End</string>
+
+    <!-- Compass Mode -->
+    <string name="compass_mode_on">On</string>
+    <string name="compass_mode_off">Off</string>
+    <string name="compass_mode_pickup">Pickup</string>
+
+    <!-- Crystals -->
+    <string name="crystals_zero">0</string>
+    <string name="crystals_one">1</string>
+    <string name="crystals_two">2</string>
+    <string name="crystals_three">3</string>
+    <string name="crystals_four">4</string>
+    <string name="crystals_five">5</string>
+    <string name="crystals_six">6</string>
+    <string name="crystals_seven">7</string>
+    <string name="crystals_random">Random</string>
+
+    <!-- District -->
+    <string name="district_big_chests">Big Chests</string>
+    <string name="district_bosses">Bosses</string>
+    <string name="district_fetch_quests">Fetch Quests</string>
+    <string name="district_water_locked">Water Locked</string>
+    <string name="district_death_mountain">Death Mountain</string>
+    <string name="district_kakariko_village">Kakariko Village</string>
+    <string name="district_hyrule_castle">Hyrule Castle</string>
+    <string name="district_eastern_palace">Eastern Palace</string>
+    <string name="district_desert_palace">Desert Palace</string>
+    <string name="district_tower_of_hera">Tower of Hera</string>
+    <string name="district_castle_tower">Castle Tower</string>
+    <string name="district_dark_palace">Dark Palace</string>
+    <string name="district_swamp_palace">Swamp Palace</string>
+    <string name="district_skull_woods">Skull Woods</string>
+    <string name="district_thieves_town">Thieves\' Town</string>
+    <string name="district_ice_palace">Ice Palace</string>
+    <string name="district_misery_mire">Misery Mire</string>
+    <string name="district_turtle_rock">Turtle Rock</string>
+    <string name="district_ganons_tower_no_bk">Ganon\'s Tower (No BK)</string>
+    <string name="district_ganons_tower">Ganon\'s Tower</string>
+
+    <!-- Drop -->
+    <string name="drop_random">Random</string>
+    <string name="drop_bee_swarm">Bee Swarm</string>
+    <string name="drop_good_bee">Good Bee</string>
+    <string name="drop_heart">Heart</string>
+    <string name="drop_green_rupee">Green Rupee</string>
+    <string name="drop_blue_rupee">Blue Rupee</string>
+    <string name="drop_red_rupee">Red Rupee</string>
+    <string name="drop_one_bomb">1 Bomb</string>
+    <string name="drop_four_bombs">4 Bombs</string>
+    <string name="drop_eight_bombs">8 Bombs</string>
+    <string name="drop_small_magic">Small Magic</string>
+    <string name="drop_full_magic">Full Magic</string>
+    <string name="drop_five_arrows">5 Arrows</string>
+    <string name="drop_ten_arrows">10 Arrows</string>
+    <string name="drop_fairy">Fairy</string>
+
+    <!-- Drop Byte -->
+    <string name="drop_byte_bee">Bee</string>
+    <string name="drop_byte_good_bee">Good Bee</string>
+    <string name="drop_byte_heart">Heart</string>
+    <string name="drop_byte_one_rupee">1 Rupee</string>
+    <string name="drop_byte_five_rupees">5 Rupees</string>
+    <string name="drop_byte_twenty_rupees">20 Rupees</string>
+    <string name="drop_byte_one_bomb">1 Bomb</string>
+    <string name="drop_byte_four_bombs">4 Bombs</string>
+    <string name="drop_byte_eight_bombs">8 Bombs</string>
+    <string name="drop_byte_small_magic">Small Magic</string>
+    <string name="drop_byte_large_magic">Large Magic</string>
+    <string name="drop_byte_five_arrows">5 Arrows</string>
+    <string name="drop_byte_ten_arrows">10 Arrows</string>
+    <string name="drop_byte_fairy">Fairy</string>
+
+    <!-- Enemy Damage -->
+    <string name="enemy_damage_default">Default</string>
+    <string name="enemy_damage_shuffled">Shuffled</string>
+    <string name="enemy_damage_random">Random</string>
+
+    <!-- Enemy Group -->
+    <string name="enemy_group_heart">Heart</string>
+    <string name="enemy_group_rupee">Rupee</string>
+    <string name="enemy_group_magic">Magic</string>
+    <string name="enemy_group_bomb">Bomb</string>
+    <string name="enemy_group_arrow">Arrow</string>
+    <string name="enemy_group_small_variety">Small Variety</string>
+    <string name="enemy_group_big_variety">Big Variety</string>
+
+    <!-- Enemy Health -->
+    <string name="enemy_health_default">Default</string>
+    <string name="enemy_health_easy">Easy</string>
+    <string name="enemy_health_hard">Hard</string>
+    <string name="enemy_health_expert">Expert</string>
+
+    <!-- Enemy Shuffle -->
+    <string name="enemy_shuffle_none">None</string>
+    <string name="enemy_shuffle_shuffled">Shuffled</string>
+    <string name="enemy_shuffle_random">Random</string>
+
+    <!-- Entrances -->
+    <string name="entrances_none">None</string>
+    <string name="entrances_simple">Simple</string>
+    <string name="entrances_restricted">Restricted</string>
+    <string name="entrances_full">Full</string>
+    <string name="entrances_crossed">Crossed</string>
+    <string name="entrances_insanity">Insanity</string>
+
+    <!-- Glitches -->
+    <string name="glitches_none">None</string>
+    <string name="glitches_overworld">Overworld Glitches</string>
+    <string name="glitches_hybrid">Hybrid Major Glitches</string>
+    <string name="glitches_major">Major Glitches</string>
+    <string name="glitches_no_logic">No Logic</string>
+
+    <!-- Goals -->
+    <string name="goals_defeat_ganon">Defeat Ganon</string>
+    <string name="goals_fast_ganon">Fast Ganon</string>
+    <string name="goals_pedestal">Pedestal</string>
+    <string name="goals_dungeons">All Dungeons</string>
+    <string name="goals_triforce_hunt">Triforce Hunt</string>
+    <string name="goals_ganonhunt">Ganon Hunt</string>
+    <string name="goals_completionist">Completionist</string>
+
+    <!-- Hash -->
+    <string name="hash_bow">Bow</string>
+    <string name="hash_boomerang">Boomerang</string>
+    <string name="hash_hookshot">Hookshot</string>
+    <string name="hash_bomb">Bomb</string>
+    <string name="hash_mushroom">Mushroom</string>
+    <string name="hash_powder">Magic Powder</string>
+    <string name="hash_ice_rod">Ice Rod</string>
+    <string name="hash_pendant">Pendant</string>
+    <string name="hash_bombos">Bombos</string>
+    <string name="hash_ether">Ether</string>
+    <string name="hash_quake">Quake</string>
+    <string name="hash_lantern">Lantern</string>
+    <string name="hash_hammer">Hammer</string>
+    <string name="hash_shovel">Shovel</string>
+    <string name="hash_ocarina">Ocarina</string>
+    <string name="hash_bug_net">Bug Net</string>
+    <string name="hash_book">Book of Mudora</string>
+    <string name="hash_bottle">Bottle</string>
+    <string name="hash_green_potion">Green Potion</string>
+    <string name="hash_somaria">Cane of Somaria</string>
+    <string name="hash_cape">Magic Cape</string>
+    <string name="hash_mirror">Magic Mirror</string>
+    <string name="hash_boots">Pegasus Boots</string>
+    <string name="hash_glove">Power Glove</string>
+    <string name="hash_flippers">Flippers</string>
+    <string name="hash_moon_pearl">Moon Pearl</string>
+    <string name="hash_shield">Shield</string>
+    <string name="hash_mail">Mail</string>
+    <string name="hash_heart">Heart</string>
+    <string name="hash_map">Map</string>
+    <string name="hash_compass">Compass</string>
+    <string name="hash_big_key">Big Key</string>
+
+    <!-- Item Functionality / Pool additional -->
+    <string name="item_functionality_super_expert">Super Expert</string>
+    <string name="item_pool_crowd_control">Crowd Control</string>
+
+    <!-- Item Placement -->
+    <string name="item_placement_basic">Basic</string>
+    <string name="item_placement_advanced">Advanced</string>
+
+    <!-- Keysanity -->
+    <string name="keysanity_standard">Standard</string>
+    <string name="keysanity_mc">Keysanity (MC)</string>
+    <string name="keysanity_mcs">Keysanity (MCS)</string>
+    <string name="keysanity_full">Full</string>
+
+    <!-- Language -->
+    <string name="language_english">English</string>
+    <string name="language_francais">Français</string>
+    <string name="language_deutsch">Deutsch</string>
+    <string name="language_espanol">Español</string>
+
+    <!-- Medallion Location -->
+    <string name="medallion_location_turtle_rock">Turtle Rock Medallion</string>
+    <string name="medallion_location_misery_mire">Misery Mire Medallion</string>
+
+    <!-- Menu Speed -->
+    <string name="menu_speed_slow">Slow</string>
+    <string name="menu_speed_fast">Fast</string>
+
+    <!-- Palette Algorithm -->
+    <string name="palette_algorithm_maseya">Maseya</string>
+    <string name="palette_algorithm_grayscale">Grayscale</string>
+    <string name="palette_algorithm_negative">Negative</string>
+    <string name="palette_algorithm_blackout">Blackout</string>
+    <string name="palette_algorithm_classic">Classic</string>
+    <string name="palette_algorithm_dizzy">Dizzy</string>
+    <string name="palette_algorithm_sick">Sick</string>
+    <string name="palette_algorithm_puke">Puke</string>
+
+    <!-- Prize -->
+    <string name="prize_green_pendant">Green Pendant</string>
+    <string name="prize_red_pendant">Red Pendant</string>
+    <string name="prize_blue_pendant">Blue Pendant</string>
+    <string name="prize_crystal_1">Crystal 1</string>
+    <string name="prize_crystal_2">Crystal 2</string>
+    <string name="prize_crystal_3">Crystal 3</string>
+    <string name="prize_crystal_4">Crystal 4</string>
+    <string name="prize_crystal_5">Crystal 5</string>
+    <string name="prize_crystal_6">Crystal 6</string>
+    <string name="prize_crystal_7">Crystal 7</string>
+
+    <!-- Rom Mode -->
+    <string name="rom_mode_no_glitches">No Glitches</string>
+    <string name="rom_mode_overworld_glitches">Overworld Glitches</string>
+    <string name="rom_mode_major_glitches">Major Glitches</string>
+    <string name="rom_mode_no_logic">No Logic</string>
+
+    <!-- Special Char -->
+    <string name="special_char_cursor">Cursor</string>
+    <string name="special_char_self">Self</string>
+    <string name="special_char_link">Link</string>
+    <string name="special_char_bird">Bird</string>
+    <string name="special_char_ankh">Ankh</string>
+    <string name="special_char_squigly">Squigly</string>
+    <string name="special_char_heart_1">Heart 1</string>
+    <string name="special_char_heart_2">Heart 2</string>
+    <string name="special_char_heart_3">Heart 3</string>
+    <string name="special_char_heart_4">Heart 4</string>
+    <string name="special_char_var_1">Var 1</string>
+    <string name="special_char_var_2">Var 2</string>
+    <string name="special_char_var_3">Var 3</string>
+    <string name="special_char_var_4">Var 4</string>
+
+    <!-- Spoilers -->
+    <string name="spoilers_on">On</string>
+    <string name="spoilers_off">Off</string>
+    <string name="spoilers_generate">Generate</string>
+    <string name="spoilers_mystery">Mystery</string>
+
+    <!-- Toggle -->
+    <string name="toggle_on">On</string>
+    <string name="toggle_off">Off</string>
+
+    <!-- Weapons -->
+    <string name="weapons_randomized">Randomized</string>
+    <string name="weapons_assured">Assured</string>
+    <string name="weapons_vanilla">Vanilla</string>
+    <string name="weapons_swordless">Swordless</string>
+
+    <!-- World State -->
+    <string name="world_state_open">Open</string>
+    <string name="world_state_standard">Standard</string>
+    <string name="world_state_inverted">Inverted</string>
+    <string name="world_state_retro">Retro</string>
+
 </resources>
