@@ -135,7 +135,7 @@ fun EditRomScreen(
 
                 romEntity?.getHashCode()?.let {
                     item {
-                        Row(verticalAlignment = Alignment.CenterVertically,) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 modifier = textModifier,
                                 text = "Hash Code:",
@@ -147,57 +147,14 @@ fun EditRomScreen(
                 }
 
                 romEntity?.meta?.let {
-                    with(it) {
-                        item {
-                            Text(
-                                modifier = textModifier,
-                                text = "Glitched Required: $logic",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                        item {
-                            Text(
-                                modifier = textModifier,
-                                text = "ROM Build: $build",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                        item {
-                            Text(
-                                modifier = textModifier,
-                                text = "Accessibility: $accessibility",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                        item {
-                            Text(
-                                modifier = textModifier,
-                                text = "World State: $mode",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                        item {
-                            Text(
-                                modifier = textModifier,
-                                text = "Swords: $weapons",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                        item {
-                            Text(
-                                modifier = textModifier,
-                                text = "Goal: $goal",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                        item {
-                            Text(
-                                modifier = textModifier,
-                                text = "Created: ${romEntity.generated}",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                    }
+                    item { SpoilerMetaView(it) }
+                }
+                item {
+                    Text(
+                        modifier = textModifier,
+                        text = "Created: ${romEntity?.generated}",
+                        style = MaterialTheme.typography.bodyLarge
+                    )
                 }
                 if (availableSprites.isNotEmpty()) {
                     item {

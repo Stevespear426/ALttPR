@@ -14,6 +14,7 @@ import com.stingers.alttpr.repository.local.RomDao
 import com.stingers.alttpr.utils.combine
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.openFileSaver
+import io.github.vinceglb.filekit.dialogs.openFileWithDefaultApplication
 import io.github.vinceglb.filekit.write
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -99,7 +100,11 @@ class EditRomViewModel(
         val romEntity = romDao.getRom(hash) ?: return
         val patchedBytes = getRomBytes(romEntity) ?: return
         val file = FileKit.openFileSaver(suggestedName = getFileName(romEntity), defaultExtension = "sfc")
-        file?.write(patchedBytes)
+//        file?.write(patchedBytes)
+        file?.let {
+            it.write(patchedBytes)
+            FileKit.openFileWithDefaultApplication(it)
+        }
     }
 
     private suspend fun shareRom() {
@@ -107,7 +112,10 @@ class EditRomViewModel(
         val patchedBytes = getRomBytes(romEntity) ?: return
         val filename = getFileName(romEntity) + ".sfc"
         val file = FileKit.openFileSaver(suggestedName = filename, defaultExtension = "sfc")
-        file?.write(patchedBytes)
+        file?.let {
+            it.write(patchedBytes)
+            FileKit.openFileWithDefaultApplication(it)
+        }
     }
 
 

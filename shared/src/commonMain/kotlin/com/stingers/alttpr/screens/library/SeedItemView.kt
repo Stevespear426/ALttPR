@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.Card
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,6 +23,7 @@ import com.stingers.alttpr.common.components.HashCodeRow
 import com.stingers.alttpr.common.components.PrimaryButton
 import com.stingers.alttpr.model.RomEntity
 import com.stingers.alttpr.model.SpoilerMeta
+import com.stingers.alttpr.screens.edit.SpoilerMetaView
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
 import kotlin.time.Clock
@@ -51,42 +51,8 @@ fun SeedItemView(
             }
             if (expended) {
                 meta?.let {
-                    with(it) {
-                        Column(modifier = Modifier.padding(PREFERENCE_PADDING.dp)) {
-                            Text(
-                                modifier = textModifier,
-                                text = "Glitched Required: $logic",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                            Text(
-                                modifier = textModifier,
-                                text = "ROM Build: $build",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                            Text(
-                                modifier = textModifier,
-                                text = "Accessibility: $accessibility",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                            Text(
-                                modifier = textModifier,
-                                text = "World State: $mode",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                            Text(
-                                modifier = textModifier,
-                                text = "Swords: $weapons",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                            Text(
-                                modifier = textModifier,
-                                text = "Goal: $goal",
-                                style = MaterialTheme.typography.bodyLarge
-                            )
-                        }
-                    }
+                    SpoilerMetaView(it)
                 }
-
                 PrimaryButton(Res.string.edit) {
                     processEvent(LibraryEvent.OpenEditSeed(romEntity))
                 }

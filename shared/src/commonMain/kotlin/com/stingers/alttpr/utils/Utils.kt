@@ -2,6 +2,15 @@ package com.stingers.alttpr.utils
 
 import kotlinx.coroutines.flow.Flow
 
+inline fun <reified T : Enum<T>> String?.toEnumOrDefault(defaultValue: T): T {
+    return enumValues<T>().firstOrNull { it.name.equals(this, ignoreCase = true) } ?: defaultValue
+}
+
+inline fun <reified T : Enum<T>> String?.toEnumOrNull(): T? {
+    return enumValues<T>().firstOrNull { it.name.equals(this, ignoreCase = true) }
+}
+
+
 inline fun <T1, T2, T3, T4, T5, T6, R> combine(
     flow: Flow<T1>,
     flow2: Flow<T2>,
