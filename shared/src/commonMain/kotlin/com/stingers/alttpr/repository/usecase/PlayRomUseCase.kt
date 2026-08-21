@@ -4,6 +4,7 @@ import com.stingers.alttpr.common.Logger
 import com.stingers.alttpr.common.ROM_FILE_EXTENSION_DOT
 import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.repository.local.RomStorage
+import com.stingers.alttpr.utils.currentTimeInMillis
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.openFileWithDefaultApplication
 import org.koin.core.annotation.Factory
@@ -17,7 +18,7 @@ class PlayRomUseCase(
 
     suspend operator fun invoke(seed: SeedEntity): Result<Unit> = runCatching {
         val fileName = seed.getFileName() + ROM_FILE_EXTENSION_DOT
-        val savedSeed = saveSeedUseCase(seed).getOrThrow()
+        val savedSeed = saveSeedUseCase(seed.copy(lastPlayed = currentTimeInMillis())).getOrThrow()
         val rom = getPatchedRomBytesUseCase(savedSeed).getOrThrow()
         RomStorage.saveShareRomBytes(fileName, rom).getOrThrow()
         RomStorage.getShareRomFile(fileName)?.let {
