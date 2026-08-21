@@ -22,12 +22,14 @@ val DarkColorPalette = darkColorScheme(
     primary = PrimaryDark,
     primaryContainer = PrimaryVariant,
     background = DarkBackground,
+    secondary = ZeldaGold
 )
 
 val LightColorPalette = lightColorScheme(
     primary = PrimaryLight,
     primaryContainer = PrimaryVariant,
     background = Color.White,
+    secondary = ZeldaGold
 )
 
 @Composable

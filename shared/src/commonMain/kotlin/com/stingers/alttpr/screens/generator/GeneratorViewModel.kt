@@ -3,6 +3,7 @@ package com.stingers.alttpr.screens.generator
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stingers.alttpr.model.RandomizerGameMode
+import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.navigation.Screen
 import com.stingers.alttpr.repository.usecase.GetDailySeedUseCase
@@ -26,26 +27,29 @@ class GeneratorViewModel(
     fun processEvent(event: GeneratorEvent) {
         viewModelScope.launch {
             when (event) {
-                GeneratorEvent.GenerateDaily -> createDailySeed()
                 GeneratorEvent.GenerateRandom -> createRandomSeed()
                 is GeneratorEvent.NavigateTo -> navigationManager.navigateTo(event.value)
             }
         }
     }
 
-    private suspend fun createDailySeed() {
+    private fun createDailySeed() {
         _state.update { it.copy(loading = true, error = null) }
-
-        getDailySeedUseCase()
-            .onSuccess { seed ->
-                _state.update { it.copy(loading = false) }
-                navigationManager.navigateTo(Screen.EditRom(seed))
-            }
-            .onFailure { throwable ->
-                _state.update {
-                    it.copy(loading = false, error = throwable.message ?: "Failed to generate daily seed")
+        viewModelScope.launch {
+            getDailySeedUseCase()
+                .onSuccess { seed ->
+                    _state.update { it.copy(dailySeed = seed, loading = false, error = null) }
                 }
-            }
+                .onFailure { throwable ->
+                    _state.update {
+                        it.copy(
+                            dailySeed = null,
+                            loading = false,
+                            error = throwable.message ?: "Failed to generate daily seed"
+                        )
+                    }
+                }
+        }
     }
 
     private suspend fun createRandomSeed() {
@@ -62,13 +66,21 @@ class GeneratorViewModel(
             }
             .onFailure { throwable ->
                 _state.update {
-                    it.copy(loading = false, error = throwable.message ?: "Failed to generate random seed")
+                    it.copy(
+                        loading = false,
+                        error = throwable.message ?: "Failed to generate random seed"
+                    )
                 }
             }
+    }
+
+    init {
+        createDailySeed()
     }
 }
 
 data class GeneratorState(
-    val loading: Boolean = false,
-    val error: String? = null
+    val loading: Boolean = true,
+    val error: String? = null,
+    val dailySeed: SeedEntity? = null
 )

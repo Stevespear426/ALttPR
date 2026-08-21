@@ -23,3 +23,8 @@ enum class Crystals(val title: StringResource, val value: String) {
     Seven(Res.string.crystals_seven, "7"),
     Random(Res.string.crystals_random, "random"),
 }
+
+
+fun String.toCrystal(): Crystals? {
+    return Crystals.entries.find { it.value == this }
+}

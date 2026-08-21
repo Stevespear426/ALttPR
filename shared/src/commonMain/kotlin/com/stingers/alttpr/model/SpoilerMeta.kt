@@ -1,5 +1,6 @@
 package com.stingers.alttpr.model
 
+import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -24,6 +25,7 @@ data class SpoilerMeta(
     @SerialName("tournament") val tournament: Boolean = false,
     @SerialName("size") val size: Int? = null,
     @SerialName("hints") val hints: String? = null,
+    @SerialName("shuffle") val entranceShuffle: String? = null,
     @SerialName("spoilers") val spoilers: String? = null,
     @SerialName("allow_quickswap") val allowQuickswap: Boolean? = null,
     @SerialName("pseudoboots") val pseudoboots: Boolean? = null,
@@ -41,4 +43,24 @@ data class SpoilerMeta(
             name
         }
     }
+}
+
+
+class SpoilerMetaParameterProvider : PreviewParameterProvider<SpoilerMeta> {
+    override val values = sequenceOf(
+        SpoilerMeta(
+            name = "Daily Challenge: Aug 17",
+            build = "2023-09-22",
+            accessibility = "none",
+            mode = "open",
+            weapons = "vanilla",
+            goal = "fast_ganon",
+            logic = "NoGlitches"
+        ),
+        SpoilerMeta(
+            name = "Daily Challenge: Aug 17",
+            build = "2023-09-22",
+            spoilers = "mystery"
+        )
+    )
 }

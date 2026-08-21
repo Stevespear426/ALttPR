@@ -15,6 +15,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.stingers.alttpr.common.PREFERENCE_PADDING
 import com.stingers.alttpr.model.SpoilerMeta
+import com.stingers.alttpr.model.SpoilerMetaParameterProvider
 import com.stingers.alttpr.model.api.Spoilers
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
@@ -65,25 +66,6 @@ fun SpoilerMetaView(meta: SpoilerMeta) {
             }
         }
     }
-}
-
-class SpoilerMetaParameterProvider : PreviewParameterProvider<SpoilerMeta> {
-    override val values = sequenceOf(
-        SpoilerMeta(
-            name = "Daily Challenge: Aug 17",
-            build = "2023-09-22",
-            accessibility = "none",
-            mode = "open",
-            weapons = "vanilla",
-            goal = "fast_ganon",
-            logic = "NoGlitches"
-        ),
-        SpoilerMeta(
-            name = "Daily Challenge: Aug 17",
-            build = "2023-09-22",
-            spoilers = "mystery"
-        )
-    )
 }
 
 @Preview

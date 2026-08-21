@@ -21,9 +21,13 @@ import org.jetbrains.compose.resources.stringResource
 @Composable
 fun HashCodeRow(
     list: List<Hash>,
-    iconSize: Int = 24
+    iconSize: Int = 24,
+    modifier: Modifier = Modifier
 ) {
-    Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+    Row(
+        modifier = modifier,
+        horizontalArrangement = Arrangement.spacedBy(4.dp)
+    ) {
         list.forEach {
             with(it) {
                 Image(

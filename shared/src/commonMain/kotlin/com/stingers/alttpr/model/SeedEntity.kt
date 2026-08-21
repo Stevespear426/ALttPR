@@ -7,7 +7,14 @@ import androidx.room3.PrimaryKey
 import com.stingers.alttpr.model.api.GenerateSeedRequest
 import com.stingers.alttpr.model.api.Hash
 import com.stingers.alttpr.utils.currentTimeInMillis
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.format
+import kotlinx.datetime.format.MonthNames
+import kotlinx.datetime.format.char
+import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
+import kotlin.time.Instant
 
 @Serializable
 @Entity(tableName = "seed")
@@ -59,5 +66,29 @@ data class SeedEntity(
 
     fun getFileName(): String {
         return "alttpr - ${meta?.getFileName().orEmpty()}_${hash}"
+    }
+
+    fun getGeneratedDate(): String {
+        val dateInput = generated // or generated?.takeIf { it.isNotBlank() }
+
+        if (dateInput.isNullOrEmpty()) {
+            return "" // Return empty string or fallback value like "N/A"
+        }
+
+        return runCatching {
+            val instant = Instant.parse(dateInput)
+            val localDateTime = instant.toLocalDateTime(TimeZone.UTC)
+
+            val customFormat = LocalDateTime.Format {
+                monthName(MonthNames.ENGLISH_ABBREVIATED)
+                char(' ')
+                dayOfMonth()
+                char(',')
+                char(' ')
+                year()
+            }
+
+            localDateTime.format(customFormat)
+        }.getOrDefault("") // Fallback if parsing fails
     }
 }
