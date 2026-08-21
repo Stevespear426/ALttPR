@@ -8,8 +8,6 @@ import alttpr.shared.generated.resources.save_seed_failed
 import alttpr.shared.generated.resources.save_seed_success
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.stingers.alttpr.common.ROM_FILE_EXTENSION
-import com.stingers.alttpr.common.ROM_FILE_EXTENSION_DOT
 import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
@@ -18,17 +16,13 @@ import com.stingers.alttpr.model.Sprite
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.navigation.Screen
 import com.stingers.alttpr.repository.AlttprRepository
-import com.stingers.alttpr.repository.RomManager
 import com.stingers.alttpr.repository.local.RomPrefs
-import com.stingers.alttpr.repository.local.RomStorage
 import com.stingers.alttpr.repository.local.SeedDao
+import com.stingers.alttpr.repository.usecase.ExportRomUseCase
 import com.stingers.alttpr.repository.usecase.GetRandomizerSeedUseCase
+import com.stingers.alttpr.repository.usecase.PlayRomUseCase
 import com.stingers.alttpr.repository.usecase.SaveSeedUseCase
 import com.stingers.alttpr.utils.combine
-import io.github.vinceglb.filekit.FileKit
-import io.github.vinceglb.filekit.dialogs.openFileSaver
-import io.github.vinceglb.filekit.dialogs.openFileWithDefaultApplication
-import io.github.vinceglb.filekit.write
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -42,10 +36,11 @@ import org.koin.core.annotation.KoinViewModel
 class EditRomViewModel(
     @InjectedParam seed: SeedEntity,
     seedDao: SeedDao,
-    private val romManager: RomManager,
     private val romPrefs: RomPrefs,
     private val alttprRepository: AlttprRepository,
     private val saveSeedUseCase: SaveSeedUseCase,
+    private val exportRomUseCase: ExportRomUseCase,
+    private val playRomUseCase: PlayRomUseCase,
     private val getRandomizerSeedUseCase: GetRandomizerSeedUseCase,
     private val navigationManager: NavigationManager
 ) : ViewModel() {
@@ -128,63 +123,15 @@ class EditRomViewModel(
     }
 
     private suspend fun playRom() {
-        saveSeed { seed ->
-            viewModelScope.launch {
-                val patchedBytes = getRomBytes(seed)
-                patchedBytes?.let { rom ->
-                    val fileName = getFileName(seed) + ROM_FILE_EXTENSION_DOT
-                    RomStorage.saveShareRomBytes(fileName, rom)
-                        .onSuccess {
-                            RomStorage.getShareRomFile(fileName)?.let {
-                                FileKit.openFileWithDefaultApplication(it)
-                            }
-                        }
-                        .onFailure {
-                            navigationManager.showToast(getString(Res.string.save_rom_failed))
-                        }
-                } ?: run {
-                    navigationManager.showToast(getString(Res.string.generate_rom_failed))
-                }
-            }
+        playRomUseCase(state.value.seed).onFailure {
+            navigationManager.showToast(getString(Res.string.save_rom_failed))
         }
     }
 
-    //
     private suspend fun exportRom() {
-        saveSeed { seed ->
-            viewModelScope.launch {
-                val patchedBytes = getRomBytes(seed)
-                patchedBytes?.let {
-                    val file =
-                        FileKit.openFileSaver(
-                            suggestedName = getFileName(seed),
-                            defaultExtension = ROM_FILE_EXTENSION
-                        )
-                    file?.write(it)
-                } ?: run {
-                    navigationManager.showToast(getString(Res.string.generate_rom_failed))
-                }
-            }
+        exportRomUseCase(state.value.seed).onFailure {
+            navigationManager.showToast(getString(Res.string.generate_rom_failed))
         }
-    }
-
-    private fun getFileName(seed: SeedEntity): String {
-        return "alttpr - ${seed.meta?.getFileName().orEmpty()}_${seed.hash}"
-    }
-
-    //
-    private suspend fun getRomBytes(seedEntity: SeedEntity): ByteArray? {
-        return romManager.getPatchedRomBytes(
-            seedEntity = seedEntity,
-            heartSpeed = state.value.heartSpeed,
-            menuSpeed = state.value.menuSpeed,
-            heartColor = state.value.heartColor,
-            quickSwap = state.value.quickSwap,
-            reduceFlashing = state.value.reduceFlashing,
-            enableMusic = state.value.enableMusic,
-            msuResume = state.value.msuResume,
-            sprite = state.value.selectedSprite
-        )
     }
 
     suspend fun rerollSeed() {

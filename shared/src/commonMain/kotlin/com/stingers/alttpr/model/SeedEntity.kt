@@ -56,4 +56,8 @@ data class SeedEntity(
         // 5. Slice and return the target bytes
         return bytes.subList(seekOffset, seekOffset + length).map { Hash.entries[it] }
     }
+
+    fun getFileName(): String {
+        return "alttpr - ${meta?.getFileName().orEmpty()}_${hash}"
+    }
 }
