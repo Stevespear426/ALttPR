@@ -27,7 +27,8 @@ class GeneratorViewModel(
     fun processEvent(event: GeneratorEvent) {
         viewModelScope.launch {
             when (event) {
-                GeneratorEvent.GenerateRandom -> createRandomSeed()
+                is GeneratorEvent.GenerateRandom -> createRandomSeed()
+                is GeneratorEvent.RefreshData -> createDailySeed()
                 is GeneratorEvent.NavigateTo -> navigationManager.navigateTo(event.value)
             }
         }

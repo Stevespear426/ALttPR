@@ -9,10 +9,13 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.pulltorefresh.PullToRefreshBox
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
@@ -24,8 +27,6 @@ import com.stingers.alttpr.common.components.PageLoadingView
 import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.SpoilerMeta
 import com.stingers.alttpr.navigation.Screen
-import com.stingers.alttpr.screens.seed.RomEntityParameterProvider
-import com.stingers.alttpr.screens.seed.SeedItemState
 import com.stingers.alttpr.screens.seed.SeedItemView
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
@@ -42,36 +43,45 @@ fun GeneratorScreen(viewModel: GeneratorViewModel = koinViewModel()) {
 
 @Composable
 fun GeneratorScreen(state: GeneratorState, processEvent: (event: GeneratorEvent) -> Unit) {
+    val haptic = LocalHapticFeedback.current
 
-    LazyColumn(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = spacedBy(16.dp),
-        contentPadding = PaddingValues(PREFERENCE_PADDING.dp)
+    PullToRefreshBox(
+        isRefreshing = false,
+        onRefresh = {
+            haptic.performHapticFeedback(HapticFeedbackType.Confirm)
+            processEvent(GeneratorEvent.RefreshData)
+        }
     ) {
+        LazyColumn(
+            modifier = Modifier.fillMaxSize(),
+            verticalArrangement = spacedBy(16.dp),
+            contentPadding = PaddingValues(PREFERENCE_PADDING.dp)
+        ) {
 
-        item {
-            Text(
-                text = "ALTTPR Generator",
-                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold)
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-        }
-
-        item {
-            state.dailySeed?.let {
-                SeedItemView(it)
+            item {
+                Text(
+                    text = "ALTTPR Generator",
+                    style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold)
+                )
+                Spacer(modifier = Modifier.height(12.dp))
             }
-        }
 
-        item {
-            RandomChallengeView {
-                processEvent(GeneratorEvent.GenerateRandom)
+            item {
+                state.dailySeed?.let {
+                    SeedItemView(it)
+                }
             }
-        }
 
-        item {
-            GenerateRandomizedView {
-                processEvent(GeneratorEvent.NavigateTo(Screen.Randomizer))
+            item {
+                RandomChallengeView {
+                    processEvent(GeneratorEvent.GenerateRandom)
+                }
+            }
+
+            item {
+                GenerateRandomizedView {
+                    processEvent(GeneratorEvent.NavigateTo(Screen.Randomizer))
+                }
             }
         }
     }
