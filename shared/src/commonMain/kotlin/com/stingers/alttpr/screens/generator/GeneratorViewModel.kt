@@ -5,21 +5,23 @@ import androidx.lifecycle.viewModelScope
 import com.stingers.alttpr.model.RandomizerGameMode
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.navigation.Screen
-import com.stingers.alttpr.repository.AlttprRepository
-import kotlinx.coroutines.delay
+import com.stingers.alttpr.repository.usecase.GetDailySeedUseCase
+import com.stingers.alttpr.repository.usecase.GetRandomizerSeedUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.KoinViewModel
-import kotlin.time.Duration.Companion.milliseconds
-import kotlin.time.Duration.Companion.seconds
 
 @KoinViewModel
 class GeneratorViewModel(
-    private val alttprRepository: AlttprRepository,
     private val navigationManager: NavigationManager,
+    private val getDailySeedUseCase: GetDailySeedUseCase,
+    private val getRandomizerSeedUseCase: GetRandomizerSeedUseCase
 ) : ViewModel() {
 
-    val state = MutableStateFlow(GeneratorState())
+    private val _state = MutableStateFlow(GeneratorState())
+    val state = _state.asStateFlow()
 
     fun processEvent(event: GeneratorEvent) {
         viewModelScope.launch {
@@ -31,36 +33,42 @@ class GeneratorViewModel(
         }
     }
 
-    fun createDailySeed() {
-        state.value = GeneratorState(loading = true)
-        viewModelScope.launch {
-            val result = alttprRepository.createDailySeed()
-            result.onSuccess { hash ->
-                navigationManager.navigateTo(Screen.EditRom(hash))
-                state.value = GeneratorState(loading = false)
+    private suspend fun createDailySeed() {
+        _state.update { it.copy(loading = true, error = null) }
+
+        getDailySeedUseCase()
+            .onSuccess { seed ->
+                _state.update { it.copy(loading = false) }
+                navigationManager.navigateTo(Screen.EditRom(seed))
             }
-            result.onFailure {
-                state.value = GeneratorState(loading = false)
+            .onFailure { throwable ->
+                _state.update {
+                    it.copy(loading = false, error = throwable.message ?: "Failed to generate daily seed")
+                }
             }
-        }
     }
 
-    fun createRandomSeed() {
-        state.value = GeneratorState(loading = true)
-        viewModelScope.launch {
-            val randomMode = RandomizerGameMode.entries.filterNot { it == RandomizerGameMode.CUSTOM }.random()
-            val result = alttprRepository.generateRandomizerSeed(randomMode.request())
-            result.onSuccess { hash ->
-                navigationManager.navigateTo(Screen.EditRom(hash))
-                state.value = GeneratorState(loading = false)
+    private suspend fun createRandomSeed() {
+        _state.update { it.copy(loading = true, error = null) }
+
+        val randomMode = RandomizerGameMode.entries
+            .filterNot { it == RandomizerGameMode.CUSTOM }
+            .random()
+
+        getRandomizerSeedUseCase(randomMode.request())
+            .onSuccess { seed ->
+                _state.update { it.copy(loading = false) }
+                navigationManager.navigateTo(Screen.EditRom(seed))
             }
-            result.onFailure {
-                state.value = GeneratorState(loading = false)
+            .onFailure { throwable ->
+                _state.update {
+                    it.copy(loading = false, error = throwable.message ?: "Failed to generate random seed")
+                }
             }
-        }
     }
 }
 
 data class GeneratorState(
-    val loading: Boolean = false
+    val loading: Boolean = false,
+    val error: String? = null
 )

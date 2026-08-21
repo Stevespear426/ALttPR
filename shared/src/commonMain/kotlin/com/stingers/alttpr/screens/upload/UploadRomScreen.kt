@@ -27,6 +27,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.stingers.alttpr.common.ROM_FILE_EXTENSION
 import com.stingers.alttpr.common.components.PrimaryButton
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
@@ -48,7 +49,7 @@ fun UploadRomScreen(
 @Composable
 fun UploadRomScreen(processEvent: (event: UploadRomEvent) -> Unit) {
     val romRequest = rememberFilePickerLauncher(
-        type = FileKitType.File(extensions = listOf("smc", "sfc")),
+        type = FileKitType.File(extensions = listOf("smc", ROM_FILE_EXTENSION)),
         mode = FileKitMode.Single,
     ) { file ->
         file?.let {

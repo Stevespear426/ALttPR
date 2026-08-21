@@ -1,11 +1,11 @@
 package com.stingers.alttpr.repository
 
-import com.stingers.alttpr.model.RomEntity
+import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.Sprite
 import com.stingers.alttpr.model.api.GenerateSeedRequest
 import com.stingers.alttpr.platform.NetworkManager
-import com.stingers.alttpr.repository.local.RomDao
 import com.stingers.alttpr.repository.local.RomStorage
+import com.stingers.alttpr.repository.local.SeedDao
 import com.stingers.alttpr.repository.local.SpriteDao
 import com.stingers.alttpr.repository.remote.AlttprService
 import io.github.vinceglb.filekit.exists
@@ -14,12 +14,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Singleton
-import kotlin.time.Clock
 
 @Singleton
 class AlttprRepository(
     private val alttprService: AlttprService,
-    private val romDao: RomDao,
+    private val seedDao: SeedDao,
     private val spriteDao: SpriteDao
 ) {
 
@@ -73,79 +72,63 @@ class AlttprRepository(
         }
     }
 
-    suspend fun createDailySeed(): Result<String> = withContext(Dispatchers.IO) {
-        try {
-            // GET https://alttpr.com/api/daily -> gets hash
-            val dailyResponse = alttprService.getDaily()
-            val hash = dailyResponse.hash
-            return@withContext fetchPatchAndSeedInfo(hash)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+    suspend fun createDailySeed(): SeedEntity = withContext(Dispatchers.IO) {
+        // GET https://alttpr.com/api/daily -> gets hash
+        val dailyResponse = alttprService.getDaily()
+        val hash = dailyResponse.hash
+        return@withContext fetchPatchAndSeedInfo(hash)
     }
 
     suspend fun generateRandomizerSeed(
         request: GenerateSeedRequest
-    ): Result<String> = withContext(Dispatchers.IO) {
-        try {
-            val response = alttprService.generateSeed(request)
-            val hash = response.hash
-            return@withContext fetchPatchAndSeedInfo(hash)
-        } catch (e: Exception) {
-            Result.failure(e)
-        }
+    ): SeedEntity = withContext(Dispatchers.IO) {
+        val response = alttprService.generateSeed(request)
+        val hash = response.hash
+        return@withContext fetchPatchAndSeedInfo(hash).copy(
+            request = request
+        )
     }
 
-    suspend fun fetchPatchAndSeedInfo(hash: String): Result<String> = withContext(Dispatchers.IO) {
-        try {
+    /*
+    * Returns a Bps Patch and md5 hash for verification.
+    */
+    suspend fun getBpsPatch(
+        hash: String
+    ): Pair<String, ByteArray> = withContext(Dispatchers.IO) {
+        // GET https://alttpr.com/api/h/{hash} -> retrieves base patch file
+        val basePatchResponse = alttprService.getBasePatchInfo(hash)
+        val bpsLocation = basePatchResponse.bpsLocation
+
+        // GET https://alttpr.com{bpsLocation} -> downloads raw .bps patch binary
+        val bpsBytes = alttprService.getBpsPatch(bpsLocation)
+        if (bpsBytes.isEmpty()) {
+            throw IllegalStateException("Failed to download BPS patch")
+        }
+        return@withContext basePatchResponse.md5 to bpsBytes
+    }
+
+    suspend fun fetchPatchAndSeedInfo(hash: String): SeedEntity =
+        withContext(Dispatchers.IO) {
             // Check if we already have a saved RomEntity for this hash
-            val existingRom = romDao.getRom(hash)
-            if (existingRom != null) {
-                return@withContext Result.success(hash)
+            val cachedSeed = seedDao.getSeed(hash)
+            if (cachedSeed != null) {
+                return@withContext cachedSeed
             }
 
-            // 1. GET https://alttpr.com/api/h/{hash} -> retrieves base patch file
-            val basePatchResponse = alttprService.getBasePatchInfo(hash)
-            val bpsLocation = basePatchResponse.bpsLocation
-
-
-            // 2. GET https://alttpr.com{bpsLocation} -> downloads raw .bps patch binary
-            val bpsBytes = alttprService.getBpsPatch(bpsLocation)
-            if (bpsBytes.isEmpty()) {
-                return@withContext Result.failure(IllegalStateException("Failed to download BPS patch"))
-            }
-
-            // 3. Format filename: ALTTPR_(hash).bps
-            val filename = "ALTTPR_${hash}.bps"
-
-            // 4. Save BPS patch to generated seeds bucket
-            RomStorage.saveGeneratedSeed(filename, bpsBytes)
-
-            // 5. GET https://alttpr.com/hash/{hash} -> retrieves seed patch
+            // GET https://alttpr.com/hash/{hash} -> retrieves seed patch
             val seedDetails = alttprService.getSeedPatch(hash)
 
             if (seedDetails.patch.isNullOrEmpty()) {
-                return@withContext Result.failure(IllegalStateException("Failed to download JSON patch"))
+                throw IllegalStateException("Failed to download JSON patch")
             }
 
-            // 6. Save record into database
-            romDao.insertRom(
-                RomEntity(
-                    hash = hash,
-                    md5 = basePatchResponse.md5,
-                    createdAt = Clock.System.now().toEpochMilliseconds(),
-                    localFileName = filename,
-//                    gameMode = GameMode.DAILY_CHALLENGE,
-                    logic = seedDetails.logic,
-                    generated = seedDetails.generated,
-                    size = seedDetails.size ?: 2,
-                    meta = seedDetails.spoiler?.meta,
-                    patch = seedDetails.patch
-                )
+            return@withContext SeedEntity(
+                hash = hash,
+                logic = seedDetails.logic,
+                generated = seedDetails.generated,
+                size = seedDetails.size ?: 2,
+                meta = seedDetails.spoiler?.meta,
+                patch = seedDetails.patch
             )
-            Result.success(hash)
-        } catch (e: Exception) {
-            Result.failure(e)
         }
-    }
 }

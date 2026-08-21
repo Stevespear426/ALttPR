@@ -1,5 +1,6 @@
 package com.stingers.alttpr.repository.local
 
+import com.stingers.alttpr.common.BASE_ROM_FILENAME
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.exists
 import kotlinx.cinterop.ExperimentalForeignApi
@@ -22,11 +23,12 @@ actual object RomStorage {
         val documentDirectory = urls.firstOrNull() as? NSURL ?: return null to null
         val appDir = documentDirectory.URLByAppendingPathComponent("alttpr") ?: return null to null
         val baseRomDir = appDir.URLByAppendingPathComponent("base_rom") ?: return null to null
+        val shareRomDir = appDir.URLByAppendingPathComponent("share_rom") ?: return null to null
         val generatedDir = appDir.URLByAppendingPathComponent("generated_seeds") ?: return null to null
         val spritesDir = appDir.URLByAppendingPathComponent("sprites") ?: return null to null
         
         val fileManagerInstance = NSFileManager.defaultManager
-        listOf(baseRomDir, generatedDir, spritesDir).forEach { url ->
+        listOf(baseRomDir, shareRomDir, generatedDir, spritesDir).forEach { url ->
             url?.path?.let { p ->
                 if (!fileManagerInstance.fileExistsAtPath(p)) {
                     fileManagerInstance.createDirectoryAtPath(p, withIntermediateDirectories = true, attributes = null, error = null)
@@ -38,7 +40,7 @@ actual object RomStorage {
 
     actual suspend fun getBaseRomFile(): PlatformFile? {
         val (baseRomDir, _) = getStorageDirs()
-        val fileUrl = baseRomDir?.URLByAppendingPathComponent("alttp_base.sfc") ?: return null
+        val fileUrl = baseRomDir?.URLByAppendingPathComponent(BASE_ROM_FILENAME) ?: return null
         return fileUrl.path?.let { PlatformFile(it) }
     }
 
@@ -46,7 +48,7 @@ actual object RomStorage {
     actual suspend fun saveBaseRomBytes(bytes: ByteArray): Result<Unit> {
         return try {
             val (baseRomDir, _) = getStorageDirs()
-            val fileUrl = baseRomDir?.URLByAppendingPathComponent("alttp_base.sfc") ?: return Result.failure(IllegalStateException("File URL error"))
+            val fileUrl = baseRomDir?.URLByAppendingPathComponent(BASE_ROM_FILENAME) ?: return Result.failure(IllegalStateException("File URL error"))
             val path = fileUrl.path ?: return Result.failure(IllegalStateException("File path error"))
             
             val nsData = bytes.usePinned { pinned ->
@@ -58,6 +60,64 @@ actual object RomStorage {
             Result.failure(e)
         }
     }
+
+    @OptIn(ExperimentalForeignApi::class)
+    private fun getShareRomDir(): NSURL? {
+        val fileManager = NSFileManager.defaultManager
+        val urls = fileManager.URLsForDirectory(NSDocumentDirectory, NSUserDomainMask)
+        val documentDirectory = urls.firstOrNull() as? NSURL ?: return null
+        val appDir = documentDirectory.URLByAppendingPathComponent("alttpr") ?: return null
+        val shareRomDir = appDir.URLByAppendingPathComponent("share_rom") ?: return null
+        shareRomDir.path?.let { p ->
+            if (!fileManager.fileExistsAtPath(p)) {
+                fileManager.createDirectoryAtPath(p, withIntermediateDirectories = true, attributes = null, error = null)
+            }
+        }
+        return shareRomDir
+    }
+
+    actual suspend fun getShareRomFile(filename: String): PlatformFile? {
+        val shareRomDir = getShareRomDir() ?: return null
+        val fileUrl = shareRomDir.URLByAppendingPathComponent(filename) ?: return null
+        val path = fileUrl.path ?: return null
+        val file = PlatformFile(path)
+        return if (file.exists()) file else null
+    }
+
+    @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
+    actual suspend fun saveShareRomBytes(filename: String, bytes: ByteArray): Result<Unit> {
+        return try {
+            val shareRomDir = getShareRomDir() ?: return Result.failure(IllegalStateException("Directory error"))
+            val fileUrl = shareRomDir.URLByAppendingPathComponent(filename) ?: return Result.failure(IllegalStateException("File URL error"))
+            val path = fileUrl.path ?: return Result.failure(IllegalStateException("File path error"))
+            
+            val nsData = bytes.usePinned { pinned ->
+                NSData.create(bytes = pinned.addressOf(0), length = bytes.size.toULong())
+            }
+            nsData.writeToFile(path, atomically = true)
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    @OptIn(ExperimentalForeignApi::class)
+    actual suspend fun clearShareRomFiles(): Result<Unit> {
+        return try {
+            val shareRomDir = getShareRomDir() ?: return Result.failure(IllegalStateException("Directory error"))
+            val path = shareRomDir.path ?: return Result.failure(IllegalStateException("Path error"))
+            val fileManager = NSFileManager.defaultManager
+            
+            // Remove directory and recreate it
+            fileManager.removeItemAtPath(path, error = null)
+            fileManager.createDirectoryAtPath(path, withIntermediateDirectories = true, attributes = null, error = null)
+            
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
 
     @OptIn(ExperimentalForeignApi::class, BetaInteropApi::class)
     actual suspend fun saveGeneratedSeed(filename: String, bytes: ByteArray): Result<Unit> {
@@ -80,7 +140,7 @@ actual object RomStorage {
         val (_, generatedDir) = getStorageDirs()
         val fileUrl = generatedDir?.URLByAppendingPathComponent(filename) ?: return null
         val path = fileUrl.path ?: return null
-        val file = io.github.vinceglb.filekit.PlatformFile(path)
+        val file = PlatformFile(path)
         return if (file.exists()) file else null
     }
 

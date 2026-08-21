@@ -1,16 +1,29 @@
 package com.stingers.alttpr.screens.edit
 
+import alttpr.shared.generated.resources.Res
+import alttpr.shared.generated.resources.generate_rom_failed
+import alttpr.shared.generated.resources.generate_seed_failed
+import alttpr.shared.generated.resources.save_rom_failed
+import alttpr.shared.generated.resources.save_seed_failed
+import alttpr.shared.generated.resources.save_seed_success
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.stingers.alttpr.common.ROM_FILE_EXTENSION
+import com.stingers.alttpr.common.ROM_FILE_EXTENSION_DOT
 import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
-import com.stingers.alttpr.model.RomEntity
+import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.Sprite
+import com.stingers.alttpr.navigation.NavigationManager
+import com.stingers.alttpr.navigation.Screen
 import com.stingers.alttpr.repository.AlttprRepository
 import com.stingers.alttpr.repository.RomManager
 import com.stingers.alttpr.repository.local.RomPrefs
-import com.stingers.alttpr.repository.local.RomDao
+import com.stingers.alttpr.repository.local.RomStorage
+import com.stingers.alttpr.repository.local.SeedDao
+import com.stingers.alttpr.repository.usecase.GetRandomizerSeedUseCase
+import com.stingers.alttpr.repository.usecase.SaveSeedUseCase
 import com.stingers.alttpr.utils.combine
 import io.github.vinceglb.filekit.FileKit
 import io.github.vinceglb.filekit.dialogs.openFileSaver
@@ -21,23 +34,28 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.getString
 import org.koin.core.annotation.InjectedParam
 import org.koin.core.annotation.KoinViewModel
 
 @KoinViewModel
 class EditRomViewModel(
-    @InjectedParam private val hash: String,
-    private val romDao: RomDao,
+    @InjectedParam seed: SeedEntity,
+    seedDao: SeedDao,
     private val romManager: RomManager,
     private val romPrefs: RomPrefs,
-    private val alttprRepository: AlttprRepository
+    private val alttprRepository: AlttprRepository,
+    private val saveSeedUseCase: SaveSeedUseCase,
+    private val getRandomizerSeedUseCase: GetRandomizerSeedUseCase,
+    private val navigationManager: NavigationManager
 ) : ViewModel() {
 
     val sprites = MutableStateFlow(emptyList<Sprite>())
 
-    val sprite = MutableStateFlow<Sprite?>(null)
+    val loading = MutableStateFlow<Boolean>(true)
 
     val state: StateFlow<EditRomState> = combine(
+        loading,
         romPrefs.quickSwap,
         romPrefs.reduceFlashing,
         romPrefs.enableMusic,
@@ -45,10 +63,11 @@ class EditRomViewModel(
         romPrefs.heartSpeed,
         romPrefs.menuSpeed,
         romPrefs.heartColor,
-        sprite,
+        romPrefs.sprite,
         sprites,
-        romDao.getRomFlow(hash)
-    ) { quickSwap,
+        seedDao.getSeedFlow(seed.hash)
+    ) { loading,
+        quickSwap,
         reduceFlashing,
         enableMusic,
         msuResume,
@@ -57,9 +76,10 @@ class EditRomViewModel(
         heartColor,
         sprite,
         sprites,
-        romEntity ->
+        savedSeed ->
         EditRomState(
-            hash = hash,
+            loading = loading,
+            seed = seed,
             quickSwap = quickSwap,
             reduceFlashing = reduceFlashing,
             enableMusic = enableMusic,
@@ -67,21 +87,19 @@ class EditRomViewModel(
             heartSpeed = heartSpeed,
             menuSpeed = menuSpeed,
             heartColor = heartColor,
-            selectedSprite = sprite,
+            selectedSprite = sprites.find { it.name == sprite },
             availableSprites = sprites,
-            romEntity = romEntity
+            isSaved = savedSeed != null
         )
     }.stateIn(
         scope = viewModelScope,
         started = SharingStarted.Lazily,
-        initialValue = EditRomState(hash = hash, loading = true)
+        initialValue = EditRomState(seed = seed, loading = true)
     )
 
     fun processEvent(event: EditRomEvent) {
         viewModelScope.launch {
             when (event) {
-                is EditRomEvent.SaveFile -> saveRom()
-                is EditRomEvent.ShareFile -> shareRom()
                 is EditRomEvent.SetEnableMusic -> romPrefs.setEnableMusic(event.value)
                 is EditRomEvent.SetHeartColor -> romPrefs.setHeartColor(event.value)
                 is EditRomEvent.SetHeartSpeed -> romPrefs.setHeartSpeed(event.value)
@@ -89,44 +107,75 @@ class EditRomViewModel(
                 is EditRomEvent.SetQuickSwap -> romPrefs.setQuickSwap(event.value)
                 is EditRomEvent.SetReduceFlashing -> romPrefs.setReduceFlashing(event.value)
                 is EditRomEvent.SetMsuResume -> romPrefs.setMsuResume(event.value)
-                is EditRomEvent.SetSprite -> {
-                    sprite.value = event.value
+                is EditRomEvent.SetSprite -> romPrefs.setSprite(event.value.name)
+                is EditRomEvent.ExportRom -> exportRom()
+                is EditRomEvent.PlaySeed -> playRom()
+                is EditRomEvent.ReRollSeed -> rerollSeed()
+                is EditRomEvent.SaveSeed -> saveSeed()
+            }
+        }
+    }
+
+    private suspend fun saveSeed(onSuccess: (seed: SeedEntity) -> Unit = {}) {
+        saveSeedUseCase(state.value.seed)
+            .onSuccess {
+                onSuccess(it)
+                navigationManager.showToast(getString(Res.string.save_seed_success))
+            }
+            .onFailure {
+                navigationManager.showToast(getString(Res.string.save_seed_failed))
+            }
+    }
+
+    private suspend fun playRom() {
+        saveSeed { seed ->
+            viewModelScope.launch {
+                val patchedBytes = getRomBytes(seed)
+                patchedBytes?.let { rom ->
+                    val fileName = getFileName(seed) + ROM_FILE_EXTENSION_DOT
+                    RomStorage.saveShareRomBytes(fileName, rom)
+                        .onSuccess {
+                            RomStorage.getShareRomFile(fileName)?.let {
+                                FileKit.openFileWithDefaultApplication(it)
+                            }
+                        }
+                        .onFailure {
+                            navigationManager.showToast(getString(Res.string.save_rom_failed))
+                        }
+                } ?: run {
+                    navigationManager.showToast(getString(Res.string.generate_rom_failed))
                 }
             }
         }
     }
 
-    private suspend fun saveRom() {
-        val romEntity = romDao.getRom(hash) ?: return
-        val patchedBytes = getRomBytes(romEntity) ?: return
-        val file = FileKit.openFileSaver(suggestedName = getFileName(romEntity), defaultExtension = "sfc")
-//        file?.write(patchedBytes)
-        file?.let {
-            it.write(patchedBytes)
-            FileKit.openFileWithDefaultApplication(it)
+    //
+    private suspend fun exportRom() {
+        saveSeed { seed ->
+            viewModelScope.launch {
+                val patchedBytes = getRomBytes(seed)
+                patchedBytes?.let {
+                    val file =
+                        FileKit.openFileSaver(
+                            suggestedName = getFileName(seed),
+                            defaultExtension = ROM_FILE_EXTENSION
+                        )
+                    file?.write(it)
+                } ?: run {
+                    navigationManager.showToast(getString(Res.string.generate_rom_failed))
+                }
+            }
         }
     }
 
-    private suspend fun shareRom() {
-        val romEntity = romDao.getRom(hash) ?: return
-        val patchedBytes = getRomBytes(romEntity) ?: return
-        val filename = getFileName(romEntity) + ".sfc"
-        val file = FileKit.openFileSaver(suggestedName = filename, defaultExtension = "sfc")
-        file?.let {
-            it.write(patchedBytes)
-            FileKit.openFileWithDefaultApplication(it)
-        }
+    private fun getFileName(seed: SeedEntity): String {
+        return "alttpr - ${seed.meta?.getFileName().orEmpty()}_${seed.hash}"
     }
 
-
-    private fun getFileName(romEntity: RomEntity): String {
-       return "alttpr - ${romEntity.meta?.getFileName().orEmpty()}_$hash"
-    }
-
-    private suspend fun getRomBytes(romEntity: RomEntity): ByteArray? {
+    //
+    private suspend fun getRomBytes(seedEntity: SeedEntity): ByteArray? {
         return romManager.getPatchedRomBytes(
-            romEntity = romEntity,
-            hash = hash,
+            seedEntity = seedEntity,
             heartSpeed = state.value.heartSpeed,
             menuSpeed = state.value.menuSpeed,
             heartColor = state.value.heartColor,
@@ -138,12 +187,29 @@ class EditRomViewModel(
         )
     }
 
+    suspend fun rerollSeed() {
+        state.value.seed.request?.let {
+            loading.value = true
+            getRandomizerSeedUseCase(it)
+                .onSuccess {
+                    navigationManager.pop()
+                    navigationManager.navigateTo(Screen.EditRom(it))
+                    loading.value = false
+                }
+                .onFailure {
+                    loading.value = false
+                    navigationManager.showToast(getString(Res.string.generate_seed_failed))
+                }
+        }
+    }
+
     fun getSprites() {
         viewModelScope.launch {
             val result = alttprRepository.getSprites()
             result.onSuccess { newSprites ->
                 sprites.value = newSprites
             }
+            loading.value = false
         }
     }
 
@@ -153,7 +219,7 @@ class EditRomViewModel(
 }
 
 data class EditRomState(
-    val hash: String,
+    val seed: SeedEntity,
     val loading: Boolean = false,
     val heartSpeed: HeartSpeed = HeartSpeed.NORMAL,
     val menuSpeed: MenuSpeed = MenuSpeed.NORMAL,
@@ -164,5 +230,5 @@ data class EditRomState(
     val msuResume: Boolean = true,
     val availableSprites: List<Sprite> = emptyList(),
     val selectedSprite: Sprite? = null,
-    val romEntity: RomEntity? = null
+    val isSaved: Boolean = false
 )

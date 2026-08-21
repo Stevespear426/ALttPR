@@ -4,8 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.repository.local.AppPrefs
-import com.stingers.alttpr.repository.local.RomDao
-import com.stingers.alttpr.repository.local.RomStorage
+import com.stingers.alttpr.repository.local.SeedDao
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
@@ -14,7 +13,7 @@ import org.koin.core.annotation.KoinViewModel
 
 @KoinViewModel
 class SettingsViewModel(
-    private val romDao: RomDao,
+    private val seedDao: SeedDao,
 //    private val romStorage: RomStorage,
     private val appPrefs: AppPrefs,
     private val navigationManager: NavigationManager,

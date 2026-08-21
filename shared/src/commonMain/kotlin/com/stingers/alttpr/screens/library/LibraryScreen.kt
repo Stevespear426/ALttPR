@@ -10,8 +10,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.stingers.alttpr.common.PREFERENCE_PADDING
-import com.stingers.alttpr.common.SETTINGS_PREFERENCE_PADDING
-import com.stingers.alttpr.model.RomEntity
+import com.stingers.alttpr.model.SeedEntity
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -22,7 +21,7 @@ fun LibraryScreen(viewModel: LibraryViewModel = koinViewModel()) {
 
 @Composable
 fun LibraryScreen(
-    pagingItems: LazyPagingItems<RomEntity>,
+    pagingItems: LazyPagingItems<SeedEntity>,
     processEvent: (event: LibraryEvent) -> Unit
 ) {
     LazyColumn(modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(PREFERENCE_PADDING.dp), verticalArrangement = spacedBy(16.dp)) {

@@ -20,7 +20,7 @@ class AppPrefs(
 
     val debugMode: Flow<Boolean> = dataStore.data
         .map { preferences ->
-            preferences[PreferencesKeys.DEBUG_MODE] ?: false
+            preferences[PreferencesKeys.DEBUG_MODE] ?: true
         }
 
     suspend fun setDebugMode(debugMode: Boolean) {

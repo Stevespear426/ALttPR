@@ -2,23 +2,34 @@ package com.stingers.alttpr.model
 
 import androidx.room3.Embedded
 import androidx.room3.Entity
+import androidx.room3.Ignore
 import androidx.room3.PrimaryKey
+import com.stingers.alttpr.model.api.GenerateSeedRequest
 import com.stingers.alttpr.model.api.Hash
+import com.stingers.alttpr.utils.currentTimeInMillis
+import kotlinx.serialization.Serializable
 
-@Entity(tableName = "roms")
-data class RomEntity(
+@Serializable
+@Entity(tableName = "seed")
+data class SeedEntity(
     @PrimaryKey
     val hash: String,
-    val md5: String,
-    val createdAt: Long,
-    val localFileName: String,
-//    val gameMode: GameMode,
     val logic: String? = null,
     val generated: String? = null,
+    val created: Long = currentTimeInMillis(),
+    val updated: Long = currentTimeInMillis(),
+    val lastPlayed: Long? = null,
+    val completed: Long? = null,
+    val favorite: Boolean = false,
+    val notes: String = "",
     val size: Int = 2,
     @Embedded(prefix = "meta_")
     val meta: SpoilerMeta? = null,
     val patch: List<Map<String, List<Int>>> = emptyList(),
+    val md5: String? = null,
+    val localFileName: String? = null,
+    @Ignore
+    val request: GenerateSeedRequest? = null
 ) {
 
     fun getHashCode(

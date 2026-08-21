@@ -354,4 +354,19 @@
     <string name="world_state_inverted">Inverted</string>
     <string name="world_state_retro">Retro</string>
 
+
+    <string name="all_logs">All</string>
+    <string name="debug_logs">Debug</string>
+    <string name="error_logs">Error</string>
+    <string name="info_logs">Info</string>
+    <string name="verbose_logs">Verbose</string>
+    <string name="warn_logs">Warn</string>
+    <string name="wtf_logs">WTF</string>
+
+    <string name="play_seed">Play Seed</string>
+    <string name="save_seed_success">Seed Saved.</string>
+    <string name="save_seed_failed">Save error.</string>
+    <string name="generate_seed_failed">Generate seed error.</string>
+    <string name="generate_rom_failed">Generate ROM error.</string>
+    <string name="save_rom_failed">Save ROM error.</string>
 </resources>

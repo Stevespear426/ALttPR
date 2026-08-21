@@ -71,6 +71,8 @@ kotlin {
     }
 
     sourceSets {
+        val jvmMain by getting
+
         androidMain.dependencies {
             implementation(libs.compose.uiToolingPreview)
             implementation(libs.compose.uiTooling)
@@ -122,6 +124,11 @@ kotlin {
             implementation(libs.coil.compose)
             implementation(libs.coil.svg)
         }
+        jvmMain.dependencies {
+            implementation(libs.slf4j.api)
+            implementation(libs.logback.classic)
+        }
+
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }

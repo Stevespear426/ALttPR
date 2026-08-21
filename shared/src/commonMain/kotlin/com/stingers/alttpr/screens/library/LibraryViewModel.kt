@@ -6,26 +6,26 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.stingers.alttpr.model.RomEntity
+import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.navigation.Screen
-import com.stingers.alttpr.repository.local.RomDao
+import com.stingers.alttpr.repository.local.SeedDao
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.KoinViewModel
 
 @KoinViewModel
 class LibraryViewModel(
-    private val romDao: RomDao,
+    private val seedDao: SeedDao,
     private val navigationManager: NavigationManager,
 ) : ViewModel() {
 
-    val romsFlow: Flow<PagingData<RomEntity>> = Pager(
+    val romsFlow: Flow<PagingData<SeedEntity>> = Pager(
         config = PagingConfig(
             pageSize = 20,
             enablePlaceholders = false
         ),
-        pagingSourceFactory = { romDao.getRoms() }
+        pagingSourceFactory = { seedDao.getSeeds() }
     ).flow.cachedIn(viewModelScope)
 
 
@@ -33,7 +33,7 @@ class LibraryViewModel(
         viewModelScope.launch {
             when (event) {
                 is LibraryEvent.RemoveSeed -> {}
-                is LibraryEvent.OpenEditSeed -> navigationManager.navigateTo(Screen.EditRom(event.value.hash))
+                is LibraryEvent.OpenEditSeed -> navigationManager.navigateTo(Screen.EditRom(event.value))
             }
         }
     }

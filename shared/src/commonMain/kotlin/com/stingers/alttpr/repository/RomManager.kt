@@ -4,7 +4,7 @@ import com.stingers.alttpr.computeMd5Hex
 import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
-import com.stingers.alttpr.model.RomEntity
+import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.Sprite
 import com.stingers.alttpr.repository.local.RomStorage
 import io.github.vinceglb.filekit.PlatformFile
@@ -57,9 +57,9 @@ class RomManager(
         return actualCrc == EXPECTED_CRC32
     }
 
+
     suspend fun getPatchedRomBytes(
-        romEntity: RomEntity,
-        hash: String,
+        seedEntity: SeedEntity,
         heartSpeed: HeartSpeed = HeartSpeed.NORMAL,
         menuSpeed: MenuSpeed = MenuSpeed.NORMAL,
         heartColor: HeartColor = HeartColor.RED,
@@ -75,19 +75,19 @@ class RomManager(
         val sourceRom = baseFile?.readBytes()?.copyOf() ?: return@withContext null
 
         // 2. Get base rom patch
-        val bpsFile = RomStorage.getGeneratedSeedFile(romEntity.localFileName) ?: return@withContext null
+        val bpsFile = RomStorage.getGeneratedSeedFile(seedEntity.localFileName.orEmpty()) ?: return@withContext null
         val bpsBytes = bpsFile.readBytes()
 
         // 3. Apply base rom patch
-        val basePatchedBytes = applyBasePatch(sourceRom, bpsBytes, romEntity.md5)
+        val basePatchedBytes = applyBasePatch(sourceRom, bpsBytes, seedEntity.md5.orEmpty())
         if (basePatchedBytes.isEmpty()) return@withContext null
 
         // 4. Expand rom size to target size (e.g., 2MB or 4MB) BEFORE applying seed patch
-        val expandedPatchedBytes = expandSize(basePatchedBytes, romEntity.size)
+        val expandedPatchedBytes = expandSize(basePatchedBytes, seedEntity.size)
         if (expandedPatchedBytes.isEmpty()) return@withContext null
 
         // 5. Apply seed patch payload onto expanded rom
-        var currentRomBytes = applySeedPatch(expandedPatchedBytes, romEntity.patch)
+        var currentRomBytes = applySeedPatch(expandedPatchedBytes, seedEntity.patch)
         if (currentRomBytes.isEmpty()) return@withContext null
 
         // 6. Inject custom sprite if provided
@@ -104,7 +104,7 @@ class RomManager(
         // 7. Apply UI settings values
         val finalRomBytes = applySettings(
             romBytes = currentRomBytes,
-            seedHash = hash,
+            seedHash = seedEntity.hash,
             heartSpeed = heartSpeed,
             menuSpeed = menuSpeed,
             heartColor = heartColor,

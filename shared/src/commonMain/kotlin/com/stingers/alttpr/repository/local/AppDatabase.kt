@@ -7,12 +7,19 @@ import androidx.room3.Database
 import androidx.room3.RoomDatabase
 import androidx.room3.RoomDatabaseConstructor
 import androidx.room3.paging.PagingSourceDaoReturnTypeConverter
-import com.stingers.alttpr.model.RomEntity
+import com.stingers.alttpr.model.LogEntity
+import com.stingers.alttpr.model.LogSearchIndex
+import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.Sprite
 
 @Database(
-    entities = [RomEntity::class, Sprite::class],
-    version = 2,
+    entities = [
+        LogEntity::class,
+        LogSearchIndex::class,
+        SeedEntity::class,
+        Sprite::class
+    ],
+    version = 1,
     autoMigrations = [],
     exportSchema = true
 )
@@ -20,7 +27,8 @@ import com.stingers.alttpr.model.Sprite
 @ConstructedBy(AppDatabaseConstructor::class)
 @DaoReturnTypeConverters(PagingSourceDaoReturnTypeConverter::class)
 abstract class AppDatabase : RoomDatabase() {
-    abstract fun romDao(): RomDao
+    abstract fun loggerDao(): LoggerDao
+    abstract fun seedDao(): SeedDao
     abstract fun spriteDao(): SpriteDao
 }
 

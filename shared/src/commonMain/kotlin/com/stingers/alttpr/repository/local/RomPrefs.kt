@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
+import com.stingers.alttpr.utils.toEnumOrDefault
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import org.koin.core.annotation.Named
@@ -24,8 +25,8 @@ class RomPrefs(
         val HEART_SPEED = stringPreferencesKey("heart_speed")
         val MENU_SPEED = stringPreferencesKey("menu_speed")
         val HEART_COLOR = stringPreferencesKey("heart_color")
-
         val MSU_RESUME = booleanPreferencesKey("msu_resume")
+        val SPRITE = stringPreferencesKey("sprite")
     }
 
     val msuResume: Flow<Boolean> = dataStore.data
@@ -48,35 +49,23 @@ class RomPrefs(
             preferences[PreferencesKeys.ENABLE_MUSIC] ?: true
         }
 
-    val heartSpeed: Flow<HeartSpeed> = dataStore.data
-        .map { preferences ->
-            val name = preferences[PreferencesKeys.HEART_SPEED] ?: HeartSpeed.NORMAL.name
-            try {
-                HeartSpeed.valueOf(name)
-            } catch (e: IllegalArgumentException) {
-                HeartSpeed.OFF
-            }
-        }
+    val heartSpeed: Flow<HeartSpeed> = dataStore.data.map { preferences ->
+        preferences[PreferencesKeys.HEART_SPEED] ?: HeartSpeed.NORMAL.name
+    }.map { it.toEnumOrDefault(HeartSpeed.NORMAL) }
 
     val menuSpeed: Flow<MenuSpeed> = dataStore.data
         .map { preferences ->
-            val name = preferences[PreferencesKeys.MENU_SPEED] ?: MenuSpeed.NORMAL.name
-            try {
-                MenuSpeed.valueOf(name)
-            } catch (e: IllegalArgumentException) {
-                MenuSpeed.NORMAL
-            }
-        }
+            preferences[PreferencesKeys.MENU_SPEED] ?: MenuSpeed.NORMAL.name
+        }.map { it.toEnumOrDefault(MenuSpeed.NORMAL) }
 
     val heartColor: Flow<HeartColor> = dataStore.data
         .map { preferences ->
-            val name = preferences[PreferencesKeys.HEART_COLOR] ?: HeartColor.RED.name
-            try {
-                HeartColor.valueOf(name)
-            } catch (e: IllegalArgumentException) {
-                HeartColor.RED
-            }
-        }
+            preferences[PreferencesKeys.HEART_COLOR] ?: HeartColor.RED.name
+        }.map { it.toEnumOrDefault(HeartColor.RED) }
+
+    val sprite: Flow<String?> = dataStore.data
+        .map { preferences -> preferences[PreferencesKeys.SPRITE] }
+
 
     suspend fun setQuickSwap(quickSwap: Boolean) {
         dataStore.edit { preferences ->
@@ -117,6 +106,12 @@ class RomPrefs(
     suspend fun setHeartColor(heartColor: HeartColor) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.HEART_COLOR] = heartColor.name
+        }
+    }
+
+    suspend fun setSprite(name: String) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKeys.SPRITE] = name
         }
     }
 }

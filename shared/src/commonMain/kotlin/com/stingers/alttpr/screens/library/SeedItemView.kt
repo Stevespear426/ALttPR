@@ -18,24 +18,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.stingers.alttpr.common.BASE_ROM_FILENAME
 import com.stingers.alttpr.common.PREFERENCE_PADDING
 import com.stingers.alttpr.common.components.HashCodeRow
 import com.stingers.alttpr.common.components.PrimaryButton
-import com.stingers.alttpr.model.RomEntity
+import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.SpoilerMeta
 import com.stingers.alttpr.screens.edit.SpoilerMetaView
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
-import kotlin.time.Clock
 
 @Composable
 fun SeedItemView(
-    romEntity: RomEntity,
+    seedEntity: SeedEntity,
     processEvent: (event: LibraryEvent) -> Unit
 ) {
     var expended by mutableStateOf(false)
-    val textModifier = Modifier
-    with(romEntity) {
+    with(seedEntity) {
         Card(modifier = Modifier.clickable {
             expended = !expended
         }.wrapContentHeight().fillMaxWidth()) {
@@ -44,7 +43,7 @@ fun SeedItemView(
                     Text(it.getFileName())
                 }
 
-                romEntity.getHashCode()?.let {
+                seedEntity.getHashCode()?.let {
                     HashCodeRow(it)
                 }
                 Text(generated.orEmpty())
@@ -54,21 +53,19 @@ fun SeedItemView(
                     SpoilerMetaView(it)
                 }
                 PrimaryButton(Res.string.edit) {
-                    processEvent(LibraryEvent.OpenEditSeed(romEntity))
+                    processEvent(LibraryEvent.OpenEditSeed(seedEntity))
                 }
             }
         }
     }
 }
 
-class RomEntityParameterProvider : PreviewParameterProvider<RomEntity> {
+class RomEntityParameterProvider : PreviewParameterProvider<SeedEntity> {
     override val values = sequenceOf(
-        RomEntity(
+        SeedEntity(
             hash = "1234",
             md5 = "12412",
-            createdAt = Clock.System.now().toEpochMilliseconds(),
-            localFileName = "file.sfc",
-//            gameMode = GameMode.DAILY_CHALLENGE,
+            localFileName = BASE_ROM_FILENAME,
             logic = "NoGlitch",
             generated = "2026-08-17T00:01:00+00:00",
             meta = SpoilerMeta(
@@ -88,7 +85,7 @@ class RomEntityParameterProvider : PreviewParameterProvider<RomEntity> {
 @Preview(showBackground = true)
 @Composable
 fun SeedItemViewLightPreview(
-    @PreviewParameter(RomEntityParameterProvider::class) item: RomEntity
+    @PreviewParameter(RomEntityParameterProvider::class) item: SeedEntity
 ) {
     PreviewLightTheme {
         SeedItemView(item) {}
@@ -98,7 +95,7 @@ fun SeedItemViewLightPreview(
 @Preview(showBackground = true)
 @Composable
 fun SeedItemViewDarkPreview(
-    @PreviewParameter(RomEntityParameterProvider::class) item: RomEntity
+    @PreviewParameter(RomEntityParameterProvider::class) item: SeedEntity
 ) {
     PreviewDarkTheme {
         SeedItemView(item) {}

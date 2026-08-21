@@ -5,18 +5,21 @@ import androidx.lifecycle.viewModelScope
 import com.stingers.alttpr.model.RandomizerGameMode
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.navigation.Screen
-import com.stingers.alttpr.repository.AlttprRepository
+import com.stingers.alttpr.repository.usecase.GetRandomizerSeedUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import org.koin.core.annotation.KoinViewModel
 
 @KoinViewModel
 class RandomizerViewModel(
-    private val alttprRepository: AlttprRepository,
+    private val getRandomizerSeedUseCase: GetRandomizerSeedUseCase,
     private val navigationManager: NavigationManager,
 ) : ViewModel() {
 
-    val state = MutableStateFlow(RandomizerState())
+    private val _state = MutableStateFlow(RandomizerState())
+    val state = _state.asStateFlow()
 
     fun processEvent(event: RandomizerEvent) {
         viewModelScope.launch {
@@ -26,21 +29,26 @@ class RandomizerViewModel(
         }
     }
 
-    fun createRandomizerSeed(mode: RandomizerGameMode) {
-        state.value = RandomizerState(loading = true)
-        viewModelScope.launch {
-            val result = alttprRepository.generateRandomizerSeed(mode.request())
-            result.onSuccess { hash ->
-                navigationManager.navigateTo(Screen.EditRom(hash))
-                state.value = RandomizerState(loading = false)
+    private suspend fun createRandomizerSeed(mode: RandomizerGameMode) {
+        _state.update { it.copy(loading = true, error = null) }
+
+        getRandomizerSeedUseCase(mode.request())
+            .onSuccess { seed ->
+                _state.update { it.copy(loading = false) }
+                navigationManager.navigateTo(Screen.EditRom(seed))
             }
-            result.onFailure {
-                state.value = RandomizerState(loading = false)
+            .onFailure { throwable ->
+                _state.update {
+                    it.copy(
+                        loading = false,
+                        error = throwable.message ?: "Failed to generate random seed"
+                    )
+                }
             }
-        }
     }
 }
 
 data class RandomizerState(
     val loading: Boolean = false,
+    val error: String? = null
 )
