@@ -6,6 +6,9 @@ import de.jensklingenberg.ktorfit.Ktorfit
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.DefaultRequest
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.serialization.kotlinx.json.json
@@ -17,7 +20,9 @@ import org.koin.core.annotation.Singleton
 class NetworkModule {
 
     @Singleton
-    fun provideHttpClient(): HttpClient {
+    fun provideHttpClient(
+        log: com.stingers.alttpr.common.Logger
+    ): HttpClient {
         return HttpClient {
             install(ContentNegotiation) {
                 json(
@@ -31,6 +36,15 @@ class NetworkModule {
             }
             install(DefaultRequest) {
                 headers.append(HttpHeaders.Accept, "application/json")
+            }
+            install(Logging) {
+                level = LogLevel.ALL
+                logger = object : Logger {
+                    override fun log(message: String) {
+                        // TODO Remove or hide behind debugMode
+                        log.d("ALTTPR", message)
+                    }
+                }
             }
         }
     }
