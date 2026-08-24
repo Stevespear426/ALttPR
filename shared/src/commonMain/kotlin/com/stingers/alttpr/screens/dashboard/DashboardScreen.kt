@@ -1,9 +1,16 @@
 package com.stingers.alttpr.screens.dashboard
 
+import alttpr.shared.generated.resources.Res
+import alttpr.shared.generated.resources.ic_mystery
+import alttpr.shared.generated.resources.ic_trophy
+import alttpr.shared.generated.resources.mystery_game
+import alttpr.shared.generated.resources.race_game
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.MaterialTheme
@@ -26,7 +33,6 @@ import com.stingers.alttpr.common.PREFERENCE_PADDING
 import com.stingers.alttpr.common.components.PageLoadingView
 import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.SpoilerMeta
-import com.stingers.alttpr.navigation.Screen
 import com.stingers.alttpr.screens.seed.SeedItemView
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
@@ -66,21 +72,61 @@ fun DashboardScreen(state: DashboardState, processEvent: (event: DashboardEvent)
                 Spacer(modifier = Modifier.height(12.dp))
             }
 
-            item {
-                state.dailySeed?.let {
+            state.dailySeed?.let {
+                item {
+                    Text(
+                        text = "Daily Challenge",
+                        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
+                    )
+                }
+                item {
                     SeedItemView(it)
                 }
-            }
 
-            item {
-                RandomChallengeView {
-                    processEvent(DashboardEvent.GenerateRandom)
+                item {
+                    Spacer(modifier = Modifier)
                 }
             }
 
             item {
-                GenerateRandomizedView {
-                    processEvent(DashboardEvent.NavigateTo(Screen.Randomizer))
+                Text(
+                    text = "Quick Actions",
+                    style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
+                )
+            }
+
+            item {
+                Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = spacedBy(16.dp)) {
+                    DashboardButtonView(
+                        modifier = Modifier.weight(1f),
+                        icon = Res.drawable.ic_mystery,
+                        text = Res.string.mystery_game
+                    ) {
+                        processEvent(DashboardEvent.GenerateMysteryGame)
+                    }
+
+                    DashboardButtonView(
+                        modifier = Modifier.weight(1f),
+                        icon = Res.drawable.ic_trophy,
+                        text = Res.string.race_game
+                    ) {
+                        processEvent(DashboardEvent.GenerateRaceGame)
+                    }
+                }
+            }
+            state.recentSeed?.let {
+                item {
+                    Spacer(modifier = Modifier)
+                }
+                item {
+                    Text(
+                        text = "Recent Game",
+                        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
+                    )
+                }
+
+                item {
+                    SeedItemView(it)
                 }
             }
         }

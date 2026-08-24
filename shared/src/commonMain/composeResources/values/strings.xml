@@ -339,7 +339,10 @@
     <string name="spoilers_generate">Generate</string>
     <string name="spoilers_mystery">Mystery</string>
 
-    <string name="mystery_game">Mystery game</string>
+    <string name="mystery_game">Mystery seed</string>
+
+
+    <string name="race_game">Race seed</string>
 
     <!-- Toggle -->
     <string name="toggle_on">On</string>

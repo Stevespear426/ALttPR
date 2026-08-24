@@ -27,4 +27,7 @@ interface SeedDao {
 
     @Query("DELETE FROM seed")
     suspend fun deleteAllSeeds()
+
+    @Query("SELECT * FROM seed ORDER BY lastPlayed DESC, updated DESC LIMIT 1")
+    fun getRecentSeed(): Flow<SeedEntity?>
 }
