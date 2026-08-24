@@ -32,7 +32,7 @@ class RandomizerViewModel(
     private suspend fun createRandomizerSeed(mode: RandomizerGameMode) {
         _state.update { it.copy(loading = true, error = null) }
 
-        getRandomizerSeedUseCase(mode.request())
+        getRandomizerSeedUseCase(mode.model())
             .onSuccess { seed ->
                 _state.update { it.copy(loading = false) }
                 navigationManager.navigateTo(Screen.EditRom(seed))

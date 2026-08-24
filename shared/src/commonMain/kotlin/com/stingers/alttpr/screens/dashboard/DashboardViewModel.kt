@@ -3,6 +3,7 @@ package com.stingers.alttpr.screens.dashboard
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stingers.alttpr.model.RandomizerGameMode
+import com.stingers.alttpr.model.RandomizerGameModel
 import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.api.Spoilers
 import com.stingers.alttpr.navigation.NavigationManager
@@ -67,7 +68,7 @@ class DashboardViewModel(
             .filterNot { it == RandomizerGameMode.CUSTOM }
             .random()
 
-        getRandomizerSeedUseCase(randomMode.request().copy(spoilers = Spoilers.Mystery.value))
+        getRandomizerSeedUseCase(randomMode.model().copy(spoilers = Spoilers.Mystery, tournament = true))
             .onSuccess { seed ->
                 _state.update { it.copy(loading = false) }
                 navigationManager.navigateTo(Screen.EditRom(seed))
@@ -89,7 +90,7 @@ class DashboardViewModel(
             .filterNot { it == RandomizerGameMode.CUSTOM }
             .random()
 
-        getRandomizerSeedUseCase(randomMode.request().copy(tournament = true))
+        getRandomizerSeedUseCase(randomMode.model().copy(tournament = true))
             .onSuccess { seed ->
                 _state.update { it.copy(loading = false) }
                 navigationManager.navigateTo(Screen.EditRom(seed))

@@ -8,8 +8,10 @@ import alttpr.shared.generated.resources.ic_key
 import alttpr.shared.generated.resources.ic_logic
 import alttpr.shared.generated.resources.ic_skull
 import alttpr.shared.generated.resources.ic_swords
+import alttpr.shared.generated.resources.ic_trophy
 import alttpr.shared.generated.resources.ic_world
 import alttpr.shared.generated.resources.mystery_game
+import alttpr.shared.generated.resources.race
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -32,7 +34,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import com.stingers.alttpr.common.PREFERENCE_PADDING
 import com.stingers.alttpr.model.SpoilerMeta
 import com.stingers.alttpr.model.SpoilerMetaParameterProvider
 import com.stingers.alttpr.model.api.BossShuffle
@@ -60,7 +61,7 @@ fun SeedMetaView(meta: SpoilerMeta) {
             horizontalArrangement = spacedBy(8.dp),
             verticalArrangement = spacedBy(8.dp),
         ) {
-            if (spoilers.toEnumOrDefault(Spoilers.Off) ==   Spoilers.Mystery) {
+            if (spoilers.toEnumOrDefault(Spoilers.Off) == Spoilers.Mystery) {
                 MetaChip(
                     title = Res.string.mystery_game,
                     icon = Res.drawable.ic_logic
@@ -123,6 +124,13 @@ fun SeedMetaView(meta: SpoilerMeta) {
                 MetaChip(
                     title = it.title,
                     icon = Res.drawable.ic_door
+                )
+            }
+
+            if (tournament) {
+                MetaChip(
+                    title = Res.string.race,
+                    icon = Res.drawable.ic_trophy
                 )
             }
         }

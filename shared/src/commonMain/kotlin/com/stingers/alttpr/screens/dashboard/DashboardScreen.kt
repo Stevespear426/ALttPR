@@ -1,6 +1,7 @@
 package com.stingers.alttpr.screens.dashboard
 
 import alttpr.shared.generated.resources.Res
+import alttpr.shared.generated.resources.dashboard_title
 import alttpr.shared.generated.resources.ic_mystery
 import alttpr.shared.generated.resources.ic_trophy
 import alttpr.shared.generated.resources.mystery_game
@@ -30,6 +31,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.stingers.alttpr.common.BASE_ROM_FILENAME
 import com.stingers.alttpr.common.PREFERENCE_PADDING
+import com.stingers.alttpr.common.components.PageHeader
 import com.stingers.alttpr.common.components.PageLoadingView
 import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.SpoilerMeta
@@ -65,10 +67,7 @@ fun DashboardScreen(state: DashboardState, processEvent: (event: DashboardEvent)
         ) {
 
             item {
-                Text(
-                    text = "ALTTPR Generator",
-                    style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold)
-                )
+                PageHeader(Res.string.dashboard_title)
                 Spacer(modifier = Modifier.height(12.dp))
             }
 

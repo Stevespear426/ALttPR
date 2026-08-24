@@ -1,5 +1,6 @@
 package com.stingers.alttpr.repository
 
+import com.stingers.alttpr.model.RandomizerGameModel
 import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.Sprite
 import com.stingers.alttpr.model.api.GenerateSeedRequest
@@ -80,12 +81,12 @@ class AlttprRepository(
     }
 
     suspend fun generateRandomizerSeed(
-        request: GenerateSeedRequest
+        model: RandomizerGameModel
     ): SeedEntity = withContext(Dispatchers.IO) {
-        val response = alttprService.generateSeed(request)
+        val response = alttprService.generateSeed(GenerateSeedRequest.getRequest(model))
         val hash = response.hash
         return@withContext fetchPatchAndSeedInfo(hash).copy(
-            request = request
+            request = model
         )
     }
 

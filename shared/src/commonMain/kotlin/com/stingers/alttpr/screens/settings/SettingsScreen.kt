@@ -7,6 +7,7 @@ import alttpr.shared.generated.resources.clear_app_data_message
 import alttpr.shared.generated.resources.debug_mode
 import alttpr.shared.generated.resources.licences
 import alttpr.shared.generated.resources.licences_message
+import alttpr.shared.generated.resources.settings_title
 import alttpr.shared.generated.resources.version
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.PaddingValues
@@ -14,20 +15,18 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.stingers.alttpr.BuildKonfig
 import com.stingers.alttpr.common.PREFERENCE_PADDING
+import com.stingers.alttpr.common.components.PageHeader
 import com.stingers.alttpr.common.preferences.ButtonPreference
 import com.stingers.alttpr.common.preferences.Preference
 import com.stingers.alttpr.common.preferences.SubPreference
@@ -54,10 +53,7 @@ fun SettingsScreen(state: SettingsState, processEvent: (event: SettingsEvent) ->
         ) {
 
             item {
-                Text(
-                    text = "App Settings",
-                    style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold)
-                )
+                PageHeader(Res.string.settings_title)
                 Spacer(modifier = Modifier.height(12.dp))
             }
 

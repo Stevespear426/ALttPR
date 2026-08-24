@@ -1,5 +1,6 @@
 package com.stingers.alttpr.model.api
 
+import com.stingers.alttpr.model.RandomizerGameModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -46,6 +47,48 @@ data class GenerateSeedRequest(
     @SerialName("pseudoboots") val pseudoboots: Boolean? = null,
     @SerialName("notes") val notes: String? = null,
     @SerialName("name") val name: String = "${glitches.orEmpty()}-${mode.orEmpty()}-${goal.orEmpty()}",
-)
+) {
+
+    companion object {
+        fun getRequest(model: RandomizerGameModel): GenerateSeedRequest {
+            with(model) {
+                return GenerateSeedRequest(
+                    lang = lang?.value,
+                    glitches = glitches?.value,
+                    itemPlacement = itemPlacement?.value,
+                    dungeonItems = dungeonItems?.value,
+                    accessibility = accessibility?.value,
+                    goal = goal?.value,
+                    crystals = CrystalsConfig(
+                        tower = towerCrystals?.value,
+                        ganon = ganonCrystals?.value
+                    ),
+                    mode = worldState?.value,
+                    entrances = entrances?.value,
+                    enemizer = EnemizerConfig(
+                        bossShuffle = bossShuffle?.value,
+                        enemyShuffle = enemyShuffle?.value,
+                        potShuffle = potShuffle?.value,
+                        enemyDamage = enemyDamage?.value,
+                        enemyHealth = enemyHealth?.value
+                    ),
+                    hints = hints?.value,
+                    weapons = weapons?.value,
+                    item = ItemConfig(
+                        pool = itemPool?.value,
+                        functionality = itemFunctionality?.value
+                    ),
+                    tournament = tournament,
+                    spoilers = spoilers?.value,
+                    allowQuickswap = allowQuickswap,
+                    overrideStartScreen = overrideStartScreen,
+                    pseudoboots = pseudoboots,
+//        name = name,
+                    notes = notes
+                )
+            }
+        }
+    }
+}
 
 

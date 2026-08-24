@@ -36,7 +36,7 @@ data class SeedEntity(
     val md5: String? = null,
     val localFileName: String? = null,
     @Ignore
-    val request: GenerateSeedRequest? = null
+    val request: RandomizerGameModel? = null
 ) {
 
     fun getHashCode(
