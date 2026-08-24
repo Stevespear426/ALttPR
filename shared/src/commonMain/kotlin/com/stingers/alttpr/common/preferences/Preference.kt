@@ -36,11 +36,13 @@ fun Preference(
     message: String? = null,
     messageRes: StringResource? = null,
     icon: DrawableResource? = null,
-    contentPadding: PaddingValues = SETTINGS_PREFERENCE_PADDING,
+//    contentPadding: PaddingValues = SETTINGS_PREFERENCE_PADDING,
     onClick: () -> Unit = {}
 ) {
     Row(
-        modifier = Modifier.clickable(onClick = onClick).padding(contentPadding),
+        modifier = Modifier
+            .clickable(onClick = onClick),
+//            .padding(contentPadding),
         verticalAlignment = Alignment.CenterVertically
     ) {
         icon?.let {

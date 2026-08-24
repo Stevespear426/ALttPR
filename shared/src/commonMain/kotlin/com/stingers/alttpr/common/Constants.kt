@@ -6,6 +6,8 @@ import androidx.compose.ui.unit.dp
 
 const val SPRITES_URL = "https://alttpr.com/sprites"
 
+const val PERMA_LINK = "https://alttpr.com/en/h/"
+
 
 const val ROM_FILE_EXTENSION = "sfc"
 

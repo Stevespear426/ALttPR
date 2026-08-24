@@ -1,7 +1,9 @@
 package com.stingers.alttpr.screens.main
 
 import alttpr.shared.generated.resources.Res
+import alttpr.shared.generated.resources.dashboard
 import alttpr.shared.generated.resources.generator
+import alttpr.shared.generated.resources.ic_dashboard
 import alttpr.shared.generated.resources.ic_generator
 import alttpr.shared.generated.resources.ic_library
 import alttpr.shared.generated.resources.ic_settings
@@ -30,12 +32,12 @@ fun BottomBar(pageIndex: Int, setCurrentPage: (index: Int) -> Unit) {
             },
             icon = {
                 Icon(
-                    painterResource(Res.drawable.ic_generator),
+                    painterResource(Res.drawable.ic_dashboard),
                     contentDescription = "dash_page",
                 )
             },
             label = {
-                Text(stringResource(Res.string.generator))
+                Text(stringResource(Res.string.dashboard))
             }
         )
         NavigationBarItem(
@@ -46,12 +48,12 @@ fun BottomBar(pageIndex: Int, setCurrentPage: (index: Int) -> Unit) {
             },
             icon = {
                 Icon(
-                    painterResource(Res.drawable.ic_library),
-                    contentDescription = "headlines_page",
+                    painterResource(Res.drawable.ic_generator),
+                    contentDescription = "gen_page",
                 )
             },
             label = {
-                Text(stringResource(Res.string.library),)
+                Text(stringResource(Res.string.generator))
             }
         )
         NavigationBarItem(
@@ -62,8 +64,24 @@ fun BottomBar(pageIndex: Int, setCurrentPage: (index: Int) -> Unit) {
             },
             icon = {
                 Icon(
+                    painterResource(Res.drawable.ic_library),
+                    contentDescription = "library_page",
+                )
+            },
+            label = {
+                Text(stringResource(Res.string.library),)
+            }
+        )
+        NavigationBarItem(
+            colors = colors,
+            selected = pageIndex == 3,
+            onClick = {
+                setCurrentPage(3)
+            },
+            icon = {
+                Icon(
                     painterResource(Res.drawable.ic_settings),
-                    contentDescription = "following_page",
+                    contentDescription = "settings_page",
                 )
             },
             label = {

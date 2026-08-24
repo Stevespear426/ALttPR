@@ -33,7 +33,9 @@ fun SubPreference(
     onClick: () -> Unit = {}
 ) {
     Row(
-        modifier = Modifier.clickable(onClick = onClick).padding(all = PREFERENCE_PADDING.dp),
+        modifier = Modifier
+            .clickable(onClick = onClick),
+//            .padding(all = PREFERENCE_PADDING.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Column(modifier = Modifier.weight(1f)) {

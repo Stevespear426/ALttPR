@@ -1,7 +1,6 @@
-package com.stingers.alttpr.screens.generator
+package com.stingers.alttpr.screens.dashboard
 
 import alttpr.shared.generated.resources.Res
-import alttpr.shared.generated.resources.create_daily
 import alttpr.shared.generated.resources.create_random
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.Column

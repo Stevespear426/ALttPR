@@ -9,7 +9,7 @@ val licences = listOf(
         name = "ALTTPR",
         type = LicenceType.MIT,
         url = "https://github.com/sporchia/alttp_vt_randomizer",
-        version = "v31.2.0"
+        version = "31.2.0"
     ),
     Licence(
         name = "Ktor",

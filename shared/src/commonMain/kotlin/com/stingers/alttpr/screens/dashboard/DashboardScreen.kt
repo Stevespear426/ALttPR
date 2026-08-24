@@ -1,4 +1,4 @@
-package com.stingers.alttpr.screens.generator
+package com.stingers.alttpr.screens.dashboard
 
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.PaddingValues
@@ -33,23 +33,23 @@ import com.stingers.alttpr.theme.PreviewLightTheme
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun GeneratorScreen(viewModel: GeneratorViewModel = koinViewModel()) {
+fun DashboardScreen(viewModel: DashboardViewModel = koinViewModel()) {
     val state by viewModel.state.collectAsState()
     when {
         state.loading -> PageLoadingView()
-        else -> GeneratorScreen(state, viewModel::processEvent)
+        else -> DashboardScreen(state, viewModel::processEvent)
     }
 }
 
 @Composable
-fun GeneratorScreen(state: GeneratorState, processEvent: (event: GeneratorEvent) -> Unit) {
+fun DashboardScreen(state: DashboardState, processEvent: (event: DashboardEvent) -> Unit) {
     val haptic = LocalHapticFeedback.current
 
     PullToRefreshBox(
         isRefreshing = false,
         onRefresh = {
             haptic.performHapticFeedback(HapticFeedbackType.Confirm)
-            processEvent(GeneratorEvent.RefreshData)
+            processEvent(DashboardEvent.RefreshData)
         }
     ) {
         LazyColumn(
@@ -74,20 +74,20 @@ fun GeneratorScreen(state: GeneratorState, processEvent: (event: GeneratorEvent)
 
             item {
                 RandomChallengeView {
-                    processEvent(GeneratorEvent.GenerateRandom)
+                    processEvent(DashboardEvent.GenerateRandom)
                 }
             }
 
             item {
                 GenerateRandomizedView {
-                    processEvent(GeneratorEvent.NavigateTo(Screen.Randomizer))
+                    processEvent(DashboardEvent.NavigateTo(Screen.Randomizer))
                 }
             }
         }
     }
 }
 
-class GeneratorStateParameterProvider : PreviewParameterProvider<GeneratorState> {
+class DashboardStateParameterProvider : PreviewParameterProvider<DashboardState> {
     val seed = SeedEntity(
         hash = "1234",
         md5 = "12412",
@@ -105,7 +105,7 @@ class GeneratorStateParameterProvider : PreviewParameterProvider<GeneratorState>
         ),
     )
     override val values = sequenceOf(
-        GeneratorState(dailySeed = seed)
+        DashboardState(dailySeed = seed)
     )
 }
 
@@ -113,11 +113,11 @@ class GeneratorStateParameterProvider : PreviewParameterProvider<GeneratorState>
 @Preview(showBackground = true)
 @Composable
 fun GeneratorScreenLightPreview(
-    @PreviewParameter(GeneratorStateParameterProvider::class) item: GeneratorState
+    @PreviewParameter(DashboardStateParameterProvider::class) item: DashboardState
 ) {
     PreviewLightTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            GeneratorScreen(item) {}
+            DashboardScreen(item) {}
         }
     }
 }
@@ -125,11 +125,11 @@ fun GeneratorScreenLightPreview(
 @Preview(showBackground = true)
 @Composable
 fun GeneratorScreenDarkPreview(
-    @PreviewParameter(GeneratorStateParameterProvider::class) item: GeneratorState
+    @PreviewParameter(DashboardStateParameterProvider::class) item: DashboardState
 ) {
     PreviewDarkTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            GeneratorScreen(item) {}
+            DashboardScreen(item) {}
         }
     }
 }

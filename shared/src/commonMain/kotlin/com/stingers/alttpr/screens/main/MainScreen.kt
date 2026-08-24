@@ -8,8 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.stingers.alttpr.screens.generator.GeneratorScreen
+import com.stingers.alttpr.screens.dashboard.DashboardScreen
 import com.stingers.alttpr.screens.library.LibraryScreen
+import com.stingers.alttpr.screens.randomizer.RandomizerScreen
 import com.stingers.alttpr.screens.settings.SettingsScreen
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
@@ -20,7 +21,8 @@ import kotlinx.coroutines.launch
 fun MainScreen() {
 
     val screens: List<@Composable () -> Unit> = listOf(
-        { GeneratorScreen() },
+        { DashboardScreen() },
+        { RandomizerScreen() },
         { LibraryScreen() },
         { SettingsScreen() }
     )

@@ -1,4 +1,4 @@
-package com.stingers.alttpr.screens.generator
+package com.stingers.alttpr.screens.dashboard
 
 import alttpr.shared.generated.resources.Res
 import alttpr.shared.generated.resources.generate_game

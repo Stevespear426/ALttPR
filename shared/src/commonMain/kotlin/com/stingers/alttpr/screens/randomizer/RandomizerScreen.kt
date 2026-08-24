@@ -2,14 +2,14 @@ package com.stingers.alttpr.screens.randomizer
 
 import alttpr.shared.generated.resources.Res
 import alttpr.shared.generated.resources.generate_game
-import alttpr.shared.generated.resources.randomizer
 import alttpr.shared.generated.resources.select_preset
 import androidx.compose.foundation.layout.Arrangement.spacedBy
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -17,19 +17,18 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.stingers.alttpr.common.PREFERENCE_PADDING
-import com.stingers.alttpr.common.components.HeaderPage
 import com.stingers.alttpr.common.components.PageLoadingView
 import com.stingers.alttpr.common.components.PrimaryButton
 import com.stingers.alttpr.common.preferences.MenuPreference
 import com.stingers.alttpr.model.RandomizerGameMode
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
-import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -37,11 +36,7 @@ fun RandomizerScreen(viewModel: RandomizerViewModel = koinViewModel()) {
     val state by viewModel.state.collectAsState()
     when {
         state.loading -> PageLoadingView()
-        else -> HeaderPage(stringResource(Res.string.randomizer)) {
-            Box(modifier = Modifier.padding(it)) {
-                RandomizerScreen(viewModel::processEvent)
-            }
-        }
+        else -> RandomizerScreen(viewModel::processEvent)
     }
 }
 
@@ -56,7 +51,11 @@ fun RandomizerScreen(
         contentPadding = PaddingValues(PREFERENCE_PADDING.dp)
     ) {
         item {
-            Text("RandomizerScreen")
+            Text(
+                text = "Generate Seed",
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Bold)
+            )
+            Spacer(modifier = Modifier.height(12.dp))
         }
         item {
             MenuPreference(

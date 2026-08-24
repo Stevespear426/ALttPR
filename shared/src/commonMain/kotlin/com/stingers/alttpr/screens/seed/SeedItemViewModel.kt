@@ -59,8 +59,8 @@ class SeedItemViewModel(
                 is SeedItemEvent.ExportRom -> exportRom()
                 is SeedItemEvent.PlaySeed -> playRom()
                 is SeedItemEvent.SaveSeed -> saveSeed()
-                is SeedItemEvent.RemoveSeed -> seedDao.deleteSeed(event.value.hash)
-                is SeedItemEvent.OpenEditSeed -> navigationManager.navigateTo(Screen.EditRom(event.value))
+                is SeedItemEvent.RemoveSeed -> seedDao.deleteSeed(state.value.seed.hash)
+                is SeedItemEvent.OpenEditSeed -> navigationManager.navigateTo(Screen.EditRom(state.value.seed))
             }
         }
     }

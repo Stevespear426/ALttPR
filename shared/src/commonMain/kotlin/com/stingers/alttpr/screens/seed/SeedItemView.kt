@@ -4,6 +4,7 @@ import alttpr.shared.generated.resources.Res
 import alttpr.shared.generated.resources.ic_delete
 import alttpr.shared.generated.resources.ic_download
 import alttpr.shared.generated.resources.ic_edit
+import alttpr.shared.generated.resources.ic_link
 import alttpr.shared.generated.resources.ic_play_arrow
 import alttpr.shared.generated.resources.ic_save
 import androidx.compose.foundation.layout.Arrangement
@@ -26,12 +27,14 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.stingers.alttpr.common.BASE_ROM_FILENAME
+import com.stingers.alttpr.common.PERMA_LINK
 import com.stingers.alttpr.common.PREFERENCE_PADDING
 import com.stingers.alttpr.common.components.HashCodeRow
 import com.stingers.alttpr.model.SeedEntity
@@ -58,6 +61,7 @@ fun SeedItemView(
     state: SeedItemState,
     processEvent: (event: SeedItemEvent) -> Unit
 ) {
+    val uriHandler = LocalUriHandler.current
     with(state.seed) {
         Card(modifier = Modifier.wrapContentHeight().fillMaxWidth()) {
             Column(
@@ -143,7 +147,7 @@ fun SeedItemView(
 
                 FilledIconButton(
                     onClick = {
-                        processEvent(SeedItemEvent.OpenEditSeed(this@with))
+                        processEvent(SeedItemEvent.OpenEditSeed)
                     }) {
                     Icon(
                         painterResource(Res.drawable.ic_edit),
@@ -152,11 +156,22 @@ fun SeedItemView(
                     )
                 }
 
+                FilledIconButton(
+                    onClick = {
+                        uriHandler.openUri(uri = PERMA_LINK + hash)
+                    }) {
+                    Icon(
+                        painterResource(Res.drawable.ic_link),
+                        contentDescription = "permalink button",
+                        tint = MaterialTheme.colorScheme.onSurface
+                    )
+                }
+
                 Spacer(modifier = Modifier.weight(1f))
 
                 FilledIconButton(
                     onClick = {
-                        processEvent(SeedItemEvent.RemoveSeed(this@with))
+                        processEvent(SeedItemEvent.RemoveSeed)
                     }) {
                     Icon(
                         painterResource(Res.drawable.ic_delete),

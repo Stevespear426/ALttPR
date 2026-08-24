@@ -47,7 +47,7 @@ fun ButtonPreference(
         modifier = Modifier
             .clickable(onClick = onClick)
             .fillMaxWidth()
-            .padding(PREFERENCE_PADDING.dp)
+//            .padding(PREFERENCE_PADDING.dp)
     ) {
         Column(Modifier.weight(1f)) {
             PreferenceHeader(stringResource(title))

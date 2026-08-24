@@ -1,4 +1,4 @@
-package com.stingers.alttpr.screens.generator
+package com.stingers.alttpr.screens.dashboard
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -15,21 +15,21 @@ import kotlinx.coroutines.launch
 import org.koin.core.annotation.KoinViewModel
 
 @KoinViewModel
-class GeneratorViewModel(
+class DashboardViewModel(
     private val navigationManager: NavigationManager,
     private val getDailySeedUseCase: GetDailySeedUseCase,
     private val getRandomizerSeedUseCase: GetRandomizerSeedUseCase
 ) : ViewModel() {
 
-    private val _state = MutableStateFlow(GeneratorState())
+    private val _state = MutableStateFlow(DashboardState())
     val state = _state.asStateFlow()
 
-    fun processEvent(event: GeneratorEvent) {
+    fun processEvent(event: DashboardEvent) {
         viewModelScope.launch {
             when (event) {
-                is GeneratorEvent.GenerateRandom -> createRandomSeed()
-                is GeneratorEvent.RefreshData -> createDailySeed()
-                is GeneratorEvent.NavigateTo -> navigationManager.navigateTo(event.value)
+                is DashboardEvent.GenerateRandom -> createRandomSeed()
+                is DashboardEvent.RefreshData -> createDailySeed()
+                is DashboardEvent.NavigateTo -> navigationManager.navigateTo(event.value)
             }
         }
     }
@@ -80,7 +80,7 @@ class GeneratorViewModel(
     }
 }
 
-data class GeneratorState(
+data class DashboardState(
     val loading: Boolean = true,
     val error: String? = null,
     val dailySeed: SeedEntity? = null

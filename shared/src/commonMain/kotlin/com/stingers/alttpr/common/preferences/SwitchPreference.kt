@@ -32,7 +32,7 @@ fun SwitchPreference(
     title: StringResource,
     checked: Boolean,
     message: String? = null,
-    contentPadding: PaddingValues = SETTINGS_PREFERENCE_PADDING,
+//    contentPadding: PaddingValues = SETTINGS_PREFERENCE_PADDING,
     onCheckedChange: (value: Boolean) -> Unit
 ) {
     Row(
@@ -43,7 +43,7 @@ fun SwitchPreference(
             .clickable {
                 onCheckedChange(!checked)
             }
-            .padding(contentPadding)
+//            .padding(contentPadding)
     ) {
         Column(Modifier.weight(1f)) {
             PreferenceHeader(stringResource(title))
