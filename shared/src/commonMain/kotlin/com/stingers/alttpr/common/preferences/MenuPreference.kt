@@ -31,7 +31,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.stingers.alttpr.common.MENU_PADDING_VALUES
-import com.stingers.alttpr.common.SETTINGS_PREFERENCE_PADDING
 import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme

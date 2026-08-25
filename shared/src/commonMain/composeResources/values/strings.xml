@@ -401,6 +401,7 @@
     <string name="warn_logs">Warn</string>
     <string name="wtf_logs">WTF</string>
 
+    <string name="generating_seed">Generating seed.</string>
     <string name="play_seed">Play Seed</string>
     <string name="save_seed_success">Seed Saved.</string>
     <string name="save_seed_failed">Save error.</string>
@@ -408,4 +409,5 @@
     <string name="generate_rom_failed">Generate ROM error.</string>
     <string name="save_rom_failed">Save ROM error.</string>
 
+    <string name="logic">Logic</string>
 </resources>

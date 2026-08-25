@@ -3,6 +3,7 @@ package com.stingers.alttpr.screens.edit
 import alttpr.shared.generated.resources.Res
 import alttpr.shared.generated.resources.generate_rom_failed
 import alttpr.shared.generated.resources.generate_seed_failed
+import alttpr.shared.generated.resources.generating_seed
 import alttpr.shared.generated.resources.save_rom_failed
 import alttpr.shared.generated.resources.save_seed_failed
 import alttpr.shared.generated.resources.save_seed_success
@@ -15,15 +16,14 @@ import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.Sprite
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.navigation.Screen
-import com.stingers.alttpr.repository.AlttprRepository
 import com.stingers.alttpr.repository.local.RomPrefs
 import com.stingers.alttpr.repository.local.SeedDao
 import com.stingers.alttpr.repository.usecase.ExportRomUseCase
 import com.stingers.alttpr.repository.usecase.GetRandomizerSeedUseCase
+import com.stingers.alttpr.repository.usecase.GetSavedSpriteUseCase
 import com.stingers.alttpr.repository.usecase.PlayRomUseCase
 import com.stingers.alttpr.repository.usecase.SaveSeedUseCase
 import com.stingers.alttpr.utils.combine
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
@@ -35,9 +35,9 @@ import org.koin.core.annotation.KoinViewModel
 @KoinViewModel
 class EditRomViewModel(
     @InjectedParam seed: SeedEntity,
-    seedDao: SeedDao,
+    getSavedSpriteUseCase: GetSavedSpriteUseCase,
+    private val seedDao: SeedDao,
     private val romPrefs: RomPrefs,
-    private val alttprRepository: AlttprRepository,
     private val saveSeedUseCase: SaveSeedUseCase,
     private val exportRomUseCase: ExportRomUseCase,
     private val playRomUseCase: PlayRomUseCase,
@@ -45,12 +45,8 @@ class EditRomViewModel(
     private val navigationManager: NavigationManager
 ) : ViewModel() {
 
-    val sprites = MutableStateFlow(emptyList<Sprite>())
-
-    val loading = MutableStateFlow<Boolean>(true)
 
     val state: StateFlow<EditRomState> = combine(
-        loading,
         romPrefs.quickSwap,
         romPrefs.reduceFlashing,
         romPrefs.enableMusic,
@@ -58,11 +54,9 @@ class EditRomViewModel(
         romPrefs.heartSpeed,
         romPrefs.menuSpeed,
         romPrefs.heartColor,
-        romPrefs.sprite,
-        sprites,
+        getSavedSpriteUseCase(),
         seedDao.getSeedFlow(seed.hash)
-    ) { loading,
-        quickSwap,
+    ) { quickSwap,
         reduceFlashing,
         enableMusic,
         msuResume,
@@ -70,10 +64,8 @@ class EditRomViewModel(
         menuSpeed,
         heartColor,
         sprite,
-        sprites,
         savedSeed ->
         EditRomState(
-            loading = loading,
             seed = seed,
             quickSwap = quickSwap,
             reduceFlashing = reduceFlashing,
@@ -82,8 +74,7 @@ class EditRomViewModel(
             heartSpeed = heartSpeed,
             menuSpeed = menuSpeed,
             heartColor = heartColor,
-            selectedSprite = sprites.find { it.name == sprite },
-            availableSprites = sprites,
+            selectedSprite = sprite,
             isSaved = savedSeed != null
         )
     }.stateIn(
@@ -107,6 +98,8 @@ class EditRomViewModel(
                 is EditRomEvent.PlaySeed -> playRom()
                 is EditRomEvent.ReRollSeed -> rerollSeed()
                 is EditRomEvent.SaveSeed -> saveSeed()
+                is EditRomEvent.DeleteSeed -> seedDao.deleteSeed(state.value.seed.hash)
+                is EditRomEvent.OpenSpriteSelector -> navigationManager.navigateTo(Screen.Sprites)
             }
         }
     }
@@ -136,32 +129,16 @@ class EditRomViewModel(
 
     suspend fun rerollSeed() {
         state.value.seed.request?.let {
-            loading.value = true
+            navigationManager.showToast(getString(Res.string.generating_seed))
             getRandomizerSeedUseCase(it)
                 .onSuccess {
                     navigationManager.pop()
                     navigationManager.navigateTo(Screen.EditRom(it))
-                    loading.value = false
                 }
                 .onFailure {
-                    loading.value = false
                     navigationManager.showToast(getString(Res.string.generate_seed_failed))
                 }
         }
-    }
-
-    fun getSprites() {
-        viewModelScope.launch {
-            val result = alttprRepository.getSprites()
-            result.onSuccess { newSprites ->
-                sprites.value = newSprites
-            }
-            loading.value = false
-        }
-    }
-
-    init {
-        getSprites()
     }
 }
 
@@ -175,7 +152,6 @@ data class EditRomState(
     val reduceFlashing: Boolean = false,
     val enableMusic: Boolean = true,
     val msuResume: Boolean = true,
-    val availableSprites: List<Sprite> = emptyList(),
     val selectedSprite: Sprite? = null,
     val isSaved: Boolean = false
 )

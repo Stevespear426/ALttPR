@@ -20,4 +20,7 @@ sealed interface Screen : NavKey {
 
     @Serializable
     data object Randomizer : Screen
+
+    @Serializable
+    data object Sprites : Screen
 }

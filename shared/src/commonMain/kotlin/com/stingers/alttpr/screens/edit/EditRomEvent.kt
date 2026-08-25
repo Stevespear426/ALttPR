@@ -9,8 +9,11 @@ import com.stingers.alttpr.model.Sprite
 sealed interface EditRomEvent {
     object ReRollSeed : EditRomEvent
     object SaveSeed : EditRomEvent
+    object DeleteSeed : EditRomEvent
     object PlaySeed : EditRomEvent
     object ExportRom : EditRomEvent
+
+    object OpenSpriteSelector : EditRomEvent
 
     data class SetHeartSpeed(val value: HeartSpeed) : EditRomEvent
     data class SetHeartColor(val value: HeartColor) : EditRomEvent

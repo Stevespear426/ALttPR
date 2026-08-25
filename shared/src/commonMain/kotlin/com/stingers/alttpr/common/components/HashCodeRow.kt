@@ -22,11 +22,12 @@ import org.jetbrains.compose.resources.stringResource
 fun HashCodeRow(
     list: List<Hash>,
     iconSize: Int = 24,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    horizontalArrangement: Arrangement.Horizontal = Arrangement.spacedBy(4.dp),
 ) {
     Row(
         modifier = modifier,
-        horizontalArrangement = Arrangement.spacedBy(4.dp)
+        horizontalArrangement = horizontalArrangement
     ) {
         list.forEach {
             with(it) {
