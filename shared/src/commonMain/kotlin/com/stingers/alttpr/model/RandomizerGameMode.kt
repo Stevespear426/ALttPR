@@ -40,12 +40,14 @@ enum class RandomizerGameMode(val title: StringResource) {
             entrances = Entrances.None,
             bossShuffle = BossShuffle.None,
             enemyShuffle = EnemyShuffle.None,
+            potShuffle = Toggle.Off,
             hints = Toggle.On,
             weapons = Weapons.Randomized,
             itemPool = ItemPool.Normal,
             itemFunctionality = ItemFunctionality.Normal,
             enemyDamage = EnemyDamage.Default,
-            enemyHealth = EnemyHealth.Default
+            enemyHealth = EnemyHealth.Default,
+            pseudoboots = false
         )
     },
     BEGINNER(Res.string.gamemode_beginner) {
@@ -61,12 +63,14 @@ enum class RandomizerGameMode(val title: StringResource) {
             entrances = Entrances.None,
             bossShuffle = BossShuffle.None,
             enemyShuffle = EnemyShuffle.None,
+            potShuffle = Toggle.Off,
             hints = Toggle.Off,
             weapons = Weapons.Assured,
             itemPool = ItemPool.Normal,
             itemFunctionality = ItemFunctionality.Normal,
             enemyDamage = EnemyDamage.Default,
-            enemyHealth = EnemyHealth.Default
+            enemyHealth = EnemyHealth.Default,
+            pseudoboots = false
         )
     },
     OWG(Res.string.gamemode_owg) {
@@ -82,12 +86,14 @@ enum class RandomizerGameMode(val title: StringResource) {
             entrances = Entrances.None,
             bossShuffle = BossShuffle.None,
             enemyShuffle = EnemyShuffle.None,
+            potShuffle = Toggle.Off,
             hints = Toggle.On,
             weapons = Weapons.Randomized,
             itemPool = ItemPool.Normal,
             itemFunctionality = ItemFunctionality.Normal,
             enemyDamage = EnemyDamage.Default,
-            enemyHealth = EnemyHealth.Default
+            enemyHealth = EnemyHealth.Default,
+            pseudoboots = false
         )
     },
     CROSSKEYS(Res.string.gamemode_crosskeys) {
@@ -103,12 +109,14 @@ enum class RandomizerGameMode(val title: StringResource) {
             entrances = Entrances.Crossed,
             bossShuffle = BossShuffle.None,
             enemyShuffle = EnemyShuffle.None,
+            potShuffle = Toggle.Off,
             hints = Toggle.On,
             weapons = Weapons.Randomized,
             itemPool = ItemPool.Normal,
             itemFunctionality = ItemFunctionality.Normal,
             enemyDamage = EnemyDamage.Default,
-            enemyHealth = EnemyHealth.Default
+            enemyHealth = EnemyHealth.Default,
+            pseudoboots = false
         )
     },
     SUPER_QUICK(Res.string.gamemode_super_quick) {
@@ -124,12 +132,14 @@ enum class RandomizerGameMode(val title: StringResource) {
             entrances = Entrances.None,
             bossShuffle = BossShuffle.None,
             enemyShuffle = EnemyShuffle.None,
+            potShuffle = Toggle.Off,
             hints = Toggle.Off,
             weapons = Weapons.Assured,
             itemPool = ItemPool.Normal,
             itemFunctionality = ItemFunctionality.Normal,
             enemyDamage = EnemyDamage.Default,
-            enemyHealth = EnemyHealth.Default
+            enemyHealth = EnemyHealth.Default,
+            pseudoboots = false
         )
     },
     NIGHTMARE(Res.string.gamemode_nightmare) {
@@ -145,12 +155,14 @@ enum class RandomizerGameMode(val title: StringResource) {
             entrances = Entrances.Insanity,
             bossShuffle = BossShuffle.Random,
             enemyShuffle = EnemyShuffle.Random,
+            potShuffle = Toggle.Off,
             hints = Toggle.Off,
             weapons = Weapons.Swordless,
             itemPool = ItemPool.Expert,
             itemFunctionality = ItemFunctionality.Expert,
             enemyDamage = EnemyDamage.Random,
-            enemyHealth = EnemyHealth.Expert
+            enemyHealth = EnemyHealth.Expert,
+            pseudoboots = false
         )
     },
     CUSTOM(Res.string.gamemode_custom) {

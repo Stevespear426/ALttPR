@@ -47,7 +47,6 @@ fun <T> MenuPreference(
     items: List<T>,
     titleResForItem: (value: T) -> StringResource,
     menuResForItem: (value: T) -> StringResource = titleResForItem,
-//    contentPadding: PaddingValues = SETTINGS_PREFERENCE_PADDING,
     onItemChange: (value: T) -> Unit
 ) {
     var showMenu by remember { mutableStateOf(false) }
@@ -59,7 +58,6 @@ fun <T> MenuPreference(
                 showMenu = true
             }
             .fillMaxWidth()
-//            .padding(contentPadding)
     ) {
         Column(Modifier.weight(1f)) {
             PreferenceHeader(stringResource(title))

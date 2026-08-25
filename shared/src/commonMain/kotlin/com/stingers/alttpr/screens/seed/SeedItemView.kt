@@ -114,17 +114,6 @@ fun SeedItemView(
 
                 FilledIconButton(
                     onClick = {
-                        processEvent(SeedItemEvent.SaveSeed)
-                    }) {
-                    Icon(
-                        painterResource(Res.drawable.ic_save),
-                        contentDescription = "Save button",
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
-                }
-
-                FilledIconButton(
-                    onClick = {
                         processEvent(SeedItemEvent.PlaySeed)
                     }) {
                     Icon(
@@ -169,15 +158,29 @@ fun SeedItemView(
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                FilledIconButton(
-                    onClick = {
-                        processEvent(SeedItemEvent.RemoveSeed)
-                    }) {
-                    Icon(
-                        painterResource(Res.drawable.ic_delete),
-                        contentDescription = "delete button",
-                        tint = MaterialTheme.colorScheme.onSurface
-                    )
+                if (state.isSaved) {
+
+                    FilledIconButton(
+                        onClick = {
+                            processEvent(SeedItemEvent.RemoveSeed)
+                        }) {
+                        Icon(
+                            painterResource(Res.drawable.ic_delete),
+                            contentDescription = "delete button",
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
+                } else {
+                    FilledIconButton(
+                        onClick = {
+                            processEvent(SeedItemEvent.SaveSeed)
+                        }) {
+                        Icon(
+                            painterResource(Res.drawable.ic_save),
+                            contentDescription = "Save button",
+                            tint = MaterialTheme.colorScheme.onSurface
+                        )
+                    }
                 }
             }
         }
