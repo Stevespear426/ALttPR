@@ -99,38 +99,28 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
-      - name: Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: '26.2'
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
       - name: Archive iOS
         run: |
           xcodebuild -project iosApp/iosApp.xcodeproj \
-            -scheme "PureFeed Free" \
+            -scheme "iosApp" \
             -configuration Release \
             -sdk iphoneos \
             -destination 'generic/platform=iOS' \
-            archive -archivePath $RUNNER_TEMP/PureFeedFree.xcarchive \
+            archive -archivePath $RUNNER_TEMP/ALTTPR.xcarchive \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY=""
 
-      - name: Prepare IPAs
+      - name: Prepare IPA
         run: |
           mkdir -p build/ios/ipa
-          # Manually package the .app inside the archive into a .ipa
-          # This works for "unsigned" builds that you will sign later on your Mac or via Apple's cloud
-          pushd $RUNNER_TEMP/PureFeedFree.xcarchive/Products/Applications
+          pushd $RUNNER_TEMP/ALTTPR.xcarchive/Products/Applications
           mkdir -p Payload
           cp -R *.app Payload/
-          zip -r $GITHUB_WORKSPACE/build/ios/ipa/PureFeedFree.ipa Payload
-          popd
-          
-          pushd $RUNNER_TEMP/PureFeedPro.xcarchive/Products/Applications
-          mkdir -p Payload
-          cp -R *.app Payload/
-          zip -r $GITHUB_WORKSPACE/build/ios/ipa/PureFeedPro.ipa Payload
+          zip -r $GITHUB_WORKSPACE/build/ios/ipa/ALTTPR.ipa Payload
           popd
 
       - name: Upload iOS Artifacts
