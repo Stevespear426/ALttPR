@@ -11,7 +11,7 @@ dependencies {
 
     implementation(compose.desktop.currentOs)
     implementation(libs.kotlinx.coroutinesSwing)
-
+    implementation(libs.compose.components.resources)
     implementation(libs.compose.uiToolingPreview)
 }
 
@@ -21,8 +21,20 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "com.stingers.alttpr"
+            packageName = "AlttPR"
             packageVersion = "1.0.0"
+
+            macOS {
+                bundleID = "com.stingers.alttpr"
+                iconFile.set(project.file("icon.icns"))
+            }
+            windows {
+                iconFile.set(project.file("icon.ico"))
+            }
+            linux {
+                debMaintainer = "stingersolutionsdev@gmail.com"
+                iconFile.set(project.file("icon.png"))
+            }
         }
     }
 }
