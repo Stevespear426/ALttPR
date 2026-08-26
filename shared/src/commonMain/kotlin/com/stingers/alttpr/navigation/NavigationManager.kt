@@ -15,6 +15,7 @@ import com.stingers.alttpr.screens.edit.EditRomScreen
 import com.stingers.alttpr.screens.licenses.LicencesScreen
 import com.stingers.alttpr.screens.main.MainScreen
 import com.stingers.alttpr.screens.randomizer.RandomizerScreen
+import com.stingers.alttpr.screens.settings.LogsScreen
 import com.stingers.alttpr.screens.sprites.SpriteScreen
 import com.stingers.alttpr.screens.upload.UploadRomScreen
 import kotlinx.coroutines.CoroutineScope
@@ -87,6 +88,10 @@ class NavigationManager {
 
                     is Screen.Sprites -> NavEntry(key as Screen) {
                         SpriteScreen()
+                    }
+
+                    is Screen.Logs -> NavEntry(key as Screen) {
+                        LogsScreen()
                     }
                 }
             }

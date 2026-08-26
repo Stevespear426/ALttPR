@@ -27,7 +27,7 @@ class Logger(
             debug(tag, message)
             loggerDao.insertLog(
                 LogEntity(
-                    LogType.DEBUG.name,
+                    LogType.DEBUG,
                     tag,
                     message,
                 )
@@ -40,7 +40,7 @@ class Logger(
             exception(tag, message, error)
             loggerDao.insertLog(
                 LogEntity(
-                    LogType.ERROR.name,
+                    LogType.ERROR,
                     tag,
                     message,
                     error.stackTraceToString().take(STACKTRACE_LENGTH)
@@ -55,7 +55,7 @@ class Logger(
             info(tag, message)
             loggerDao.insertLog(
                 LogEntity(
-                    LogType.INFO.name,
+                    LogType.INFO,
                     tag,
                     message,
                 )
@@ -68,7 +68,7 @@ class Logger(
             warn(tag, message)
             loggerDao.insertLog(
                 LogEntity(
-                    LogType.WARN.name,
+                    LogType.WARN,
                     tag,
                     message,
                 )
@@ -81,7 +81,7 @@ class Logger(
             whatTheF(tag, message)
             loggerDao.insertLog(
                 LogEntity(
-                    LogType.WTF.name,
+                    LogType.WTF,
                     tag,
                     message,
                 )

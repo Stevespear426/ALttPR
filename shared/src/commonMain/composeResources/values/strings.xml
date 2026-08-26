@@ -410,4 +410,7 @@
     <string name="save_rom_failed">Save ROM error.</string>
 
     <string name="logic">Logic</string>
+    <string name="logs">Logs</string>
+    <string name="logs_screen">View Logs</string>
+    <string name="filter_log_tags">Filter Log Tags</string>
 </resources>

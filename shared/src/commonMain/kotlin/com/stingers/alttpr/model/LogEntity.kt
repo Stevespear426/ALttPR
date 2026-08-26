@@ -6,7 +6,7 @@ import com.stingers.alttpr.utils.currentTimeInMillis
 
 @Entity
 data class LogEntity(
-    var type: String = LogType.DEBUG.name,
+    var type: LogType = LogType.DEBUG,
     var tag: String = "",
     var message: String = "",
     var stacktrace: String = "",

@@ -7,6 +7,7 @@ import alttpr.shared.generated.resources.clear_app_data_message
 import alttpr.shared.generated.resources.debug_mode
 import alttpr.shared.generated.resources.licences
 import alttpr.shared.generated.resources.licences_message
+import alttpr.shared.generated.resources.logs_screen
 import alttpr.shared.generated.resources.settings_title
 import alttpr.shared.generated.resources.version
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -81,6 +82,16 @@ fun SettingsScreen(state: SettingsState, processEvent: (event: SettingsEvent) ->
                     stringResource(Res.string.licences_message)
                 ) {
                     processEvent(SettingsEvent.NavigateTo(Screen.Licenses))
+                }
+            }
+
+            if (debugMode) {
+                item {
+                    SubPreference(
+                        Res.string.logs_screen,
+                    ) {
+                        processEvent(SettingsEvent.NavigateTo(Screen.Logs))
+                    }
                 }
             }
 
