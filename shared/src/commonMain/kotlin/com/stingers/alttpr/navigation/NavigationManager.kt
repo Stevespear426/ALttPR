@@ -28,7 +28,7 @@ import kotlin.time.Duration.Companion.milliseconds
 
 
 @Singleton
-class NavigationManager {
+open class NavigationManager {
 
     val lifecycleScope = CoroutineScope(Job() + Dispatchers.Default)
 
@@ -36,22 +36,22 @@ class NavigationManager {
 
     val backStack = mutableStateListOf<Screen>(Screen.Main)
 
-    fun navigateTo(screen: Screen) {
+    open fun navigateTo(screen: Screen) {
         backStack.add(screen)
     }
 
-    fun pop() {
+    open fun pop() {
         if (backStack.size > 1) {
             backStack.removeAt(backStack.size - 1)
         }
     }
 
-    fun setRoot(screen: Screen) {
+    open fun setRoot(screen: Screen) {
         backStack.clear()
         backStack.add(screen)
     }
 
-    fun showToast(text: String, duration: ToastDuration = ToastDuration.SHORT) {
+    open fun showToast(text: String, duration: ToastDuration = ToastDuration.SHORT) {
         toastState.value = text
         lifecycleScope.launch {
             delay(duration.value.milliseconds)

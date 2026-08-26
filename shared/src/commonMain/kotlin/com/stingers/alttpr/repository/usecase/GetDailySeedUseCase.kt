@@ -6,12 +6,12 @@ import com.stingers.alttpr.repository.AlttprRepository
 import org.koin.core.annotation.Factory
 
 @Factory
-class GetDailySeedUseCase(
+open class GetDailySeedUseCase(
     private val logger: Logger,
     private val repository: AlttprRepository,
 ) {
 
-    suspend operator fun invoke(): Result<SeedEntity> = runCatching {
+    open suspend operator fun invoke(): Result<SeedEntity> = runCatching {
         repository.createDailySeed()
     }.onFailure { e ->
         logger.e(TAG, "Failed to retrieve Daily Seed", e)

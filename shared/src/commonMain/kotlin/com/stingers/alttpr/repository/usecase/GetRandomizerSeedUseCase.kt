@@ -8,12 +8,12 @@ import com.stingers.alttpr.repository.AlttprRepository
 import org.koin.core.annotation.Factory
 
 @Factory
-class GetRandomizerSeedUseCase(
+open class GetRandomizerSeedUseCase(
     private val logger: Logger,
     private val repository: AlttprRepository,
 ) {
 
-    suspend operator fun invoke(model: RandomizerGameModel): Result<SeedEntity> = runCatching {
+    open suspend operator fun invoke(model: RandomizerGameModel): Result<SeedEntity> = runCatching {
         repository.generateRandomizerSeed(model)
     }.onFailure { e ->
         logger.e(TAG, "Failed to generate Seed", e)

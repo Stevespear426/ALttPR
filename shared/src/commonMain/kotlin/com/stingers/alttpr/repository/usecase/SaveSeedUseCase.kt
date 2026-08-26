@@ -13,13 +13,13 @@ import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Factory
 
 @Factory
-class SaveSeedUseCase(
+open class SaveSeedUseCase(
     private val logger: Logger,
     private val repository: AlttprRepository,
     private val seedDao: SeedDao,
 ) {
 
-    suspend operator fun invoke(seed: SeedEntity): Result<SeedEntity> = runCatching {
+    open suspend operator fun invoke(seed: SeedEntity): Result<SeedEntity> = runCatching {
         val fileExists = !seed.localFileName.isNullOrEmpty() &&
                 RomStorage.getGeneratedSeedFile(seed.localFileName)?.exists() == true
 

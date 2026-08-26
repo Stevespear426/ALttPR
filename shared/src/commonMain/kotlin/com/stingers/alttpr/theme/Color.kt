@@ -8,5 +8,5 @@ val DarkBackground = Color(0xFF000000)
 val DarkText = Color(0xFF272727)
 val PrimaryVariant = Color(0xFF707070)
 
-val ZeldaGold = Color(0xFFBD9900)
+val ZeldaGold = Color(0xFFC69E4D)
 

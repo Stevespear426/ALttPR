@@ -10,13 +10,13 @@ import io.github.vinceglb.filekit.dialogs.openFileWithDefaultApplication
 import org.koin.core.annotation.Factory
 
 @Factory
-class PlayRomUseCase(
+open class PlayRomUseCase(
     private val logger: Logger,
     private val saveSeedUseCase: SaveSeedUseCase,
     private val getPatchedRomBytesUseCase: GetPatchedRomBytesUseCase,
 ) {
 
-    suspend operator fun invoke(seed: SeedEntity): Result<Unit> = runCatching {
+    open suspend operator fun invoke(seed: SeedEntity): Result<Unit> = runCatching {
         val fileName = seed.getFileName() + ROM_FILE_EXTENSION_DOT
         val savedSeed = saveSeedUseCase(seed.copy(lastPlayed = currentTimeInMillis())).getOrThrow()
         val rom = getPatchedRomBytesUseCase(savedSeed).getOrThrow()

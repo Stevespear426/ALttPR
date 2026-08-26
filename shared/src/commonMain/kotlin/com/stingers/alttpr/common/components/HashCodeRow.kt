@@ -60,13 +60,14 @@ class HashCodeRowParameterProvider : PreviewParameterProvider<List<Hash>> {
     )
 }
 
+@Preview(showBackground = true)
 @Composable
 fun HashCodeRowLightPreview(
     @PreviewParameter(HashCodeRowParameterProvider::class) item: List<Hash>
 ) {
     PreviewLightTheme {
-        Surface(Modifier.fillMaxWidth()) {
-            HashCodeRow(item)
+        Surface {
+            HashCodeRow(list = item, modifier = Modifier.fillMaxWidth())
         }
     }
 }
@@ -78,8 +79,8 @@ fun HashCodeRowDarkPreview(
 
 ) {
     PreviewDarkTheme {
-        Surface(Modifier.fillMaxWidth()) {
-            HashCodeRow(item)
+        Surface {
+            HashCodeRow(list = item, modifier = Modifier.fillMaxWidth())
         }
     }
 }

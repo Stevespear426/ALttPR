@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 
 @Dao
 abstract class LoggerDao {
-
     @Query("""
         SELECT * FROM LogEntity 
         WHERE (:type IS NULL OR type = :type) 
@@ -30,13 +29,13 @@ abstract class LoggerDao {
 
     private val scope = CoroutineScope(Job() + Dispatchers.IO)
 
-    fun insertLog(log: LogEntity) {
+    open fun insertLog(log: LogEntity) {
         scope.launch {
             insertLogInternal(log)
         }
     }
 
-    fun deleteAllLogs() {
+    open fun deleteAllLogs() {
         scope.launch {
             deleteAllLogsInternal()
         }

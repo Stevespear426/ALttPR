@@ -13,7 +13,7 @@ import kotlinx.coroutines.flow.stateIn
 import org.koin.core.annotation.Singleton
 
 @Singleton
-class Logger(
+open class Logger(
     private val appPrefs: AppPrefs,
     private val loggerDao: LoggerDao
 ) {

@@ -1,4 +1,5 @@
 import com.codingfeline.buildkonfig.compiler.FieldSpec
+import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -12,6 +13,8 @@ plugins {
     alias(libs.plugins.ktorfit)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.room)
+    alias(libs.plugins.mokkery)
+    alias(libs.plugins.kover)
 }
 
 room3 {
@@ -131,6 +134,7 @@ kotlin {
 
         commonTest.dependencies {
             implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutines.test)
         }
     }
 }
@@ -149,4 +153,38 @@ dependencies {
     add("kspJvm", libs.room.compiler)
     add("kspJvm", libs.room3.paging)
     add("kspJvm", libs.androidx.paging.common)
+}
+
+mokkery {
+    ignoreFinalMembers.set(true)
+    stubs.allowClassInheritance.set(true)
+    stubs.allowConcreteClassInstantiation.set(true)
+}
+
+kover {
+    reports {
+        filters {
+            excludes {
+                classes(
+                    "*_Factory*",
+                    "*_Impl*",
+                    "*.databinding.*",
+                    "*.BuildConfig"
+                )
+            }
+        }
+    }
+}
+
+// Targets all test tasks (JVM, Android, and KMP Native/Js targets)
+tasks.withType<AbstractTestTask>().configureEach {
+    testLogging {
+        events("passed", "failed", "skipped", "standard_out", "standard_error")
+        showStandardStreams = true
+        exceptionFormat = TestExceptionFormat.FULL
+        showStackTraces = true
+        showCauses = true
+    }
+    reports.html.required.set(true)
+    reports.junitXml.required.set(true)
 }

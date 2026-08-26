@@ -11,19 +11,19 @@ import org.koin.core.annotation.Named
 import org.koin.core.annotation.Singleton
 
 @Singleton
-class AppPrefs(
+open class AppPrefs(
     @Named("appPrefs") private val dataStore: DataStore<Preferences>
 ) {
     private object PreferencesKeys {
         val DEBUG_MODE = booleanPreferencesKey("debug_mode")
     }
 
-    val debugMode: Flow<Boolean> = dataStore.data
+    open val debugMode: Flow<Boolean> = dataStore.data
         .map { preferences ->
             preferences[PreferencesKeys.DEBUG_MODE] ?: true
         }
 
-    suspend fun setDebugMode(debugMode: Boolean) {
+    open suspend fun setDebugMode(debugMode: Boolean) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.DEBUG_MODE] = debugMode
         }

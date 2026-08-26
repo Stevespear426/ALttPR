@@ -12,14 +12,14 @@ import kotlinx.coroutines.flow.flowOf
 import org.koin.core.annotation.Factory
 
 @Factory
-class GetSavedSpriteUseCase(
+open class GetSavedSpriteUseCase(
     private val logger: Logger,
     private val romPrefs: RomPrefs,
     private val spriteDao: SpriteDao
 ) {
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    operator fun invoke(): Flow<Sprite?> = romPrefs.sprite.flatMapLatest { name ->
+    open operator fun invoke(): Flow<Sprite?> = romPrefs.sprite.flatMapLatest { name ->
         if (name != null) {
             spriteDao.getSprite(name)
         } else {

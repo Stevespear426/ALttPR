@@ -15,7 +15,7 @@ import org.koin.core.annotation.Named
 import org.koin.core.annotation.Singleton
 
 @Singleton
-class RomPrefs(
+open class RomPrefs(
     @Named("romPrefs") private val dataStore: DataStore<Preferences>
 ) {
     private object PreferencesKeys {
@@ -29,87 +29,87 @@ class RomPrefs(
         val SPRITE = stringPreferencesKey("sprite")
     }
 
-    val msuResume: Flow<Boolean> = dataStore.data
+    open val msuResume: Flow<Boolean> = dataStore.data
         .map { preferences ->
             preferences[PreferencesKeys.MSU_RESUME] ?: true
         }
 
-    val quickSwap: Flow<Boolean> = dataStore.data
+    open val quickSwap: Flow<Boolean> = dataStore.data
         .map { preferences ->
             preferences[PreferencesKeys.QUICK_SWAP] ?: true
         }
 
-    val reduceFlashing: Flow<Boolean> = dataStore.data
+    open val reduceFlashing: Flow<Boolean> = dataStore.data
         .map { preferences ->
             preferences[PreferencesKeys.REDUCE_FLASHING] ?: false
         }
 
-    val enableMusic: Flow<Boolean> = dataStore.data
+    open val enableMusic: Flow<Boolean> = dataStore.data
         .map { preferences ->
             preferences[PreferencesKeys.ENABLE_MUSIC] ?: true
         }
 
-    val heartSpeed: Flow<HeartSpeed> = dataStore.data.map { preferences ->
+    open val heartSpeed: Flow<HeartSpeed> = dataStore.data.map { preferences ->
         preferences[PreferencesKeys.HEART_SPEED] ?: HeartSpeed.NORMAL.name
     }.map { it.toEnumOrDefault(HeartSpeed.NORMAL) }
 
-    val menuSpeed: Flow<MenuSpeed> = dataStore.data
+    open val menuSpeed: Flow<MenuSpeed> = dataStore.data
         .map { preferences ->
             preferences[PreferencesKeys.MENU_SPEED] ?: MenuSpeed.NORMAL.name
         }.map { it.toEnumOrDefault(MenuSpeed.NORMAL) }
 
-    val heartColor: Flow<HeartColor> = dataStore.data
+    open val heartColor: Flow<HeartColor> = dataStore.data
         .map { preferences ->
             preferences[PreferencesKeys.HEART_COLOR] ?: HeartColor.RED.name
         }.map { it.toEnumOrDefault(HeartColor.RED) }
 
-    val sprite: Flow<String?> = dataStore.data
+    open val sprite: Flow<String?> = dataStore.data
         .map { preferences -> preferences[PreferencesKeys.SPRITE] }
 
 
-    suspend fun setQuickSwap(quickSwap: Boolean) {
+    open suspend fun setQuickSwap(quickSwap: Boolean) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.QUICK_SWAP] = quickSwap
         }
     }
 
-    suspend fun setReduceFlashing(reduceFlashing: Boolean) {
+    open suspend fun setReduceFlashing(reduceFlashing: Boolean) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.REDUCE_FLASHING] = reduceFlashing
         }
     }
 
-    suspend fun setMsuResume(msuResume: Boolean) {
+    open suspend fun setMsuResume(msuResume: Boolean) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.MSU_RESUME] = msuResume
         }
     }
 
-    suspend fun setEnableMusic(enableMusic: Boolean) {
+    open suspend fun setEnableMusic(enableMusic: Boolean) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.ENABLE_MUSIC] = enableMusic
         }
     }
 
-    suspend fun setHeartSpeed(heartSpeed: HeartSpeed) {
+    open suspend fun setHeartSpeed(heartSpeed: HeartSpeed) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.HEART_SPEED] = heartSpeed.name
         }
     }
 
-    suspend fun setMenuSpeed(menuSpeed: MenuSpeed) {
+    open suspend fun setMenuSpeed(menuSpeed: MenuSpeed) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.MENU_SPEED] = menuSpeed.name
         }
     }
 
-    suspend fun setHeartColor(heartColor: HeartColor) {
+    open suspend fun setHeartColor(heartColor: HeartColor) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.HEART_COLOR] = heartColor.name
         }
     }
 
-    suspend fun setSprite(name: String) {
+    open suspend fun setSprite(name: String) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.SPRITE] = name
         }

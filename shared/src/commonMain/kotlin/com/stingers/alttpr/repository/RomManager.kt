@@ -16,11 +16,11 @@ import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Singleton
 
 @Singleton
-class RomManager(
+open class RomManager(
     private val alttprRepository: AlttprRepository
 ) {
 
-    suspend fun hasValidBaseRom(): Boolean = withContext(Dispatchers.IO) {
+    open suspend fun hasValidBaseRom(): Boolean = withContext(Dispatchers.IO) {
         val baseFile = RomStorage.getBaseRomFile()
         if (baseFile == null || !baseFile.exists()) return@withContext false
         val bytes = try {
@@ -31,7 +31,7 @@ class RomManager(
         verifyRomBytes(bytes)
     }
 
-    suspend fun saveAndVerifyRom(sourceFile: PlatformFile): Result<Unit> =
+    open suspend fun saveAndVerifyRom(sourceFile: PlatformFile): Result<Unit> =
         withContext(Dispatchers.IO) {
             try {
                 val bytes = sourceFile.readBytes()
@@ -46,7 +46,7 @@ class RomManager(
             }
         }
 
-    fun verifyRomBytes(bytes: ByteArray): Boolean {
+    open fun verifyRomBytes(bytes: ByteArray): Boolean {
         val normalizedBytes = if (bytes.size % 1024 == HEADER_SIZE) {
             bytes.copyOfRange(HEADER_SIZE, bytes.size)
         } else {
@@ -58,7 +58,7 @@ class RomManager(
     }
 
 
-    suspend fun getPatchedRomBytes(
+    open suspend fun getPatchedRomBytes(
         seedEntity: SeedEntity,
         heartSpeed: HeartSpeed = HeartSpeed.NORMAL,
         menuSpeed: MenuSpeed = MenuSpeed.NORMAL,
@@ -75,7 +75,8 @@ class RomManager(
         val sourceRom = baseFile?.readBytes()?.copyOf() ?: return@withContext null
 
         // 2. Get base rom patch
-        val bpsFile = RomStorage.getGeneratedSeedFile(seedEntity.localFileName.orEmpty()) ?: return@withContext null
+        val bpsFile = RomStorage.getGeneratedSeedFile(seedEntity.localFileName.orEmpty())
+            ?: return@withContext null
         val bpsBytes = bpsFile.readBytes()
 
         // 3. Apply base rom patch
@@ -144,7 +145,7 @@ class RomManager(
         }
     }
 
-    fun applyBasePatch(sourceRom: ByteArray, bpsBytes: ByteArray, md5: String): ByteArray {
+    open fun applyBasePatch(sourceRom: ByteArray, bpsBytes: ByteArray, md5: String): ByteArray {
         try {
             if (bpsBytes.size < 16) return ByteArray(0)
 
@@ -229,7 +230,7 @@ class RomManager(
         }
     }
 
-    fun applySeedPatch(baseRom: ByteArray, patchData: List<Map<String, List<Int>>>): ByteArray {
+    open fun applySeedPatch(baseRom: ByteArray, patchData: List<Map<String, List<Int>>>): ByteArray {
         val patchedRom = baseRom.copyOf()
 
         for (patchMap in patchData) {
@@ -248,7 +249,7 @@ class RomManager(
         return patchedRom
     }
 
-    fun expandSize(baseRom: ByteArray, sizeInMb: Int): ByteArray {
+    open fun expandSize(baseRom: ByteArray, sizeInMb: Int): ByteArray {
         val targetSize = sizeInMb * (1024 * 1024)
         if (targetSize <= baseRom.size) return baseRom
 
@@ -257,7 +258,7 @@ class RomManager(
         return expanded
     }
 
-    fun applySettings(
+    open fun applySettings(
         romBytes: ByteArray,
         seedHash: String,
         title: String = "VT ${seedHash.take(18)}".padEnd(21, ' '),
@@ -305,9 +306,12 @@ class RomManager(
 
         val isInstant = menuSpeed == MenuSpeed.INSTANT
         if (0x18021D < romBytes.size) romBytes[0x18021D] = menuSpeed.value
-        if (0x6DD9A < romBytes.size) romBytes[0x6DD9A] = if (isInstant) 0x20.toByte() else 0x11.toByte()
-        if (0x6DF2A < romBytes.size) romBytes[0x6DF2A] = if (isInstant) 0x20.toByte() else 0x11.toByte()
-        if (0x6E0E9 < romBytes.size) romBytes[0x6E0E9] = if (isInstant) 0x20.toByte() else 0x11.toByte()
+        if (0x6DD9A < romBytes.size) romBytes[0x6DD9A] =
+            if (isInstant) 0x20.toByte() else 0x11.toByte()
+        if (0x6DF2A < romBytes.size) romBytes[0x6DF2A] =
+            if (isInstant) 0x20.toByte() else 0x11.toByte()
+        if (0x6E0E9 < romBytes.size) romBytes[0x6E0E9] =
+            if (isInstant) 0x20.toByte() else 0x11.toByte()
 
         if (!msuResume) {
             if (0x18021D < romBytes.size) romBytes[0x18021D] = 0x00.toByte()
@@ -317,7 +321,7 @@ class RomManager(
         return romBytes
     }
 
-    fun updateChecksum(baseRom: ByteArray): ByteArray {
+    open fun updateChecksum(baseRom: ByteArray): ByteArray {
         val rom = baseRom.copyOf()
         var total = 0
         for (i in rom.indices) {
@@ -349,7 +353,7 @@ class RomManager(
         return value
     }
 
-    fun injectSprite(originalRom: ByteArray, spr: ByteArray): ByteArray {
+    open fun injectSprite(originalRom: ByteArray, spr: ByteArray): ByteArray {
         if (spr.size < 0x7056) return originalRom
         val targetRom = originalRom.copyOf()
 

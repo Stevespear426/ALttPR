@@ -50,7 +50,7 @@ class SpriteViewModel(
         )
     }.stateIn(
         scope = viewModelScope,
-        started = SharingStarted.Lazily,
+        started = SharingStarted.Eagerly,
         initialValue = SpriteState(loading = true)
     )
 

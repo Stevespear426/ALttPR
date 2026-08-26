@@ -1,12 +1,14 @@
-package com.stingers.alttpr
+package com.stingers.alttpr.repository
 
-import com.stingers.alttpr.repository.RomManager
+import dev.mokkery.mock
 import kotlin.test.Test
 import kotlin.test.assertFalse
 
 class RomManagerTest {
 
-    val instance: RomManager = RomManager()
+    private val mockAlttpRespository = mock<AlttprRepository>()
+
+    val instance: RomManager = RomManager(mockAlttpRespository)
 
     @Test
     fun testVerifyRomBytesInvalid() {

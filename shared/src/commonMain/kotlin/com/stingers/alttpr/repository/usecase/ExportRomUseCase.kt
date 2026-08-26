@@ -9,13 +9,13 @@ import io.github.vinceglb.filekit.write
 import org.koin.core.annotation.Factory
 
 @Factory
-class ExportRomUseCase(
+open class ExportRomUseCase(
     private val logger: Logger,
     private val saveSeedUseCase: SaveSeedUseCase,
     private val getPatchedRomBytesUseCase: GetPatchedRomBytesUseCase,
 ) {
 
-    suspend operator fun invoke(seed: SeedEntity): Result<Unit> = runCatching {
+    open suspend operator fun invoke(seed: SeedEntity): Result<Unit> = runCatching {
         val savedSeed = saveSeedUseCase(seed).getOrThrow()
         val romBytes = getPatchedRomBytesUseCase(savedSeed).getOrThrow()
         val file = FileKit.openFileSaver(

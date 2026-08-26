@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.first
 import org.koin.core.annotation.Factory
 
 @Factory
-class GetPatchedRomBytesUseCase(
+open class GetPatchedRomBytesUseCase(
     private val logger: Logger,
     private val romManager: RomManager,
     private val romPrefs: RomPrefs,

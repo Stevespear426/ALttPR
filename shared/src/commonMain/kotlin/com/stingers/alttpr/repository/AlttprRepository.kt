@@ -17,13 +17,13 @@ import kotlinx.coroutines.withContext
 import org.koin.core.annotation.Singleton
 
 @Singleton
-class AlttprRepository(
+open class AlttprRepository(
     private val alttprService: AlttprService,
     private val seedDao: SeedDao,
     private val spriteDao: SpriteDao
 ) {
 
-    suspend fun getSprites(): Result<List<Sprite>> = withContext(Dispatchers.IO) {
+    open suspend fun getSprites(): Result<List<Sprite>> = withContext(Dispatchers.IO) {
         try {
             if (NetworkManager.isNetworkConnected()) {
                 val sprites = alttprService.getSprites()
@@ -44,7 +44,7 @@ class AlttprRepository(
         }
     }
 
-    suspend fun getSpriteBytes(sprite: Sprite): ByteArray? = withContext(Dispatchers.IO) {
+    open suspend fun getSpriteBytes(sprite: Sprite): ByteArray? = withContext(Dispatchers.IO) {
         try {
             val fileName = "sprite_${sprite.name.hashCode()}_v${sprite.version}.zspr"
             val existingFile = RomStorage.getSpriteFile(fileName)
@@ -73,14 +73,14 @@ class AlttprRepository(
         }
     }
 
-    suspend fun createDailySeed(): SeedEntity = withContext(Dispatchers.IO) {
+    open suspend fun createDailySeed(): SeedEntity = withContext(Dispatchers.IO) {
         // GET https://alttpr.com/api/daily -> gets hash
         val dailyResponse = alttprService.getDaily()
         val hash = dailyResponse.hash
         return@withContext fetchPatchAndSeedInfo(hash)
     }
 
-    suspend fun generateRandomizerSeed(
+    open suspend fun generateRandomizerSeed(
         model: RandomizerGameModel
     ): SeedEntity = withContext(Dispatchers.IO) {
         val response = alttprService.generateSeed(GenerateSeedRequest.getRequest(model))
@@ -93,7 +93,7 @@ class AlttprRepository(
     /*
     * Returns a Bps Patch and md5 hash for verification.
     */
-    suspend fun getBpsPatch(
+    open suspend fun getBpsPatch(
         hash: String
     ): Pair<String, ByteArray> = withContext(Dispatchers.IO) {
         // GET https://alttpr.com/api/h/{hash} -> retrieves base patch file
@@ -108,7 +108,7 @@ class AlttprRepository(
         return@withContext basePatchResponse.md5 to bpsBytes
     }
 
-    suspend fun fetchPatchAndSeedInfo(hash: String): SeedEntity =
+    open suspend fun fetchPatchAndSeedInfo(hash: String): SeedEntity =
         withContext(Dispatchers.IO) {
             // Check if we already have a saved RomEntity for this hash
             val cachedSeed = seedDao.getSeed(hash)
