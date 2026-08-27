@@ -12,6 +12,24 @@ val licences = listOf(
         version = "31.2.0"
     ),
     Licence(
+        name = "Coil",
+        type = LicenceType.APACHE,
+        url = "https://www.github.com/coil-kt/coil",
+        version = BuildKonfig.COIL_VERSION
+    ),
+    Licence(
+        name = "FileKit",
+        type = LicenceType.MIT,
+        url = "https://github.com/vinceglb/FileKit",
+        version = BuildKonfig.FILEKIT_VERSION
+    ),
+    Licence(
+        name = "Koin",
+        type = LicenceType.APACHE,
+        url = "https://www.github.com/InsertKoinIO/koin",
+        version = BuildKonfig.KOIN_VERSION
+    ),
+    Licence(
         name = "Ktor",
         type = LicenceType.APACHE,
         url = "https://www.github.com/ktorio/ktor",
@@ -22,23 +40,5 @@ val licences = listOf(
         type = LicenceType.APACHE,
         url = "https://github.com/Foso/Ktorfit",
         version = BuildKonfig.KTORFIT_VERSION
-    ),
-    Licence(
-        name = "Koin",
-        type = LicenceType.APACHE,
-        url = "https://www.github.com/InsertKoinIO/koin",
-        version = BuildKonfig.KOIN_VERSION
-    ),
-    Licence(
-        name = "FileKit",
-        type = LicenceType.MIT,
-        url = "https://github.com/vinceglb/FileKit",
-        version = BuildKonfig.FILEKIT_VERSION
-    ),
-    Licence(
-        name = "Coil",
-        type = LicenceType.APACHE,
-        url = "https://www.github.com/coil-kt/coil",
-        version = BuildKonfig.COIL_VERSION
-    ),
+    )
 )

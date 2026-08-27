@@ -13,10 +13,10 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
 import androidx.compose.material3.Tab
-import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.derivedStateOf
@@ -26,9 +26,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.zIndex
 import kotlinx.coroutines.launch
 import kotlin.math.abs
@@ -61,7 +60,7 @@ fun TabContentView(
                             )
                             .zIndex(-1f)
                     )
-            },
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .wrapContentHeight()
@@ -72,7 +71,14 @@ fun TabContentView(
                         selectedContentColor = Color.White,
                         unselectedContentColor = MaterialTheme.colorScheme.secondary,
                         selected = selected,
-                        text = { Text(text = tab, maxLines = 2, overflow = TextOverflow.Ellipsis) },
+                        text = {
+                            Text(
+                                text = tab,
+                                maxLines = 2,
+                                softWrap = false,
+                                autoSize = TextAutoSize.StepBased(maxFontSize = 14.sp, minFontSize = 12.sp)
+                            )
+                        },
                         onClick = {
                             coroutineScope.launch {
                                 val tabDiff =

@@ -3,6 +3,10 @@ package com.stingers.alttpr.common
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp
 
+const val GET_STARTED_URL = "https://alttpr.com/en/start"
+
+const val GAME_PLAY_INFO_URL = "https://alttpr.com/en/options"
+
 const val DISCORD_URL = "https://discord.gg/alttprandomizer"
 
 const val GITHUB_URL = "https://github.com/Stevespear426/ALTTPR"

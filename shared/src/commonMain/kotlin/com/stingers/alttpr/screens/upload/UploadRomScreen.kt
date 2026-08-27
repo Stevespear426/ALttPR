@@ -3,6 +3,7 @@ package com.stingers.alttpr.screens.upload
 import alttpr.shared.generated.resources.Res
 import alttpr.shared.generated.resources.alttp
 import alttpr.shared.generated.resources.begin_journey
+import alttpr.shared.generated.resources.need_help
 import alttpr.shared.generated.resources.select_base_rom
 import alttpr.shared.generated.resources.select_rom_file
 import alttpr.shared.generated.resources.select_rom_legal
@@ -19,14 +20,17 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.stingers.alttpr.common.GET_STARTED_URL
 import com.stingers.alttpr.common.ROM_FILE_EXTENSION
 import com.stingers.alttpr.common.components.PrimaryButton
 import com.stingers.alttpr.theme.PreviewDarkTheme
@@ -48,6 +52,7 @@ fun UploadRomScreen(
 
 @Composable
 fun UploadRomScreen(processEvent: (event: UploadRomEvent) -> Unit) {
+    val urlHandler = LocalUriHandler.current
     val romRequest = rememberFilePickerLauncher(
         type = FileKitType.File(extensions = listOf("smc", ROM_FILE_EXTENSION)),
         mode = FileKitMode.Single,
@@ -65,6 +70,7 @@ fun UploadRomScreen(processEvent: (event: UploadRomEvent) -> Unit) {
             text = stringResource(Res.string.welcome_hero),
             style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold)
         )
+
         Text(
             text = stringResource(Res.string.begin_journey, stringResource(Res.string.alttp)),
             style = MaterialTheme.typography.titleMedium,
@@ -99,6 +105,12 @@ fun UploadRomScreen(processEvent: (event: UploadRomEvent) -> Unit) {
                     romRequest.launch()
                 }
             }
+        }
+
+        TextButton({
+            urlHandler.openUri(GET_STARTED_URL)
+        }) {
+            Text(stringResource(Res.string.need_help))
         }
     }
 }

@@ -7,8 +7,10 @@ import alttpr.shared.generated.resources.generate_game
 import alttpr.shared.generated.resources.generate_race
 import alttpr.shared.generated.resources.generator_title
 import alttpr.shared.generated.resources.goals
+import alttpr.shared.generated.resources.ic_info
 import alttpr.shared.generated.resources.item_placement
 import alttpr.shared.generated.resources.select_preset
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -21,6 +23,8 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
@@ -29,10 +33,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
+import com.stingers.alttpr.common.GAME_PLAY_INFO_URL
 import com.stingers.alttpr.common.PREFERENCE_PADDING
 import com.stingers.alttpr.common.components.PageHeader
 import com.stingers.alttpr.common.components.PageLoadingView
@@ -41,6 +47,7 @@ import com.stingers.alttpr.common.preferences.MenuPreference
 import com.stingers.alttpr.model.RandomizerGameMode
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
+import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -58,6 +65,7 @@ fun RandomizerScreen(
     state: RandomizerState,
     processEvent: (event: RandomizerEvent) -> Unit
 ) {
+    val urlHandler = LocalUriHandler.current
     with(state) {
         val isCustom = preset == RandomizerGameMode.CUSTOM
         LazyColumn(
@@ -66,7 +74,20 @@ fun RandomizerScreen(
             contentPadding = PaddingValues(PREFERENCE_PADDING.dp),
         ) {
             item {
-                PageHeader(Res.string.generator_title)
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    PageHeader(Res.string.generator_title)
+                    IconButton({
+                        urlHandler.openUri(GAME_PLAY_INFO_URL)
+                    }) {
+                        Icon(
+                            painterResource(Res.drawable.ic_info),
+                            contentDescription = "Options Button"
+                        )
+                    }
+                }
                 Spacer(modifier = Modifier.height(12.dp))
             }
             item {
@@ -102,8 +123,8 @@ fun RandomizerScreen(
 
             item {
                 val tabs = listOf(
-                    stringResource(Res.string.item_placement),
                     stringResource(Res.string.goals),
+                    stringResource(Res.string.item_placement),
                     stringResource(Res.string.gameplay),
                     stringResource(Res.string.difficulty)
                 )
@@ -112,8 +133,8 @@ fun RandomizerScreen(
                     tabs
                 ) { page ->
                     when (page) {
-                        0 -> ItemsScreen(settings, isCustom, processEvent)
-                        1 -> GoalsScreen(settings, isCustom, processEvent)
+                        0 -> GoalsScreen(settings, isCustom, processEvent)
+                        1 -> ItemsScreen(settings, isCustom, processEvent)
                         2 -> GameplayScreen(settings, isCustom, processEvent)
                         3 -> DifficultyScreen(settings, isCustom, processEvent)
                     }
