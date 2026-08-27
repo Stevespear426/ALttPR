@@ -72,6 +72,10 @@
     <string name="debug_mode">Enable Debug</string>
     <string name="licences">Third Party Licenses</string>
     <string name="licences_message">See what libraries we're using</string>
+    <string name="discord_title">Join the Discord</string>
+    <string name="discord_message">Stay up to date and get help.</string>
+    <string name="source_code_title">Project Github</string>
+    <string name="source_code_message">Check out the source or contribute.</string>
 
     <string name="mit">MIT</string>
     <string name="apache">APACHE 2.0</string>

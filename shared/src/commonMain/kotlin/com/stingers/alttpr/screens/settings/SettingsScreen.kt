@@ -5,10 +5,14 @@ import alttpr.shared.generated.resources.clear
 import alttpr.shared.generated.resources.clear_app_data
 import alttpr.shared.generated.resources.clear_app_data_message
 import alttpr.shared.generated.resources.debug_mode
+import alttpr.shared.generated.resources.discord_message
+import alttpr.shared.generated.resources.discord_title
 import alttpr.shared.generated.resources.licences
 import alttpr.shared.generated.resources.licences_message
 import alttpr.shared.generated.resources.logs_screen
 import alttpr.shared.generated.resources.settings_title
+import alttpr.shared.generated.resources.source_code_message
+import alttpr.shared.generated.resources.source_code_title
 import alttpr.shared.generated.resources.version
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.PaddingValues
@@ -20,12 +24,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.compose.ui.unit.dp
 import com.stingers.alttpr.BuildKonfig
+import com.stingers.alttpr.common.DISCORD_URL
+import com.stingers.alttpr.common.GITHUB_URL
 import com.stingers.alttpr.common.PREFERENCE_PADDING
 import com.stingers.alttpr.common.components.PageHeader
 import com.stingers.alttpr.common.preferences.ButtonPreference
@@ -46,6 +53,7 @@ fun SettingsScreen(viewModel: SettingsViewModel = koinViewModel()) {
 
 @Composable
 fun SettingsScreen(state: SettingsState, processEvent: (event: SettingsEvent) -> Unit) {
+    val urlHandler = LocalUriHandler.current
     with(state) {
         LazyColumn(
             modifier = Modifier.fillMaxSize().testTag("Test SettingsScreen"),
@@ -66,6 +74,15 @@ fun SettingsScreen(state: SettingsState, processEvent: (event: SettingsEvent) ->
                     processEvent(SettingsEvent.EnableDebugMode(it))
                 }
             }
+            if (debugMode) {
+                item {
+                    SubPreference(
+                        Res.string.logs_screen,
+                    ) {
+                        processEvent(SettingsEvent.NavigateTo(Screen.Logs))
+                    }
+                }
+            }
             item {
                 ButtonPreference(
                     title = Res.string.clear_app_data,
@@ -84,17 +101,22 @@ fun SettingsScreen(state: SettingsState, processEvent: (event: SettingsEvent) ->
                     processEvent(SettingsEvent.NavigateTo(Screen.Licenses))
                 }
             }
-
-            if (debugMode) {
-                item {
-                    SubPreference(
-                        Res.string.logs_screen,
-                    ) {
-                        processEvent(SettingsEvent.NavigateTo(Screen.Logs))
-                    }
+            item {
+                SubPreference(
+                    Res.string.discord_title,
+                    stringResource(Res.string.discord_message)
+                ) {
+                    urlHandler.openUri(DISCORD_URL)
                 }
             }
-
+            item {
+                SubPreference(
+                    Res.string.source_code_title,
+                    stringResource(Res.string.source_code_message)
+                ) {
+                    urlHandler.openUri(GITHUB_URL)
+                }
+            }
             item {
                 Preference(
                     Res.string.version,

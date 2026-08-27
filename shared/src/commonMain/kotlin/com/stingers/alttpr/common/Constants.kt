@@ -3,7 +3,9 @@ package com.stingers.alttpr.common
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.ui.unit.dp
 
+const val DISCORD_URL = "https://discord.gg/alttprandomizer"
 
+const val GITHUB_URL = "https://github.com/Stevespear426/ALTTPR"
 const val SPRITES_URL = "https://alttpr.com/sprites"
 
 const val PERMA_LINK = "https://alttpr.com/en/h/"
