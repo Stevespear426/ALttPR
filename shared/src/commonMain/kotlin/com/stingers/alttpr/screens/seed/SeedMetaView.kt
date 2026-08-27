@@ -1,6 +1,7 @@
 package com.stingers.alttpr.screens.seed
 
 import alttpr.shared.generated.resources.Res
+import alttpr.shared.generated.resources.ganon_count
 import alttpr.shared.generated.resources.ic_crystal
 import alttpr.shared.generated.resources.ic_door
 import alttpr.shared.generated.resources.ic_goal
@@ -12,6 +13,7 @@ import alttpr.shared.generated.resources.ic_trophy
 import alttpr.shared.generated.resources.ic_world
 import alttpr.shared.generated.resources.mystery_game
 import alttpr.shared.generated.resources.race
+import alttpr.shared.generated.resources.tower_count
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -98,13 +100,13 @@ fun SeedMetaView(meta: SpoilerMeta) {
 
             entryCrystalsTower?.toCrystal()?.let {
                 MetaChip(
-                    title = "Tower: ${stringResource(it.title)}",
+                    title = stringResource(Res.string.tower_count, stringResource(it.title)),
                     icon = Res.drawable.ic_crystal
                 )
             }
             entryCrystalsGanon?.toCrystal()?.let {
                 MetaChip(
-                    title = "Ganon: ${stringResource(it.title)}",
+                    title = stringResource(Res.string.ganon_count, stringResource(it.title)),
                     icon = Res.drawable.ic_crystal
                 )
             }

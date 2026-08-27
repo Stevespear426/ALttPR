@@ -1,12 +1,14 @@
 package com.stingers.alttpr.screens.seed
 
 import alttpr.shared.generated.resources.Res
+import alttpr.shared.generated.resources.generated
 import alttpr.shared.generated.resources.ic_delete
 import alttpr.shared.generated.resources.ic_download
 import alttpr.shared.generated.resources.ic_edit
 import alttpr.shared.generated.resources.ic_link
 import alttpr.shared.generated.resources.ic_play_arrow
 import alttpr.shared.generated.resources.ic_save
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -42,6 +44,7 @@ import com.stingers.alttpr.model.SpoilerMeta
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -80,7 +83,7 @@ fun SeedItemView(
                     }
                     Column(horizontalAlignment = Alignment.End) {
                         Text(
-                            text = "GENERATED",
+                            text = stringResource(Res.string.generated),
                             style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.Bold),
                             color = LocalContentColor.current.copy(alpha = 0.6f)
                         )
@@ -158,28 +161,32 @@ fun SeedItemView(
 
                 Spacer(modifier = Modifier.weight(1f))
 
-                if (state.isSaved) {
-
-                    FilledIconButton(
-                        onClick = {
-                            processEvent(SeedItemEvent.RemoveSeed)
-                        }) {
-                        Icon(
-                            painterResource(Res.drawable.ic_delete),
-                            contentDescription = "delete button",
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
-                } else {
-                    FilledIconButton(
-                        onClick = {
-                            processEvent(SeedItemEvent.SaveSeed)
-                        }) {
-                        Icon(
-                            painterResource(Res.drawable.ic_save),
-                            contentDescription = "Save button",
-                            tint = MaterialTheme.colorScheme.onSurface
-                        )
+                Crossfade(targetState = state.isSaved, label = "cross fade") { saved ->
+                    when (saved) {
+                        true -> {
+                            FilledIconButton(
+                                onClick = {
+                                    processEvent(SeedItemEvent.RemoveSeed)
+                                }) {
+                                Icon(
+                                    painterResource(Res.drawable.ic_delete),
+                                    contentDescription = "delete button",
+                                    tint = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
+                        else -> {
+                            FilledIconButton(
+                                onClick = {
+                                    processEvent(SeedItemEvent.SaveSeed)
+                                }) {
+                                Icon(
+                                    painterResource(Res.drawable.ic_save),
+                                    contentDescription = "Save button",
+                                    tint = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
                     }
                 }
             }

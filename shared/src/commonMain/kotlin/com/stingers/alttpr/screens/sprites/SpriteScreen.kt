@@ -2,6 +2,8 @@ package com.stingers.alttpr.screens.sprites
 
 import alttpr.shared.generated.resources.Res
 import alttpr.shared.generated.resources.ic_next
+import alttpr.shared.generated.resources.search_sprites
+import alttpr.shared.generated.resources.select_sprite
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -47,6 +49,7 @@ import com.stingers.alttpr.platform.ic_back
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 
@@ -64,7 +67,7 @@ fun SpriteScreen() {
 fun SpriteTopBar() {
     val navigationManager: NavigationManager = koinInject()
     TopAppBar(
-        title = { Text("Select Sprite") },
+        title = { Text(stringResource(Res.string.select_sprite)) },
         navigationIcon = {
             IconButton(
                 onClick = {
@@ -100,7 +103,7 @@ fun SpriteScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(horizontal = PREFERENCE_PADDING.dp, vertical = 8.dp),
-                placeholder = { Text("Search sprites...") },
+                placeholder = { Text(stringResource(Res.string.search_sprites)) },
                 singleLine = true,
                 shape = CircleShape,
                 colors = OutlinedTextFieldDefaults.colors(

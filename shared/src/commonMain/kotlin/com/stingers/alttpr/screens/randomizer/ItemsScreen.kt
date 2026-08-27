@@ -5,13 +5,10 @@ import alttpr.shared.generated.resources.accessibility
 import alttpr.shared.generated.resources.dungeon_item_shuffle
 import alttpr.shared.generated.resources.glitches_required
 import alttpr.shared.generated.resources.item_placement
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.stingers.alttpr.common.preferences.MenuPreference

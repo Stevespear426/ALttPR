@@ -1,7 +1,11 @@
 package com.stingers.alttpr.screens.edit
 
 import alttpr.shared.generated.resources.Res
+import alttpr.shared.generated.resources.audio_visual
 import alttpr.shared.generated.resources.background_music_title
+import alttpr.shared.generated.resources.gameplay_toggles
+import alttpr.shared.generated.resources.generated_on
+import alttpr.shared.generated.resources.hash_code
 import alttpr.shared.generated.resources.heart_color_title
 import alttpr.shared.generated.resources.heart_speed_title
 import alttpr.shared.generated.resources.ic_delete
@@ -11,9 +15,10 @@ import alttpr.shared.generated.resources.ic_reload
 import alttpr.shared.generated.resources.ic_save
 import alttpr.shared.generated.resources.menu_speed_title
 import alttpr.shared.generated.resources.msu_resume_title
+import alttpr.shared.generated.resources.permalink
 import alttpr.shared.generated.resources.quick_swap_title
 import alttpr.shared.generated.resources.reduce_flashing_title
-import androidx.compose.foundation.clickable
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.PaddingValues
@@ -23,6 +28,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.text.TextAutoSize
+import androidx.compose.material3.FilledIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -70,6 +76,7 @@ import com.stingers.alttpr.platform.ic_back
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
 import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
 import org.koin.compose.viewmodel.koinViewModel
 import org.koin.core.parameter.parametersOf
@@ -98,11 +105,13 @@ fun EditRomTopBar(
         val isPreview = LocalInspectionMode.current
         val navigationManager: NavigationManager? = if (!isPreview) koinInject() else null
         TopAppBar(
-            title = { Text(
-                text = title,
-                maxLines = 2,
-                autoSize = TextAutoSize.StepBased(minFontSize = 16.sp, maxFontSize = 24.sp)
-            ) },
+            title = {
+                Text(
+                    text = title,
+                    maxLines = 2,
+                    autoSize = TextAutoSize.StepBased(minFontSize = 16.sp, maxFontSize = 24.sp)
+                )
+            },
             navigationIcon = {
                 IconButton(
                     onClick = {
@@ -145,23 +154,33 @@ fun EditRomTopBar(
                     )
                 }
 
-                if (isSaved) {
-                    IconButton({
-                        processEvent(EditRomEvent.DeleteSeed)
-                    }) {
-                        Icon(
-                            painterResource(Res.drawable.ic_delete),
-                            contentDescription = "Delete Button"
-                        )
-                    }
-                } else {
-                    IconButton({
-                        processEvent(EditRomEvent.SaveSeed)
-                    }) {
-                        Icon(
-                            painterResource(Res.drawable.ic_save),
-                            contentDescription = "Save Button"
-                        )
+                Crossfade(targetState = isSaved, label = "cross fade") { saved ->
+                    when (saved) {
+                        true -> {
+                            IconButton(
+                                onClick = {
+                                    processEvent(EditRomEvent.DeleteSeed)
+                                }) {
+                                Icon(
+                                    painterResource(Res.drawable.ic_delete),
+                                    contentDescription = "delete button",
+                                    tint = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
+
+                        else -> {
+                            IconButton(
+                                onClick = {
+                                    processEvent(EditRomEvent.SaveSeed)
+                                }) {
+                                Icon(
+                                    painterResource(Res.drawable.ic_save),
+                                    contentDescription = "Save button",
+                                    tint = MaterialTheme.colorScheme.onSurface
+                                )
+                            }
+                        }
                     }
                 }
             }
@@ -194,7 +213,7 @@ fun EditRomScreen(
                         OutlinedCard {
                             Text(
                                 modifier = Modifier.padding(horizontal = 16.dp).padding(top = 4.dp),
-                                text = "Hash Code",
+                                text = stringResource(Res.string.hash_code),
                                 fontWeight = FontWeight.Bold
                             )
                             HashCodeRow(
@@ -224,7 +243,7 @@ fun EditRomScreen(
                 }
                 item {
                     Text(
-                        text = "AUDIO & VISUALS",
+                        text = stringResource(Res.string.audio_visual),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                     )
                 }
@@ -265,7 +284,7 @@ fun EditRomScreen(
                 }
                 item {
                     Text(
-                        text = "GAMEPLAY TOGGLES",
+                        text = stringResource(Res.string.gameplay_toggles),
                         style = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Bold)
                     )
                 }
@@ -307,12 +326,13 @@ fun EditRomScreen(
 
                 item {
                     Text(
-                        text = "Generated: ${seed.getGeneratedDate()}",
+                        text = stringResource(Res.string.generated_on, seed.getGeneratedDate()),
                         style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
                     )
                 }
 
                 item {
+                    val permalink = stringResource(Res.string.permalink)
                     val link = PERMA_LINK + seed.hash
                     val annotatedLinkString: AnnotatedString = remember(seed.hash) {
                         buildAnnotatedString {
@@ -330,7 +350,7 @@ fun EditRomScreen(
                             )
 
                             withStyle(style = style) {
-                                append("Permalink: ")
+                                append(permalink)
                             }
 
                             withLink(LinkAnnotation.Url(url = link)) {

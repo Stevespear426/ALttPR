@@ -1,11 +1,14 @@
 package com.stingers.alttpr.screens.dashboard
 
 import alttpr.shared.generated.resources.Res
+import alttpr.shared.generated.resources.daily_challenge
 import alttpr.shared.generated.resources.dashboard_title
 import alttpr.shared.generated.resources.ic_mystery
 import alttpr.shared.generated.resources.ic_trophy
 import alttpr.shared.generated.resources.mystery_game
+import alttpr.shared.generated.resources.quick_actions
 import alttpr.shared.generated.resources.race_game
+import alttpr.shared.generated.resources.recent_game
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -38,6 +41,7 @@ import com.stingers.alttpr.model.SpoilerMeta
 import com.stingers.alttpr.screens.seed.SeedItemView
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
+import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
@@ -74,7 +78,7 @@ fun DashboardScreen(state: DashboardState, processEvent: (event: DashboardEvent)
             state.dailySeed?.let {
                 item {
                     Text(
-                        text = "Daily Challenge",
+                        text = stringResource(Res.string.daily_challenge),
                         style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
                     )
                 }
@@ -89,7 +93,7 @@ fun DashboardScreen(state: DashboardState, processEvent: (event: DashboardEvent)
 
             item {
                 Text(
-                    text = "Quick Actions",
+                    text = stringResource(Res.string.quick_actions),
                     style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
                 )
             }
@@ -119,7 +123,7 @@ fun DashboardScreen(state: DashboardState, processEvent: (event: DashboardEvent)
                 }
                 item {
                     Text(
-                        text = "Recent Game",
+                        text = stringResource(Res.string.recent_game),
                         style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
                     )
                 }

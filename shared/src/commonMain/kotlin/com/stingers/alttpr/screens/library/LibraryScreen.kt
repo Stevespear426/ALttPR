@@ -32,7 +32,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun LibraryScreen(viewModel: LibraryViewModel = koinViewModel()) {
     val pagingItems = viewModel.romsFlow.collectAsLazyPagingItems()
-        LibraryScreen(pagingItems)
+    LibraryScreen(pagingItems)
 }
 
 @Composable

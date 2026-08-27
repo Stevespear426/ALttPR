@@ -22,10 +22,27 @@
 
     <string name="create_daily">Create Daily</string>
 
+    <string name="daily_challenge">Daily Challenge</string>
+    <string name="quick_actions">Quick Actions</string>
+    <string name="recent_game">Recent Game</string>
+
     <string name="create_random">Create Random Challenge</string>
     <string name="randomizer">Randomizer</string>
     <string name="generate_game">Normal Seed</string>
     <string name="generate_race">Race Seed</string>
+
+    <string name="hash_code">Hash Code</string>
+    <string name="audio_visual">AUDIO &amp; VISUALS</string>
+    <string name="gameplay_toggles">Gameplay Toggles</string>
+    <string name="generated">GENERATED</string>
+    <string name="generated_on">Generated: %1$s</string>
+    <string name="permalink">Permalink: </string>
+    <string name="game_options">Game Options</string>
+    <string name="seed_name">Seed Name</string>
+    <string name="ganon_count">Ganon: %1$s</string>
+    <string name="tower_count">Tower: %1$s</string>
+    <string name="select_sprite">Select Sprite</string>
+    <string name="search_sprites">Search Sprites...</string>
 
     <string name="no_seeds_found">No seeds saved.\nTime to get gaming!</string>
 

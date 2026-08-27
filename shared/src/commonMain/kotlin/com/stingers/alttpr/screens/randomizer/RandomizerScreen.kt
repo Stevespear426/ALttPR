@@ -2,6 +2,7 @@ package com.stingers.alttpr.screens.randomizer
 
 import alttpr.shared.generated.resources.Res
 import alttpr.shared.generated.resources.difficulty
+import alttpr.shared.generated.resources.game_options
 import alttpr.shared.generated.resources.gameplay
 import alttpr.shared.generated.resources.generate_game
 import alttpr.shared.generated.resources.generate_race
@@ -9,16 +10,14 @@ import alttpr.shared.generated.resources.generator_title
 import alttpr.shared.generated.resources.goals
 import alttpr.shared.generated.resources.ic_info
 import alttpr.shared.generated.resources.item_placement
+import alttpr.shared.generated.resources.seed_name
 import alttpr.shared.generated.resources.select_preset
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
@@ -49,7 +48,6 @@ import com.stingers.alttpr.common.components.PageLoadingView
 import com.stingers.alttpr.common.components.TabContentView
 import com.stingers.alttpr.common.preferences.MenuPreference
 import com.stingers.alttpr.model.RandomizerGameMode
-import com.stingers.alttpr.screens.sprites.SpriteEvent
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
 import org.jetbrains.compose.resources.painterResource
@@ -117,7 +115,7 @@ fun RandomizerScreen(
 
             item {
                 Text(
-                    text = "Game Options",
+                    text = stringResource(Res.string.game_options),
                     style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold)
                 )
             }
@@ -135,8 +133,8 @@ fun RandomizerScreen(
                     value = settings.name,
                     onValueChange = { processEvent(RandomizerEvent.SetName(it)) },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text("Seed Name") },
-                    placeholder = { Text("Seed Name") },
+                    label = { Text(stringResource(Res.string.seed_name)) },
+                    placeholder = { Text(stringResource(Res.string.seed_name)) },
                     singleLine = true,
                     shape = CircleShape,
                     colors = OutlinedTextFieldDefaults.colors(
