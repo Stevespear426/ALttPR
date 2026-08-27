@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -97,7 +98,11 @@ fun EditRomTopBar(
         val isPreview = LocalInspectionMode.current
         val navigationManager: NavigationManager? = if (!isPreview) koinInject() else null
         TopAppBar(
-            title = { Text(title) },
+            title = { Text(
+                text = title,
+                maxLines = 2,
+                autoSize = TextAutoSize.StepBased(minFontSize = 16.sp, maxFontSize = 24.sp)
+            ) },
             navigationIcon = {
                 IconButton(
                     onClick = {

@@ -18,10 +18,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.stingers.alttpr.common.PREFERENCE_PADDING
 import com.stingers.alttpr.common.components.PageHeader
+import com.stingers.alttpr.common.components.PageLoadingView
 import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.screens.seed.SeedItemView
 import org.jetbrains.compose.resources.stringResource
@@ -30,7 +32,7 @@ import org.koin.compose.viewmodel.koinViewModel
 @Composable
 fun LibraryScreen(viewModel: LibraryViewModel = koinViewModel()) {
     val pagingItems = viewModel.romsFlow.collectAsLazyPagingItems()
-    LibraryScreen(pagingItems)
+        LibraryScreen(pagingItems)
 }
 
 @Composable
@@ -48,32 +50,41 @@ fun LibraryScreen(
             Spacer(modifier = Modifier.height(12.dp))
         }
 
-        if (pagingItems.itemCount > 0) {
-            items(
-                count = pagingItems.itemCount,
-                key = { index -> pagingItems[index]?.hash ?: index }
-            ) { index ->
-                val seed = pagingItems[index]
-                if (seed != null) {
-                    Box(modifier = Modifier.animateItem()) {
-                        SeedItemView(seed)
+
+        when {
+            pagingItems.itemCount > 0 -> {
+                items(
+                    count = pagingItems.itemCount,
+                    key = { index -> pagingItems[index]?.hash ?: index }
+                ) { index ->
+                    val seed = pagingItems[index]
+                    if (seed != null) {
+                        Box(modifier = Modifier.animateItem()) {
+                            SeedItemView(seed)
+                        }
                     }
                 }
             }
-        } else {
-            item {
-                Spacer(Modifier.height(24.dp))
+            pagingItems.loadState.refresh is LoadState.Loading -> {
+                item {
+                    PageLoadingView()
+                }
             }
-            item {
-                Box(
-                    modifier = Modifier.fillMaxSize().animateItem(),
-                    contentAlignment = Alignment.Center
-                ) {
-                    Text(
-                        text = stringResource(Res.string.no_seeds_found),
-                        textAlign = TextAlign.Center,
-                        style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
-                    )
+            else -> {
+                item {
+                    Spacer(Modifier.height(24.dp))
+                }
+                item {
+                    Box(
+                        modifier = Modifier.fillMaxSize().animateItem(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Text(
+                            text = stringResource(Res.string.no_seeds_found),
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.headlineSmall.copy(fontWeight = FontWeight.Bold)
+                        )
+                    }
                 }
             }
         }

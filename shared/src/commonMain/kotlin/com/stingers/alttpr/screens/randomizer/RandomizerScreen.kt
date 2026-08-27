@@ -93,14 +93,7 @@ fun RandomizerScreen(
                         )
                     }
                 }
-//                Spacer(modifier = Modifier.height(12.dp))
             }
-//            item {
-//                Text(
-//                    text="Generate Seed",
-//                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold)
-//                )
-//            }
             item {
                 Row(horizontalArrangement = spacedBy(4.dp)) {
                     val buttonModifier = Modifier.weight(1f)
