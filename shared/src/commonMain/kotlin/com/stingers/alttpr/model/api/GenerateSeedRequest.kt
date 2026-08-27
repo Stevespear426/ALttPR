@@ -1,6 +1,8 @@
 package com.stingers.alttpr.model.api
 
 import com.stingers.alttpr.model.RandomizerGameModel
+import com.stingers.alttpr.utils.currentTimeInMillis
+import com.stingers.alttpr.utils.getDateString
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -83,7 +85,7 @@ data class GenerateSeedRequest(
                     allowQuickswap = allowQuickswap,
                     overrideStartScreen = overrideStartScreen,
                     pseudoboots = pseudoboots,
-//        name = name,
+                    name = name,
                     notes = notes
                 )
             }

@@ -41,7 +41,7 @@ data class SpoilerMeta(
             "${logic.orEmpty()}-${mode.orEmpty()}-${goal.orEmpty()}"
         } else {
             name
-        }
+        }.replace("\n", "")
     }
 }
 

@@ -21,12 +21,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,6 +37,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.tooling.preview.PreviewParameterProvider
@@ -45,6 +49,7 @@ import com.stingers.alttpr.common.components.PageLoadingView
 import com.stingers.alttpr.common.components.TabContentView
 import com.stingers.alttpr.common.preferences.MenuPreference
 import com.stingers.alttpr.model.RandomizerGameMode
+import com.stingers.alttpr.screens.sprites.SpriteEvent
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
 import org.jetbrains.compose.resources.painterResource
@@ -88,18 +93,14 @@ fun RandomizerScreen(
                         )
                     }
                 }
-                Spacer(modifier = Modifier.height(12.dp))
+//                Spacer(modifier = Modifier.height(12.dp))
             }
-            item {
-                MenuPreference(
-                    Res.string.select_preset,
-                    currentItem = preset,
-                    items = RandomizerGameMode.entries,
-                    titleResForItem = { it.title }) {
-                    processEvent(RandomizerEvent.SetPreset(it))
-                }
-            }
-
+//            item {
+//                Text(
+//                    text="Generate Seed",
+//                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold)
+//                )
+//            }
             item {
                 Row(horizontalArrangement = spacedBy(4.dp)) {
                     val buttonModifier = Modifier.weight(1f)
@@ -122,6 +123,38 @@ fun RandomizerScreen(
             }
 
             item {
+                Text(
+                    text = "Game Options",
+                    style = MaterialTheme.typography.titleLarge.copy(fontWeight = FontWeight.SemiBold)
+                )
+            }
+            item {
+                MenuPreference(
+                    Res.string.select_preset,
+                    currentItem = preset,
+                    items = RandomizerGameMode.entries,
+                    titleResForItem = { it.title }) {
+                    processEvent(RandomizerEvent.SetPreset(it))
+                }
+            }
+            item {
+                OutlinedTextField(
+                    value = settings.name,
+                    onValueChange = { processEvent(RandomizerEvent.SetName(it)) },
+                    modifier = Modifier.fillMaxWidth(),
+                    label = { Text("Seed Name") },
+                    placeholder = { Text("Seed Name") },
+                    singleLine = true,
+                    shape = CircleShape,
+                    colors = OutlinedTextFieldDefaults.colors(
+                        cursorColor = MaterialTheme.colorScheme.secondary,
+                        focusedBorderColor = MaterialTheme.colorScheme.secondary,
+                        unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                        disabledBorderColor = MaterialTheme.colorScheme.secondary,
+                    ),
+                )
+            }
+            item {
                 val tabs = listOf(
                     stringResource(Res.string.goals),
                     stringResource(Res.string.item_placement),
@@ -129,7 +162,7 @@ fun RandomizerScreen(
                     stringResource(Res.string.difficulty)
                 )
                 TabContentView(
-                    Modifier.padding(top = 8.dp).fillMaxWidth().wrapContentSize(),
+                    Modifier.fillMaxWidth().wrapContentSize(),
                     tabs
                 ) { page ->
                     when (page) {

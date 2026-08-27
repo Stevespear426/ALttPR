@@ -18,6 +18,8 @@ import com.stingers.alttpr.model.api.Spoilers
 import com.stingers.alttpr.model.api.Toggle
 import com.stingers.alttpr.model.api.Weapons
 import com.stingers.alttpr.model.api.WorldState
+import com.stingers.alttpr.utils.currentTimeInMillis
+import com.stingers.alttpr.utils.getDateString
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -46,6 +48,7 @@ data class RandomizerGameModel(
     val overrideStartScreen: Boolean? = null,
     val pseudoboots: Boolean? = null,
     val notes: String? = null,
-    val lang: Language? = null
+    val lang: Language? = null,
+    val name: String = "${glitches?.name.orEmpty()}-${worldState?.name.orEmpty()}-${goal?.name.orEmpty()}-${getDateString(currentTimeInMillis())}",
 )
 

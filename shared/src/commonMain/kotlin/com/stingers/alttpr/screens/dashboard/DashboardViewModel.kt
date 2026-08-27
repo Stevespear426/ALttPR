@@ -1,9 +1,11 @@
 package com.stingers.alttpr.screens.dashboard
 
+import alttpr.shared.generated.resources.Res
+import alttpr.shared.generated.resources.mystery_game
+import alttpr.shared.generated.resources.race_game
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stingers.alttpr.model.RandomizerGameMode
-import com.stingers.alttpr.model.RandomizerGameModel
 import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.api.Spoilers
 import com.stingers.alttpr.navigation.NavigationManager
@@ -11,13 +13,15 @@ import com.stingers.alttpr.navigation.Screen
 import com.stingers.alttpr.repository.local.SeedDao
 import com.stingers.alttpr.repository.usecase.GetDailySeedUseCase
 import com.stingers.alttpr.repository.usecase.GetRandomizerSeedUseCase
+import com.stingers.alttpr.utils.currentTimeInMillis
+import com.stingers.alttpr.utils.getDateString
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.getString
 import org.koin.core.annotation.KoinViewModel
 
 @KoinViewModel
@@ -68,7 +72,17 @@ class DashboardViewModel(
             .filterNot { it == RandomizerGameMode.CUSTOM }
             .random()
 
-        getRandomizerSeedUseCase(randomMode.model().copy(spoilers = Spoilers.Mystery, tournament = true))
+        getRandomizerSeedUseCase(
+            randomMode.model().copy(
+                spoilers = Spoilers.Mystery,
+                tournament = true,
+                name = "${getString(Res.string.mystery_game)}-${
+                    getDateString(
+                        currentTimeInMillis()
+                    )
+                }"
+            )
+        )
             .onSuccess { seed ->
                 _state.update { it.copy(loading = false) }
                 navigationManager.navigateTo(Screen.EditRom(seed))
@@ -90,7 +104,14 @@ class DashboardViewModel(
             .filterNot { it == RandomizerGameMode.CUSTOM }
             .random()
 
-        getRandomizerSeedUseCase(randomMode.model().copy(tournament = true))
+        getRandomizerSeedUseCase(randomMode.model().copy(
+            tournament = true,
+            name = "${getString(Res.string.race_game)}-${
+                getDateString(
+                    currentTimeInMillis()
+                )
+            }"
+        ))
             .onSuccess { seed ->
                 _state.update { it.copy(loading = false) }
                 navigationManager.navigateTo(Screen.EditRom(seed))

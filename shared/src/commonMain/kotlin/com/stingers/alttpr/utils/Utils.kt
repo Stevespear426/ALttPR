@@ -1,7 +1,14 @@
 package com.stingers.alttpr.utils
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.datetime.LocalDateTime
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.format
+import kotlinx.datetime.format.MonthNames
+import kotlinx.datetime.format.char
+import kotlinx.datetime.toLocalDateTime
 import kotlin.time.Clock
+import kotlin.time.Instant
 
 fun currentTimeInMillis() = Clock.System.now().toEpochMilliseconds()
 
@@ -232,4 +239,21 @@ inline fun <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, R> combine(
             args[10] as T11,
         )
     }
+}
+
+fun getDateString(millis: Long): String {
+    return runCatching {
+        val instant = Instant.fromEpochMilliseconds(millis)
+        val localDateTime = instant.toLocalDateTime(TimeZone.UTC)
+
+        val customFormat = LocalDateTime.Format {
+            monthName(MonthNames.ENGLISH_ABBREVIATED)
+            char('-')
+            dayOfMonth()
+            char('-')
+            year()
+        }
+
+        localDateTime.format(customFormat)
+    }.getOrDefault("") // Fallback if parsing fails
 }

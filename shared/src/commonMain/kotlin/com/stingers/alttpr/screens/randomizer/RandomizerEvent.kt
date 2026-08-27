@@ -23,6 +23,8 @@ sealed interface RandomizerEvent {
 
     object GenerateGame : RandomizerEvent
     object GenerateRace : RandomizerEvent
+
+    data class SetName(val value: String) : RandomizerEvent
     data class SetPreset(val value: RandomizerGameMode) : RandomizerEvent
     data class SetGlitches(val value: Glitches) : RandomizerEvent
     data class SetItemPlacement(val value: ItemPlacement) : RandomizerEvent

@@ -92,6 +92,9 @@ class RandomizerViewModel(
                 is RandomizerEvent.SetPseduoboots -> {
                     _state.update { it.copy(settings = it.settings.copy(pseudoboots = event.value)) }
                 }
+                is RandomizerEvent.SetName -> {
+                    _state.update { it.copy(settings = it.settings.copy(name = event.value)) }
+                }
             }
         }
     }
