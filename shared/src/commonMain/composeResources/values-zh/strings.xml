@@ -1,0 +1,440 @@
+<resources>
+
+    <string name="ok">确定</string>
+    <string name="error_dialog">很抱歉，发生了一个错误。\n请稍后再试。</string>
+    <string name="unknown_error">未知错误</string>
+    <string name="retry">重试</string>
+    <string name="edit">编辑</string>
+    <string name="clear">清除</string>
+    <string name="clear_app_data">清除应用数据</string>
+    <string name="clear_app_data_message">清除 ROM、种子和其他数据...</string>
+    <string name="open">打开 %1$s</string>
+    <string name="version">应用版本</string>
+    <string name="need_help">需要帮助？</string>
+
+    <string name="alttp">A Link to the Past</string>
+
+    <string name="welcome_hero">欢迎，玩家！</string>
+    <string name="begin_journey">要开始您的旅程，我们需要先验证您的原始 %1$s ROM 文件</string>
+    <string name="select_base_rom">选择基础 ROM</string>
+    <string name="select_rom_legal">选择您合法拥有的 %1$s (Zelda no Densetsu: Kamigami no Triforce v1.0) ROM 以启用随机化引擎。</string>
+    <string name="select_rom_file">选择 ROM 文件</string>
+
+    <string name="create_daily">创建每日挑战</string>
+
+    <string name="daily_challenge">每日挑战</string>
+    <string name="quick_actions">快捷操作</string>
+    <string name="recent_game">最近游戏</string>
+
+    <string name="create_random">创建随机挑战</string>
+    <string name="randomizer">随机化器</string>
+    <string name="generate_game">普通种子</string>
+    <string name="generate_race">竞赛种子</string>
+
+    <string name="hash_code">哈希代码</string>
+    <string name="audio_visual">音频与视觉</string>
+    <string name="gameplay_toggles">游戏玩法开关</string>
+    <string name="generated">已生成</string>
+    <string name="generated_on">生成时间：%1$s</string>
+    <string name="permalink">永久链接：</string>
+    <string name="game_options">游戏选项</string>
+    <string name="seed_name">种子名称</string>
+    <string name="ganon_count">加农：%1$s</string>
+    <string name="tower_count">塔：%1$s</string>
+    <string name="select_sprite">选择外观</string>
+    <string name="search_sprites">搜索外观...</string>
+
+    <string name="no_seeds_found">没有保存的种子。\n是时候开始游戏了！</string>
+
+    <string name="customize">自定义</string>
+
+    <string name="gamemode_custom">自定义</string>
+    <string name="gamemode_beginner">初学者</string>
+    <string name="gamemode_default">默认</string>
+    <string name="gamemode_owg">OWG（Veetorp 最爱）</string>
+    <string name="gamemode_crosskeys">Crosskeys</string>
+    <string name="gamemode_super_quick">超级快速</string>
+    <string name="gamemode_nightmare">梦魇</string>
+    <string name="gamemode_daily_challenge">每日挑战</string>
+
+    <string name="menu_speed_title">菜单速度</string>
+    <string name="heart_speed_title">心跳速度</string>
+    <string name="heart_color_title">心心颜色</string>
+    <string name="background_music_title">背景音乐</string>
+    <string name="quick_swap_title">道具快速切换</string>
+    <string name="reduce_flashing_title">减少闪烁</string>
+    <string name="msu_resume_title">MSU-1 恢复</string>
+    <string name="pallet_shuffle_title">调色板混洗</string>
+    <string name="shuffle_sfx_title">音效混洗</string>
+
+    <string name="heart_color_red">红色</string>
+    <string name="heart_color_blue">蓝色</string>
+    <string name="heart_color_green">绿色</string>
+    <string name="heart_color_yellow">黄色</string>
+
+    <string name="instant">即时</string>
+    <string name="normal">正常</string>
+    <string name="half">一半</string>
+    <string name="double">双倍</string>
+    <string name="triple">三倍</string>
+    <string name="off">关闭</string>
+    <string name="quarter">四分之一</string>
+    <string name="quadruple">四倍</string>
+
+    <string name="dashboard">仪表盘</string>
+    <string name="generator">生成器</string>
+    <string name="library">种子库</string>
+    <string name="settings">设置</string>
+    <string name="dashboard_title">ALttPR 仪表盘</string>
+    <string name="generator_title">种子生成器</string>
+    <string name="library_title">种子库</string>
+    <string name="settings_title">应用设置</string>
+    <string name="debug_mode">启用调试</string>
+    <string name="licences">第三方许可证</string>
+    <string name="licences_message">查看我们使用的库</string>
+    <string name="discord_title">加入 Discord</string>
+    <string name="discord_message">获取最新动态和帮助。</string>
+    <string name="source_code_title">项目 GitHub</string>
+    <string name="source_code_message">查看源码或参与贡献。</string>
+
+    <string name="mit">MIT</string>
+    <string name="apache">APACHE 2.0</string>
+    <string name="gnu">GNU</string>
+    <string name="custom">自定义</string>
+    <string name="licence_version">v%1$s</string>
+    <string name="all_trademarks">所有商标均为其各自所有者所有。</string>
+
+    <string name="select_preset">选择预设</string>
+
+
+    <string name="hints">提示</string>
+
+    <!-- Accessibility -->
+    <string name="accessibility">可访问性</string>
+    <string name="accessibility_items">100% 道具</string>
+    <string name="accessibility_locations">100% 地点</string>
+    <string name="accessibility_beatable">仅限可通关</string>
+
+    <!-- Boss Shuffle -->
+    <string name="boss_shuffle">boss 混洗</string>
+    <string name="boss_shuffle_none">无</string>
+    <string name="boss_shuffle_simple">简单</string>
+    <string name="boss_shuffle_full">完全</string>
+    <string name="boss_shuffle_random">随机</string>
+
+    <!-- Bottle Api -->
+    <string name="bottle_empty">空瓶子</string>
+    <string name="bottle_red_potion">红药水</string>
+    <string name="bottle_green_potion">绿药水</string>
+    <string name="bottle_blue_potion">蓝药水</string>
+    <string name="bottle_bee">蜜蜂</string>
+    <string name="bottle_fairy">精灵</string>
+    <string name="bottle_gold_bee">黄金蜜蜂</string>
+
+    <!-- Bottle Location -->
+    <string name="bottle_location_waterfall_fairy">瀑布精灵</string>
+    <string name="bottle_location_pyramid_fairy">金字塔精灵</string>
+
+    <!-- Clock Mode -->
+    <string name="clock_mode_off">关闭</string>
+    <string name="clock_mode_stopwatch">秒表</string>
+    <string name="clock_mode_ohko">一击致命 (OHKO)</string>
+    <string name="clock_mode_continue">继续</string>
+    <string name="clock_mode_stop">停止</string>
+    <string name="clock_mode_end">结束</string>
+
+    <!-- Compass Mode -->
+    <string name="compass_mode_on">开启</string>
+    <string name="compass_mode_off">关闭</string>
+    <string name="compass_mode_pickup">拾取时</string>
+
+    <!-- Crystals -->
+    <string name="open_tower">开启之塔</string>
+    <string name="ganon_vulnerable">加农可受到伤害</string>
+    <string name="crystals_zero">0 个水晶</string>
+    <string name="crystals_one">1 个水晶</string>
+    <string name="crystals_two">2 个水晶</string>
+    <string name="crystals_three">3 个水晶</string>
+    <string name="crystals_four">4 个水晶</string>
+    <string name="crystals_five">5 个水晶</string>
+    <string name="crystals_six">6 个水晶</string>
+    <string name="crystals_seven">7 个水晶</string>
+    <string name="crystals_random">随机</string>
+
+    <!-- District -->
+    <string name="district_big_chests">大宝箱</string>
+    <string name="district_bosses">Boss</string>
+    <string name="district_fetch_quests">跑腿任务</string>
+    <string name="district_water_locked">水域锁定</string>
+    <string name="district_death_mountain">死亡山脉</string>
+    <string name="district_kakariko_village">卡卡利科村</string>
+    <string name="district_hyrule_castle">海拉鲁城堡</string>
+    <string name="district_eastern_palace">东方神殿</string>
+    <string name="district_desert_palace">沙漠神殿</string>
+    <string name="district_tower_of_hera">赫拉之塔</string>
+    <string name="district_castle_tower">城堡之塔</string>
+    <string name="district_dark_palace">黑暗神殿</string>
+    <string name="district_swamp_palace">沼泽神殿</string>
+    <string name="district_skull_woods">骷髅森林</string>
+    <string name="district_thieves_town">盗贼小镇</string>
+    <string name="district_ice_palace">冰冻神殿</string>
+    <string name="district_misery_mire">苦难沼泽</string>
+    <string name="district_turtle_rock">乌龟岩</string>
+    <string name="district_ganons_tower_no_bk">加农之塔（无大钥匙）</string>
+    <string name="district_ganons_tower">加农之塔</string>
+
+    <!-- Drop -->
+    <string name="drop_random">随机</string>
+    <string name="drop_bee_swarm">蜂群</string>
+    <string name="drop_good_bee">好蜜蜂</string>
+    <string name="drop_heart">心心</string>
+    <string name="drop_green_rupee">绿卢比</string>
+    <string name="drop_blue_rupee">蓝卢比</string>
+    <string name="drop_red_rupee">红卢比</string>
+    <string name="drop_one_bomb">1 个炸弹</string>
+    <string name="drop_four_bombs">4 个炸弹</string>
+    <string name="drop_eight_bombs">8 个炸弹</string>
+    <string name="drop_small_魔法">小魔法</string>
+    <string name="drop_full_magic">满魔法</string>
+    <string name="drop_five_arrows">5 支箭</string>
+    <string name="drop_ten_arrows">10 支箭</string>
+    <string name="drop_fairy">精灵</string>
+
+    <!-- Drop Byte -->
+    <string name="drop_byte_bee">蜜蜂</string>
+    <string name="drop_byte_good_bee">好蜜蜂</string>
+    <string name="drop_byte_heart">心心</string>
+    <string name="drop_byte_one_rupee">1 卢比</string>
+    <string name="drop_byte_five_rupees">5 卢比</string>
+    <string name="drop_byte_twenty_rupees">20 卢比</string>
+    <string name="drop_byte_one_bomb">1 个炸弹</string>
+    <string name="drop_byte_four_bombs">4 个炸弹</string>
+    <string name="drop_byte_eight_bombs">8 个炸弹</string>
+    <string name="drop_byte_small_magic">小魔法</string>
+    <string name="drop_byte_large_magic">大魔法</string>
+    <string name="drop_byte_five_arrows">5 支箭</string>
+    <string name="drop_byte_ten_arrows">10 支箭</string>
+    <string name="drop_byte_fairy">精灵</string>
+
+    <!-- Enemy Damage -->
+    <string name="enemy_health">敌人生命值</string>
+    <string name="enemy_damage">敌人伤害</string>
+    <string name="enemy_damage_default">默认</string>
+    <string name="enemy_damage_shuffled">混洗</string>
+    <string name="enemy_damage_random">随机</string>
+
+    <!-- Enemy Group -->
+    <string name="enemy_group_heart">心心</string>
+    <string name="enemy_group_rupee">卢比</string>
+    <string name="enemy_group_magic">魔法</string>
+    <string name="enemy_group_bomb">炸弹</string>
+    <string name="enemy_group_arrow">箭</string>
+    <string name="enemy_group_small_variety">少量品种</string>
+    <string name="enemy_group_big_variety">多种品种</string>
+
+    <!-- Enemy Health -->
+    <string name="enemy_health_default">默认</string>
+    <string name="enemy_health_easy">简单</string>
+    <string name="enemy_health_hard">困难</string>
+    <string name="enemy_health_expert">专家</string>
+
+    <!-- Enemy Shuffle -->
+    <string name="enemy_shuffle">敌人混洗</string>
+    <string name="enemy_shuffle_none">无</string>
+    <string name="enemy_shuffle_shuffled">已混洗</string>
+    <string name="enemy_shuffle_random">随机</string>
+
+    <!-- Entrances -->
+    <string name="entrance_shuffle">入口混洗</string>
+    <string name="entrances_none">无</string>
+    <string name="entrances_simple">简单</string>
+    <string name="entrances_restricted">受限</string>
+    <string name="entrances_full">完全</string>
+    <string name="entrances_crossed">交叉</string>
+    <string name="entrances_insanity">疯狂</string>
+
+    <!-- Glitches -->
+    <string name="glitches_required">所需漏洞（Glitches）</string>
+    <string name="glitches_none">无</string>
+    <string name="glitches_overworld">表世界漏洞</string>
+    <string name="glitches_hybrid">混合重大漏洞</string>
+    <string name="glitches_major">重大漏洞</string>
+    <string name="glitches_no_logic">无逻辑</string>
+
+    <!-- Goals -->
+    <string name="goals">目标</string>
+    <string name="goals_defeat_ganon">击败加农</string>
+    <string name="goals_fast_ganon">快速加农</string>
+    <string name="goals_pedestal">大师之剑台座</string>
+    <string name="goals_dungeons">所有地下城</string>
+    <string name="goals_triforce_hunt">三角力量寻宝</string>
+    <string name="goals_ganonhunt">加农寻宝</string>
+    <string name="goals_completionist">全收集</string>
+
+    <!-- Hash -->
+    <string name="hash_bow">弓</string>
+    <string name="hash_boomerang">回旋镖</string>
+    <string name="hash_hookshot">钩爪</string>
+    <string name="hash_bomb">炸弹</string>
+    <string name="hash_mushroom">蘑菇</string>
+    <string name="hash_powder">魔法粉</string>
+    <string name="hash_ice_rod">冰之杖</string>
+    <string name="hash_pendant">坠饰</string>
+    <string name="hash_bombos">炸弹os（Bombos）</string>
+    <string name="hash_ether">以太（Ether）</string>
+    <string name="hash_quake">地动（Quake）</string>
+    <string name="hash_lantern">提灯</string>
+    <string name="hash_hammer">铁锤</string>
+    <string name="hash_shovel">铁锹</string>
+    <string name="hash_ocarina">陶笛</string>
+    <string name="hash_bug_net">捕虫网</string>
+    <string name="hash_book">姆多拉之书</string>
+    <string name="hash_bottle">瓶子</string>
+    <string name="hash_green_potion">绿药水</string>
+    <string name="hash_somaria">索马里亚之杖</string>
+    <string name="hash_cape">魔法斗篷</string>
+    <string name="hash_mirror">魔镜</string>
+    <string name="hash_boots">飞马鞋</string>
+    <string name="hash_glove">力量手套</string>
+    <string name="hash_flippers">蛙鞋</string>
+    <string name="hash_moon_pearl">月亮珍珠</string>
+    <string name="hash_shield">盾牌</string>
+    <string name="hash_mail">服饰</string>
+    <string name="hash_heart">心心</string>
+    <string name="hash_map">地图</string>
+    <string name="hash_compass">指南针</string>
+    <string name="hash_big_key">大钥匙</string>
+
+    <string name="item_pool">道具池</string>
+    <string name="item_functionality">道具功能性</string>
+
+    <!-- Item Functionality / Pool additional -->
+    <string name="item_functionality_super_expert">超级专家</string>
+    <string name="item_pool_crowd_control">观众控制</string>
+
+    <string name="pseudoboots">伪飞马鞋</string>
+    <string name="pot_shuffle">罐子混洗</string>
+
+    <string name="gameplay">游戏玩法</string>
+    <string name="difficulty">难度</string>
+
+    <!-- Item Placement -->
+    <string name="item_placement">道具\n放置</string>
+    <string name="item_placement_basic">基础</string>
+    <string name="item_placement_advanced">高级</string>
+
+    <!-- Keysanity -->
+    <string name="dungeon_item_shuffle">地下城道具混洗</string>
+    <string name="keysanity_standard">标准</string>
+    <string name="keysanity_mc">地图/指南针</string>
+    <string name="keysanity_mcs">地图/指南针/小钥匙</string>
+    <string name="keysanity_full">全钥匙混乱（Keysanity）</string>
+
+    <!-- Language -->
+    <string name="language_english">英语</string>
+    <string name="language_francais">法语</string>
+    <string name="language_deutsch">德语</string>
+    <string name="language_espanol">西班牙语</string>
+
+    <!-- Medallion Location -->
+    <string name="medallion_location_turtle_rock">乌龟岩徽章</string>
+    <string name="medallion_location_misery_mire">苦难沼泽徽章</string>
+
+    <!-- Menu Speed -->
+    <string name="menu_speed_slow">慢</string>
+    <string name="menu_speed_fast">快</string>
+
+    <!-- Palette Algorithm -->
+    <string name="palette_algorithm_maseya">马塞亚 (Maseya)</string>
+    <string name="palette_algorithm_grayscale">灰度</string>
+    <string name="palette_algorithm_negative">负片</string>
+    <string name="palette_algorithm_blackout">全黑</string>
+    <string name="palette_algorithm_classic">经典</string>
+    <string name="palette_algorithm_dizzy">眩晕</string>
+    <string name="palette_algorithm_sick">恶心</string>
+    <string name="palette_algorithm_puke">呕吐</string>
+
+    <!-- Prize -->
+    <string name="prize_green_pendant">绿色坠饰</string>
+    <string name="prize_red_pendant">红色坠饰</string>
+    <string name="prize_blue_pendant">蓝色坠饰</string>
+    <string name="prize_crystal_1">水晶 1</string>
+    <string name="prize_crystal_2">水晶 2</string>
+    <string name="prize_crystal_3">水晶 3</string>
+    <string name="prize_crystal_4">水晶 4</string>
+    <string name="prize_crystal_5">水晶 5</string>
+    <string name="prize_crystal_6">水晶 6</string>
+    <string name="prize_crystal_7">水晶 7</string>
+
+    <!-- Rom Mode -->
+    <string name="rom_mode_no_glitches">无漏洞</string>
+    <string name="rom_mode_overworld_glitches">表世界漏洞</string>
+    <string name="rom_mode_major_glitches">重大漏洞</string>
+    <string name="rom_mode_no_logic">无逻辑</string>
+
+    <!-- Special Char -->
+    <string name="special_char_cursor">光标</string>
+    <string name="special_char_self">自身</string>
+    <string name="special_char_link">林克</string>
+    <string name="special_char_bird">小鸟</string>
+    <string name="special_char_ankh">生命之符</string>
+    <string name="special_char_squigly">波浪号</string>
+    <string name="special_char_heart_1">心心 1</string>
+    <string name="special_char_heart_2">心心 2</string>
+    <string name="special_char_heart_3">心心 3</string>
+    <string name="special_char_heart_4">心心 4</string>
+    <string name="special_char_var_1">变量 1</string>
+    <string name="special_char_var_2">变量 2</string>
+    <string name="special_char_var_3">变量 3</string>
+    <string name="special_char_var_4">变量 4</string>
+
+    <!-- Spoilers -->
+    <string name="spoilers_on">开启</string>
+    <string name="spoilers_off">关闭</string>
+    <string name="spoilers_generate">生成</string>
+    <string name="spoilers_mystery">神秘</string>
+
+    <string name="mystery_game">Mystery Seed</string>
+    <string name="race_game">Race Seed</string>
+    <string name="race">竞赛</string>
+
+    <!-- Toggle -->
+    <string name="toggle_on">是</string>
+    <string name="toggle_off">否</string>
+
+    <!-- Weapons -->
+    <string name="swords">剑</string>
+    <string name="weapons_randomized">随机化</string>
+    <string name="weapons_assured">确保获得</string>
+    <string name="weapons_vanilla">原版</string>
+    <string name="weapons_swordless">无剑模式</string>
+
+    <!-- World State -->
+    <string name="world_state">世界状态</string>
+    <string name="world_state_open">开放</string>
+    <string name="world_state_standard">标准</string>
+    <string name="world_state_inverted">倒置</string>
+    <string name="world_state_retro">复古</string>
+
+
+    <string name="all_logs">全部</string>
+    <string name="debug_logs">调试</string>
+    <string name="error_logs">错误</string>
+    <string name="info_logs">信息</string>
+    <string name="verbose_logs">详细</string>
+    <string name="warn_logs">警告</string>
+    <string name="wtf_logs">严重错误 (WTF)</string>
+
+    <string name="generating_seed">正在生成种子。</string>
+    <string name="play_seed">游玩种子</string>
+    <string name="save_seed_success">种子已保存。</string>
+    <string name="save_seed_failed">保存错误。</string>
+    <string name="generate_seed_failed">生成种子错误。</string>
+    <string name="generate_rom_failed">生成 ROM 错误。</string>
+    <string name="save_rom_failed">保存 ROM 错误。</string>
+
+    <string name="logic">逻辑</string>
+    <string name="logs">日志</string>
+    <string name="logs_screen">查看日志</string>
+    <string name="filter_log_tags">过滤日志标签</string>
+</resources>

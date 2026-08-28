@@ -1,0 +1,440 @@
+<resources>
+
+    <string name="ok">OK</string>
+    <string name="error_dialog">Désolé, une erreur s\'est produite.\nRéessayez plus tard.</string>
+    <string name="unknown_error">Erreur inconnue</string>
+    <string name="retry">Réessayer</string>
+    <string name="edit">Modifier</string>
+    <string name="clear">Effacer</string>
+    <string name="clear_app_data">Effacer les données de l\'application</string>
+    <string name="clear_app_data_message">Supprimer les ROMs, les graines et autres données...</string>
+    <string name="open">Ouvrir %1$s</string>
+    <string name="version">Version de l\'appli</string>
+    <string name="need_help">Besoin d\'aide ?</string>
+
+    <string name="alttp">A Link to the Past</string>
+
+    <string name="welcome_hero">Bienvenue, joueur !</string>
+    <string name="begin_journey">Pour commencer votre aventure, nous devons d\'abord vérifier votre fichier ROM original de %1$s</string>
+    <string name="select_base_rom">Sélectionner la ROM de base</string>
+    <string name="select_rom_legal">Sélectionnez votre ROM de %1$s (Zelda no Densetsu: Kamigami no Triforce v1.0) obtenue légalement pour activer le moteur du randomiseur.</string>
+    <string name="select_rom_file">Sélectionner le fichier ROM</string>
+
+    <string name="create_daily">Créer le défi quotidien</string>
+
+    <string name="daily_challenge">Défi quotidien</string>
+    <string name="quick_actions">Actions rapides</string>
+    <string name="recent_game">Partie récente</string>
+
+    <string name="create_random">Créer un défi aléatoire</string>
+    <string name="randomizer">Randomiseur</string>
+    <string name="generate_game">Graine normale</string>
+    <string name="generate_race">Graine de course</string>
+
+    <string name="hash_code">Code de hachage</string>
+    <string name="audio_visual">AUDIO ET VISUELS</string>
+    <string name="gameplay_toggles">Options de jouabilité</string>
+    <string name="generated">GÉNÉRÉ</string>
+    <string name="generated_on">Généré le : %1$s</string>
+    <string name="permalink">Lien permanent : </string>
+    <string name="game_options">Options de jeu</string>
+    <string name="seed_name">Nom de la graine</string>
+    <string name="ganon_count">Ganon : %1$s</string>
+    <string name="tower_count">Tour : %1$s</string>
+    <string name="select_sprite">Sélectionner un sprite</string>
+    <string name="search_sprites">Rechercher des sprites...</string>
+
+    <string name="no_seeds_found">Aucune graine enregistrée.\nIl est temps de jouer !</string>
+
+    <string name="customize">Personnaliser</string>
+
+    <string name="gamemode_custom">Personnalisé</string>
+    <string name="gamemode_beginner">Débutant</string>
+    <string name="gamemode_default">Par défaut</string>
+    <string name="gamemode_owg">OWG (Le favori de Veetorp)</string>
+    <string name="gamemode_crosskeys">Crosskeys</string>
+    <string name="gamemode_super_quick">Super rapide</string>
+    <string name="gamemode_nightmare">Cauchemar</string>
+    <string name="gamemode_daily_challenge">Défi quotidien</string>
+
+    <string name="menu_speed_title">Vitesse du menu</string>
+    <string name="heart_speed_title">Vitesse des cœurs</string>
+    <string name="heart_color_title">Couleur des cœurs</string>
+    <string name="background_music_title">Musique de fond</string>
+    <string name="quick_swap_title">Échange rapide d\'objets</string>
+    <string name="reduce_flashing_title">Réduire les clignotements</string>
+    <string name="msu_resume_title">Reprise MSU-1</string>
+    <string name="pallet_shuffle_title">Mélange des palettes</string>
+    <string name="shuffle_sfx_title">Mélange des effets sonores</string>
+
+    <string name="heart_color_red">Rouge</string>
+    <string name="heart_color_blue">Bleu</string>
+    <string name="heart_color_green">Vert</string>
+    <string name="heart_color_yellow">Jaune</string>
+
+    <string name="instant">Instantané</string>
+    <string name="normal">Normal</string>
+    <string name="half">Moitié</string>
+    <string name="double">Double</string>
+    <string name="triple">Triple</string>
+    <string name="off">DÉSACTIVÉ</string>
+    <string name="quarter">Quart</string>
+    <string name="quadruple">Quadruple</string>
+
+    <string name="dashboard">Tableau de bord</string>
+    <string name="generator">Générateur</string>
+    <string name="library">Bibliothèque</string>
+    <string name="settings">Paramètres</string>
+    <string name="dashboard_title">Tableau de bord ALttPR</string>
+    <string name="generator_title">Générateur de graines</string>
+    <string name="library_title">Bibliothèque de graines</string>
+    <string name="settings_title">Paramètres de l\'appli</string>
+    <string name="debug_mode">Activer le débogage</string>
+    <string name="licences">Licences tierces</string>
+    <string name="licences_message">Découvrez les bibliothèques que nous utilisons</string>
+    <string name="discord_title">Rejoindre le Discord</string>
+    <string name="discord_message">Restez informé et obtenez de l\'aide.</string>
+    <string name="source_code_title">GitHub du projet</string>
+    <string name="source_code_message">Consultez le code source ou contribuez.</string>
+
+    <string name="mit">MIT</string>
+    <string name="apache">APACHE 2.0</string>
+    <string name="gnu">GNU</string>
+    <string name="custom">PERSONNALISÉ</string>
+    <string name="licence_version">v%1$s</string>
+    <string name="all_trademarks">Toutes les marques commerciales appartiennent à leurs propriétaires respectifs.</string>
+
+    <string name="select_preset">Sélectionner un préréglage</string>
+
+
+    <string name="hints">Indices</string>
+
+    <!-- Accessibility -->
+    <string name="accessibility">Accessibilité</string>
+    <string name="accessibility_items">100% Objets</string>
+    <string name="accessibility_locations">100% Emplacements</string>
+    <string name="accessibility_beatable">Faisable uniquement</string>
+
+    <!-- Boss Shuffle -->
+    <string name="boss_shuffle">Mélange des boss</string>
+    <string name="boss_shuffle_none">Aucun</string>
+    <string name="boss_shuffle_simple">Simple</string>
+    <string name="boss_shuffle_full">Complet</string>
+    <string name="boss_shuffle_random">Aléatoire</string>
+
+    <!-- Bottle Api -->
+    <string name="bottle_empty">Bouteille vide</string>
+    <string name="bottle_red_potion">Potion rouge</string>
+    <string name="bottle_green_potion">Potion verte</string>
+    <string name="bottle_blue_potion">Potion bleue</string>
+    <string name="bottle_bee">Abeille</string>
+    <string name="bottle_fairy">Fée</string>
+    <string name="bottle_gold_bee">Abeille dorée</string>
+
+    <!-- Bottle Location -->
+    <string name="bottle_location_waterfall_fairy">Fée de la cascade</string>
+    <string name="bottle_location_pyramid_fairy">Fée de la pyramide</string>
+
+    <!-- Clock Mode -->
+    <string name="clock_mode_off">Désactivé</string>
+    <string name="clock_mode_stopwatch">Chronomètre</string>
+    <string name="clock_mode_ohko">Un coup, mort (OHKO)</string>
+    <string name="clock_mode_continue">Continuer</string>
+    <string name="clock_mode_stop">Arrêter</string>
+    <string name="clock_mode_end">Fin</string>
+
+    <!-- Compass Mode -->
+    <string name="compass_mode_on">Activé</string>
+    <string name="compass_mode_off">Désactivé</string>
+    <string name="compass_mode_pickup">Au ramassage</string>
+
+    <!-- Crystals -->
+    <string name="open_tower">Ouvrir la tour</string>
+    <string name="ganon_vulnerable">Ganon vulnérable</string>
+    <string name="crystals_zero">0 cristal</string>
+    <string name="crystals_one">1 cristal</string>
+    <string name="crystals_two">2 cristaux</string>
+    <string name="crystals_three">3 cristaux</string>
+    <string name="crystals_four">4 cristaux</string>
+    <string name="crystals_five">5 cristaux</string>
+    <string name="crystals_six">6 cristaux</string>
+    <string name="crystals_seven">7 cristaux</string>
+    <string name="crystals_random">Aléatoire</string>
+
+    <!-- District -->
+    <string name="district_big_chests">Grands coffres</string>
+    <string name="district_bosses">Boss</string>
+    <string name="district_fetch_quests">Quêtes annexes</string>
+    <string name="district_water_locked">Bloqué par l\'eau</string>
+    <string name="district_death_mountain">Mont de la Mort</string>
+    <string name="district_kakariko_village">Village de Kakariko</string>
+    <string name="district_hyrule_castle">Château d\'Hyrule</string>
+    <string name="district_eastern_palace">Palais de l\'Est</string>
+    <string name="district_desert_palace">Palais du Désert</string>
+    <string name="district_tower_of_hera">Tour d\'Hera</string>
+    <string name="district_castle_tower">Tour du château</string>
+    <string name="district_dark_palace">Palais des Ténèbres</string>
+    <string name="district_swamp_palace">Palais des Marais</string>
+    <string name="district_skull_woods">Bois des Crânes</string>
+    <string name="district_thieves_town">Village des Voleurs</string>
+    <string name="district_ice_palace">Palais de Glace</string>
+    <string name="district_misery_mire"> Marais de la Misère</string>
+    <string name="district_turtle_rock">Rocher de la Tortue</string>
+    <string name="district_ganons_tower_no_bk">Tour de Ganon (Sans clé géante)</string>
+    <string name="district_ganons_tower">Tour de Ganon</string>
+
+    <!-- Drop -->
+    <string name="drop_random">Aléatoire</string>
+    <string name="drop_bee_swarm">Essaim d\'abeilles</string>
+    <string name="drop_good_bee">Bonne abeille</string>
+    <string name="drop_heart">Cœur</string>
+    <string name="drop_green_rupee">Rubis vert</string>
+    <string name="drop_blue_rupee">Rubis bleu</string>
+    <string name="drop_red_rupee">Rubis rouge</string>
+    <string name="drop_one_bomb">1 bombe</string>
+    <string name="drop_four_bombs">4 bombes</string>
+    <string name="drop_eight_bombs">8 bombes</string>
+    <string name="drop_small_magic">Petite magie</string>
+    <string name="drop_full_magic">Magie complète</string>
+    <string name="drop_five_arrows">5 flèches</string>
+    <string name="drop_ten_arrows">10 flèches</string>
+    <string name="drop_fairy">Fée</string>
+
+    <!-- Drop Byte -->
+    <string name="drop_byte_bee">Abeille</string>
+    <string name="drop_byte_good_bee">Bonne abeille</string>
+    <string name="drop_byte_heart">Cœur</string>
+    <string name="drop_byte_one_rupee">1 rubis</string>
+    <string name="drop_byte_five_rupees">5 rubis</string>
+    <string name="drop_byte_twenty_rupees">20 rubis</string>
+    <string name="drop_byte_one_bomb">1 bombe</string>
+    <string name="drop_byte_four_bombs">4 bombes</string>
+    <string name="drop_byte_eight_bombs">8 bombes</string>
+    <string name="drop_byte_small_magic">Petite magie</string>
+    <string name="drop_byte_large_magic">Grande magie</string>
+    <string name="drop_byte_five_arrows">5 flèches</string>
+    <string name="drop_byte_ten_arrows">10 flèches</string>
+    <string name="drop_byte_fairy">Fée</string>
+
+    <!-- Enemy Damage -->
+    <string name="enemy_health">Santé des ennemis</string>
+    <string name="enemy_damage">Dégâts des ennemis</string>
+    <string name="enemy_damage_default">Par défaut</string>
+    <string name="enemy_damage_shuffled">Mélangés</string>
+    <string name="enemy_damage_random">Aléatoire</string>
+
+    <!-- Enemy Group -->
+    <string name="enemy_group_heart">Cœur</string>
+    <string name="enemy_group_rupee">Rubis</string>
+    <string name="enemy_group_magic">Magie</string>
+    <string name="enemy_group_bomb">Bombe</string>
+    <string name="enemy_group_arrow">Flèche</string>
+    <string name="enemy_group_small_variety">Petite variété</string>
+    <string name="enemy_group_big_variety">Grande variété</string>
+
+    <!-- Enemy Health -->
+    <string name="enemy_health_default">Par défaut</string>
+    <string name="enemy_health_easy">Facile</string>
+    <string name="enemy_health_hard">Difficile</string>
+    <string name="enemy_health_expert">Expert</string>
+
+    <!-- Enemy Shuffle -->
+    <string name="enemy_shuffle">Mélange des ennemis</string>
+    <string name="enemy_shuffle_none">Aucun</string>
+    <string name="enemy_shuffle_shuffled">Mélangés</string>
+    <string name="enemy_shuffle_random">Aléatoire</string>
+
+    <!-- Entrances -->
+    <string name="entrance_shuffle">Mélange des entrées</string>
+    <string name="entrances_none">Aucune</string>
+    <string name="entrances_simple">Simple</string>
+    <string name="entrances_restricted">Restreinte</string>
+    <string name="entrances_full">Complet</string>
+    <string name="entrances_crossed">Croisée</string>
+    <string name="entrances_insanity">Démence</string>
+
+    <!-- Glitches -->
+    <string name="glitches_required">Glitches requis</string>
+    <string name="glitches_none">Aucun</string>
+    <string name="glitches_overworld">Glitches du monde extérieur</string>
+    <string name="glitches_hybrid">Glitches majeurs hybrides</string>
+    <string name="glitches_major">Glitches majeurs</string>
+    <string name="glitches_no_logic">Sans logique</string>
+
+    <!-- Goals -->
+    <string name="goals">Objectifs</string>
+    <string name="goals_defeat_ganon">Vaincre Ganon</string>
+    <string name="goals_fast_ganon">Ganon rapide</string>
+    <string name="goals_pedestal">Piédestal de l\'Épée de Légende</string>
+    <string name="goals_dungeons">Tous les donjons</string>
+    <string name="goals_triforce_hunt">Chasse à la Triforce</string>
+    <string name="goals_ganonhunt">Chasse à Ganon</string>
+    <string name="goals_completionist">Complétionniste</string>
+
+    <!-- Hash -->
+    <string name="hash_bow">Arc</string>
+    <string name="hash_boomerang">Boomerang</string>
+    <string name="hash_hookshot">Grappin</string>
+    <string name="hash_bomb">Bombe</string>
+    <string name="hash_mushroom">Champignon</string>
+    <string name="hash_powder">Poudre magique</string>
+    <string name="hash_ice_rod">Baguette de glace</string>
+    <string name="hash_pendant">Pendentif</string>
+    <string name="hash_bombos">Bombos</string>
+    <string name="hash_ether">Ether</string>
+    <string name="hash_quake">Tremblement de terre (Quake)</string>
+    <string name="hash_lantern">Lanterne</string>
+    <string name="hash_hammer">Marteau</string>
+    <string name="hash_shovel">Pelle</string>
+    <string name="hash_ocarina">Ocarina</string>
+    <string name="hash_bug_net">Fraise à insectes</string>
+    <string name="hash_book">Livre de Mudora</string>
+    <string name="hash_bottle">Bouteille</string>
+    <string name="hash_green_potion">Potion verte</string>
+    <string name="hash_somaria">Canne de Somaria</string>
+    <string name="hash_cape">Cape magique</string>
+    <string name="hash_mirror">Miroir magique</string>
+    <string name="hash_boots">Bottes de Pégase</string>
+    <string name="hash_glove">Gant de puissance</string>
+    <string name="hash_flippers">Palmes</string>
+    <string name="hash_moon_pearl">Perle de lune</string>
+    <string name="hash_shield">Bouclier</string>
+    <string name="hash_mail">Tunique</string>
+    <string name="hash_heart">Cœur</string>
+    <string name="hash_map">Carte</string>
+    <string name="hash_compass">Boussole</string>
+    <string name="hash_big_key">Clé géante</string>
+
+    <string name="item_pool">Réserve d\'objets</string>
+    <string name="item_functionality">Fonctionnalité des objets</string>
+
+    <!-- Item Functionality / Pool additional -->
+    <string name="item_functionality_super_expert">Super expert</string>
+    <string name="item_pool_crowd_control">Contrôle des foules</string>
+
+    <string name="pseudoboots">Pseudo-bottes</string>
+    <string name="pot_shuffle">Mélange des jarres</string>
+
+    <string name="gameplay">Jouabilité</string>
+    <string name="difficulty">Difficulté</string>
+
+    <!-- Item Placement -->
+    <string name="item_placement">Placement\ndes objets</string>
+    <string name="item_placement_basic">Basique</string>
+    <string name="item_placement_advanced">Avancé</string>
+
+    <!-- Keysanity -->
+    <string name="dungeon_item_shuffle">Mélange des objets de donjon</string>
+    <string name="keysanity_standard">Standard</string>
+    <string name="keysanity_mc">Cartes/Boussoles</string>
+    <string name="keysanity_mcs">Cartes/Boussoles/Petites clés</string>
+    <string name="keysanity_full">Keysanity (Tout mélangé)</string>
+
+    <!-- Language -->
+    <string name="language_english">Anglais</string>
+    <string name="language_francais">Français</string>
+    <string name="language_deutsch">Allemand</string>
+    <string name="language_espanol">Espagnol</string>
+
+    <!-- Medallion Location -->
+    <string name="medallion_location_turtle_rock">Médaillon du Rocher de la Tortue</string>
+    <string name="medallion_location_misery_mire">Médaillon du Marais de la Misère</string>
+
+    <!-- Menu Speed -->
+    <string name="menu_speed_slow">Lent</string>
+    <string name="menu_speed_fast">Rapide</string>
+
+    <!-- Palette Algorithm -->
+    <string name="palette_algorithm_maseya">Maseya</string>
+    <string name="palette_algorithm_grayscale">Niveaux de gris</string>
+    <string name="palette_algorithm_negative">Négatif</string>
+    <string name="palette_algorithm_blackout">Noir total</string>
+    <string name="palette_algorithm_classic">Classique</string>
+    <string name="palette_algorithm_dizzy">Étourdissant</string>
+    <string name="palette_algorithm_sick">Malade</string>
+    <string name="palette_algorithm_puke">Vomi</string>
+
+    <!-- Prize -->
+    <string name="prize_green_pendant">Pendentif vert</string>
+    <string name="prize_red_pendant">Pendentif rouge</string>
+    <string name="prize_blue_pendant">Pendentif bleu</string>
+    <string name="prize_crystal_1">Cristal 1</string>
+    <string name="prize_crystal_2">Cristal 2</string>
+    <string name="prize_crystal_3">Cristal 3</string>
+    <string name="prize_crystal_4">Cristal 4</string>
+    <string name="prize_crystal_5">Cristal 5</string>
+    <string name="prize_crystal_6">Cristal 6</string>
+    <string name="prize_crystal_7">Cristal 7</string>
+
+    <!-- Rom Mode -->
+    <string name="rom_mode_no_glitches">Sans glitch</string>
+    <string name="rom_mode_overworld_glitches">Glitches du monde extérieur</string>
+    <string name="rom_mode_major_glitches">Glitches majeurs</string>
+    <string name="rom_mode_no_logic">Sans logique</string>
+
+    <!-- Special Char -->
+    <string name="special_char_cursor">Curseur</string>
+    <string name="special_char_self">Soi-même</string>
+    <string name="special_char_link">Link</string>
+    <string name="special_char_bird">Oiseau</string>
+    <string name="special_char_ankh">Ankh</string>
+    <string name="special_char_squigly">Ondulé</string>
+    <string name="special_char_heart_1">Cœur 1</string>
+    <string name="special_char_heart_2">Cœur 2</string>
+    <string name="special_char_heart_3">Cœur 3</string>
+    <string name="special_char_heart_4">Cœur 4</string>
+    <string name="special_char_var_1">Var 1</string>
+    <string name="special_char_var_2">Var 2</string>
+    <string name="special_char_var_3">Var 3</string>
+    <string name="special_char_var_4">Var 4</string>
+
+    <!-- Spoilers -->
+    <string name="spoilers_on">Activés</string>
+    <string name="spoilers_off">Désactivés</string>
+    <string name="spoilers_generate">Générer</string>
+    <string name="spoilers_mystery">Mystère</string>
+
+    <string name="mystery_game">Graine mystère</string>
+    <string name="race_game">Graine de course</string>
+    <string name="race">Course</string>
+
+    <!-- Toggle -->
+    <string name="toggle_on">Oui</string>
+    <string name="toggle_off">Non</string>
+
+    <!-- Weapons -->
+    <string name="swords">Épées</string>
+    <string name="weapons_randomized">Aléatoires</string>
+    <string name="weapons_assured">Garanties</string>
+    <string name="weapons_vanilla">Originales</string>
+    <string name="weapons_swordless">Sans épée</string>
+
+    <!-- World State -->
+    <string name="world_state">État du monde</string>
+    <string name="world_state_open">Ouvert</string>
+    <string name="world_state_standard">Standard</string>
+    <string name="world_state_inverted">Inversé</string>
+    <string name="world_state_retro">Rétro</string>
+
+
+    <string name="all_logs">Tous</string>
+    <string name="debug_logs">Débogage</string>
+    <string name="error_logs">Erreurs</string>
+    <string name="info_logs">Informations</string>
+    <string name="verbose_logs">Détaillés</string>
+    <string name="warn_logs">Avertissements</string>
+    <string name="wtf_logs">Critiques (WTF)</string>
+
+    <string name="generating_seed">Génération de la graine.</string>
+    <string name="play_seed">Jouer la graine</string>
+    <string name="save_seed_success">Graine enregistrée.</string>
+    <string name="save_seed_failed">Erreur d\'enregistrement.</string>
+    <string name="generate_seed_failed">Erreur de génération de la graine.</string>
+    <string name="generate_rom_failed">Erreur de génération de la ROM.</string>
+    <string name="save_rom_failed">Erreur d\'enregistrement de la ROM.</string>
+
+    <string name="logic">Logique</string>
+    <string name="logs">Journaux</string>
+    <string name="logs_screen">Voir les journaux</string>
+    <string name="filter_log_tags">Filtrer les balises de journaux</string>
+</resources>

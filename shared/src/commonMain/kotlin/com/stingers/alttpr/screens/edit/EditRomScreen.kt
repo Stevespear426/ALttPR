@@ -108,8 +108,8 @@ fun EditRomTopBar(
             title = {
                 Text(
                     text = title,
-                    maxLines = 2,
-                    autoSize = TextAutoSize.StepBased(minFontSize = 16.sp, maxFontSize = 24.sp)
+                    maxLines = 3,
+                    autoSize = TextAutoSize.StepBased(minFontSize = 14.sp, maxFontSize = 24.sp)
                 )
             },
             navigationIcon = {

@@ -49,6 +49,6 @@ data class RandomizerGameModel(
     val pseudoboots: Boolean? = null,
     val notes: String? = null,
     val lang: Language? = null,
-    val name: String = "${glitches?.name.orEmpty()}-${worldState?.name.orEmpty()}-${goal?.name.orEmpty()}-${getDateString(currentTimeInMillis())}",
+    val name: String = "${glitches?.fileName().orEmpty()}-${worldState?.name.orEmpty()}-${goal?.name.orEmpty()}-${getDateString(currentTimeInMillis())}",
 )
 

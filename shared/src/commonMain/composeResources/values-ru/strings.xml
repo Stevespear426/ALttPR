@@ -1,0 +1,440 @@
+<resources>
+
+    <string name="ok">OK</string>
+    <string name="error_dialog">Извините, произошла ошибка.\nПопробуйте позже.</string>
+    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="retry">Повторить</string>
+    <string name="edit">Изменить</string>
+    <string name="clear">Очистить</string>
+    <string name="clear_app_data">Очистить данные приложения</string>
+    <string name="clear_app_data_message">Удаление ROM, сидов и других данных...</string>
+    <string name="open">Открыть %1$s</string>
+    <string name="version">Версия приложения</string>
+    <string name="need_help">Нужна помощь?</string>
+
+    <string name="alttp">A Link to the Past</string>
+
+    <string name="welcome_hero">Добро пожаловать, игрок!</string>
+    <string name="begin_journey">Чтобы начать путешествие, нам нужно сначала проверить ваш оригинальный файл ROM %1$s</string>
+    <string name="select_base_rom">Выбрать базовый ROM</string>
+    <string name="select_rom_legal">Выберите ваш легально приобретенный ROM %1$s (Zelda no Densetsu: Kamigami no Triforce v1.0) для активации рандомайзера.</string>
+    <string name="select_rom_file">Выбрать файл ROM</string>
+
+    <string name="create_daily">Создать ежедневный</string>
+
+    <string name="daily_challenge">Ежедневный вызов</string>
+    <string name="quick_actions">Быстрые действия</string>
+    <string name="recent_game">Недавняя игра</string>
+
+    <string name="create_random">Создать случайный вызов</string>
+    <string name="randomizer">Рандомайзер</string>
+    <string name="generate_game">Обычный сид</string>
+    <string name="generate_race">Гоночный сид</string>
+
+    <string name="hash_code">Хэш-код</string>
+    <string name="audio_visual">АУДИО И ВИДЕО</string>
+    <string name="gameplay_toggles">Параметры игрового процесса</string>
+    <string name="generated">СГЕНЕРИРОВАНО</string>
+    <string name="generated_on">Сгенерировано: %1$s</string>
+    <string name="permalink">Постоянная ссылка: </string>
+    <string name="game_options">Игровые опции</string>
+    <string name="seed_name">Имя сида</string>
+    <string name="ganon_count">Ганон: %1$s</string>
+    <string name="tower_count">Башня: %1$s</string>
+    <string name="select_sprite">Выбрать спрайт</string>
+    <string name="search_sprites">Поиск спрайтов...</string>
+
+    <string name="no_seeds_found">Сохраненных сидов нет.\nПора играть!</string>
+
+    <string name="customize">Настроить</string>
+
+    <string name="gamemode_custom">Пользовательский</string>
+    <string name="gamemode_beginner">Новичок</string>
+    <string name="gamemode_default">По умолчанию</string>
+    <string name="gamemode_owg">OWG (Любимый режим Veetorp)</string>
+    <string name="gamemode_crosskeys">Crosskeys</string>
+    <string name="gamemode_super_quick">Супер быстрый</string>
+    <string name="gamemode_nightmare">Кошмар</string>
+    <string name="gamemode_daily_challenge">Ежедневный вызов</string>
+
+    <string name="menu_speed_title">Скорость меню</string>
+    <string name="heart_speed_title">Скорость сердец</string>
+    <string name="heart_color_title">Цвет сердец</string>
+    <string name="background_music_title">Фоновая музыка</string>
+    <string name="quick_swap_title">Быстрая смена предметов</string>
+    <string name="reduce_flashing_title">Уменьшить мигание</string>
+    <string name="msu_resume_title">Возобновление MSU-1</string>
+    <string name="pallet_shuffle_title">Перемешивание палитры</string>
+    <string name="shuffle_sfx_title">Перемешивание звуков</string>
+
+    <string name="heart_color_red">Красный</string>
+    <string name="heart_color_blue">Синий</string>
+    <string name="heart_color_green">Зеленый</string>
+    <string name="heart_color_yellow">Желтый</string>
+
+    <string name="instant">Мгновенно</string>
+    <string name="normal">Нормально</string>
+    <string name="half">Половина</string>
+    <string name="double">Двойная</string>
+    <string name="triple">Тройная</string>
+    <string name="off">ВЫКЛ</string>
+    <string name="quarter">Четверть</string>
+    <string name="quadruple">Четвертная</string>
+
+    <string name="dashboard">Главная</string>
+    <string name="generator">Генератор</string>
+    <string name="library">Библиотека</string>
+    <string name="settings">Настройки</string>
+    <string name="dashboard_title">Панель ALttPR</string>
+    <string name="generator_title">Генератор сидов</string>
+    <string name="library_title">Библиотека сидов</string>
+    <string name="settings_title">Настройки приложения</string>
+    <string name="debug_mode">Включить отладку</string>
+    <string name="licences">Лицензии сторонних разработчиков</string>
+    <string name="licences_message">Посмотреть используемые библиотеки</string>
+    <string name="discord_title">Присоединиться к Discord</string>
+    <string name="discord_message">Будьте в курсе и получайте помощь.</string>
+    <string name="source_code_title">GitHub проекта</string>
+    <string name="source_code_message">Посмотреть исходный код или внести вклад.</string>
+
+    <string name="mit">MIT</string>
+    <string name="apache">APACHE 2.0</string>
+    <string name="gnu">GNU</string>
+    <string name="custom">ПОЛЬЗОВАТЕЛЬСКИЙ</string>
+    <string name="licence_version">v%1$s</string>
+    <string name="all_trademarks">Все товарные знаки являются собственностью соответствующих владельцев.</string>
+
+    <string name="select_preset">Выбрать пресет</string>
+
+
+    <string name="hints">Подсказки</string>
+
+    <!-- Accessibility -->
+    <string name="accessibility">Доступность</string>
+    <string name="accessibility_items">100% предметов</string>
+    <string name="accessibility_locations">100% мест</string>
+    <string name="accessibility_beatable">Только проходимое</string>
+
+    <!-- Boss Shuffle -->
+    <string name="boss_shuffle">Перемешивание боссов</string>
+    <string name="boss_shuffle_none">Нет</string>
+    <string name="boss_shuffle_simple">Простое</string>
+    <string name="boss_shuffle_full">Полное</string>
+    <string name="boss_shuffle_random">Случайное</string>
+
+    <!-- Bottle Api -->
+    <string name="bottle_empty">Пустая бутылка</string>
+    <string name="bottle_red_potion">Красное зелье</string>
+    <string name="bottle_green_potion">Зеленое зелье</string>
+    <string name="bottle_blue_potion">Синее зелье</string>
+    <string name="bottle_bee">Пчела</string>
+    <string name="bottle_fairy">Фея</string>
+    <string name="bottle_gold_bee">Золотая пчела</string>
+
+    <!-- Bottle Location -->
+    <string name="bottle_location_waterfall_fairy">Фея водопада</string>
+    <string name="bottle_location_pyramid_fairy">Фея пирамиды</string>
+
+    <!-- Clock Mode -->
+    <string name="clock_mode_off">Выкл</string>
+    <string name="clock_mode_stopwatch">Секундомер</string>
+    <string name="clock_mode_ohko">Один удар (OHKO)</string>
+    <string name="clock_mode_continue">Продолжить</string>
+    <string name="clock_mode_stop">Стоп</string>
+    <string name="clock_mode_end">Конец</string>
+
+    <!-- Compass Mode -->
+    <string name="compass_mode_on">Вкл</string>
+    <string name="compass_mode_off">Выкл</string>
+    <string name="compass_mode_pickup">При подборе</string>
+
+    <!-- Crystals -->
+    <string name="open_tower">Открыть башню</string>
+    <string name="ganon_vulnerable">Ганон уязвим</string>
+    <string name="crystals_zero">0 кристаллов</string>
+    <string name="crystals_one">1 кристалл</string>
+    <string name="crystals_two">2 кристалла</string>
+    <string name="crystals_three">3 кристалла</string>
+    <string name="crystals_four">4 кристалла</string>
+    <string name="crystals_five">5 кристаллов</string>
+    <string name="crystals_six">6 кристаллов</string>
+    <string name="crystals_seven">7 кристаллов</string>
+    <string name="crystals_random">Случайно</string>
+
+    <!-- District -->
+    <string name="district_big_chests">Большие сундуки</string>
+    <string name="district_bosses">Боссы</string>
+    <string name="district_fetch_quests">Поручения</string>
+    <string name="district_water_locked">Заблокировано водой</string>
+    <string name="district_death_mountain">Гора Смерти</string>
+    <string name="district_kakariko_village">Деревня Какарико</string>
+    <string name="district_hyrule_castle">Замок Хайрула</string>
+    <string name="district_eastern_palace">Восточный дворец</string>
+    <string name="district_desert_palace">Пустынный дворец</string>
+    <string name="district_tower_of_hera">Башня Геры</string>
+    <string name="district_castle_tower">Башня замка</string>
+    <string name="district_dark_palace">Темный дворец</string>
+    <string name="district_swamp_palace">Болотный дворец</string>
+    <string name="district_skull_woods">Лес Черепов</string>
+    <string name="district_thieves_town">Город воров</string>
+    <string name="district_ice_palace">Ледяной дворец</string>
+    <string name="district_misery_mire">Трясина Страданий</string>
+    <string name="district_turtle_rock">Черепашья скала</string>
+    <string name="district_ganons_tower_no_bk">Башня Ганона (без большой ключа)</string>
+    <string name="district_ganons_tower">Башня Ганона</string>
+
+    <!-- Drop -->
+    <string name="drop_random">Случайно</string>
+    <string name="drop_bee_swarm">Пчелиный рой</string>
+    <string name="drop_good_bee">Хорошая пчела</string>
+    <string name="drop_heart">Сердце</string>
+    <string name="drop_green_rupee">Зеленая рупия</string>
+    <string name="drop_blue_rupee">Синяя рупия</string>
+    <string name="drop_red_rupee">Красная рупия</string>
+    <string name="drop_one_bomb">1 бомба</string>
+    <string name="drop_four_bombs">4 бомбы</string>
+    <string name="drop_eight_bombs">8 бомб</string>
+    <string name="drop_small_magic">Малая магия</string>
+    <string name="drop_full_magic">Полная магия</string>
+    <string name="drop_five_arrows">5 стрел</string>
+    <string name="drop_ten_arrows">10 стрел</string>
+    <string name="drop_fairy">Фея</string>
+
+    <!-- Drop Byte -->
+    <string name="drop_byte_bee">Пчела</string>
+    <string name="drop_byte_good_bee">Хорошая пчела</string>
+    <string name="drop_byte_heart">Сердце</string>
+    <string name="drop_byte_one_rupee">1 рупия</string>
+    <string name="drop_byte_five_rupees">5 рупий</string>
+    <string name="drop_byte_twenty_rupees">20 рупий</string>
+    <string name="drop_byte_one_bomb">1 бомба</string>
+    <string name="drop_byte_four_bombs">4 бомбы</string>
+    <string name="drop_byte_eight_bombs">8 бомб</string>
+    <string name="drop_byte_small_magic">Малая магия</string>
+    <string name="drop_byte_large_magic">Большая магия</string>
+    <string name="drop_byte_five_arrows">5 стрел</string>
+    <string name="drop_byte_ten_arrows">10 стрел</string>
+    <string name="drop_byte_fairy">Фея</string>
+
+    <!-- Enemy Damage -->
+    <string name="enemy_health">Здоровье врагов</string>
+    <string name="enemy_damage">Урон врагов</string>
+    <string name="enemy_damage_default">По умолчанию</string>
+    <string name="enemy_damage_shuffled">Перемешанный</string>
+    <string name="enemy_damage_random">Случайный</string>
+
+    <!-- Enemy Group -->
+    <string name="enemy_group_heart">Сердце</string>
+    <string name="enemy_group_rupee">Рупия</string>
+    <string name="enemy_group_magic">Магия</string>
+    <string name="enemy_group_bomb">Бомба</string>
+    <string name="enemy_group_arrow">Стрела</string>
+    <string name="enemy_group_small_variety">Малое разнообразие</string>
+    <string name="enemy_group_big_variety">Большое разнообразие</string>
+
+    <!-- Enemy Health -->
+    <string name="enemy_health_default">По умолчанию</string>
+    <string name="enemy_health_easy">Легко</string>
+    <string name="enemy_health_hard">Сложно</string>
+    <string name="enemy_health_expert">Эксперт</string>
+
+    <!-- Enemy Shuffle -->
+    <string name="enemy_shuffle">Перемешивание врагов</string>
+    <string name="enemy_shuffle_none">Нет</string>
+    <string name="enemy_shuffle_shuffled">Перемешаны</string>
+    <string name="enemy_shuffle_random">Случайно</string>
+
+    <!-- Entrances -->
+    <string name="entrance_shuffle">Перемешивание входов</string>
+    <string name="entrances_none">Нет</string>
+    <string name="entrances_simple">Простое</string>
+    <string name="entrances_restricted">Ограниченное</string>
+    <string name="entrances_full">Полное</string>
+    <string name="entrances_crossed">Перекрестное</string>
+    <string name="entrances_insanity">Безумие</string>
+
+    <!-- Glitches -->
+    <string name="glitches_required">Требуемые глитчи</string>
+    <string name="glitches_none">Нет</string>
+    <string name="glitches_overworld">Глитчи внешнего мира</string>
+    <string name="glitches_hybrid">Гибридные основные глитчи</string>
+    <string name="glitches_major">Основные глитчи</string>
+    <string name="glitches_no_logic">Без логики</string>
+
+    <!-- Goals -->
+    <string name="goals">Цели</string>
+    <string name="goals_defeat_ganon">Победить Ганона</string>
+    <string name="goals_fast_ganon">Быстрый Ганон</string>
+    <string name="goals_pedestal">Пьедестал меча</string>
+    <string name="goals_dungeons">Все подземелья</string>
+    <string name="goals_triforce_hunt">Охота на Трифорс</string>
+    <string name="goals_ganonhunt">Охота на Ганона</string>
+    <string name="goals_completionist">На 100%</string>
+
+    <!-- Hash -->
+    <string name="hash_bow">Лук</string>
+    <string name="hash_boomerang">Бумеранг</string>
+    <string name="hash_hookshot">Крюк</string>
+    <string name="hash_bomb">Бомба</string>
+    <string name="hash_mushroom">Гриб</string>
+    <string name="hash_powder">Волшебный порошок</string>
+    <string name="hash_ice_rod">Ледяной жезл</string>
+    <string name="hash_pendant">Медальон</string>
+    <string name="hash_bombos">Бомбос</string>
+    <string name="hash_ether">Эфир</string>
+    <string name="hash_quake">Землетрясение</string>
+    <string name="hash_lantern">Фонарь</string>
+    <string name="hash_hammer">Молот</string>
+    <string name="hash_shovel">Лопата</string>
+    <string name="hash_ocarina">Окарина</string>
+    <string name="hash_bug_net">Сачок</string>
+    <string name="hash_book">Книга Мудоры</string>
+    <string name="hash_bottle">Бутылка</string>
+    <string name="hash_green_potion">Зеленое зелье</string>
+    <string name="hash_somaria">Жезл Сомарии</string>
+    <string name="hash_cape">Плащ</string>
+    <string name="hash_mirror">Зеркало</string>
+    <string name="hash_boots">Сапоги Пегаса</string>
+    <string name="hash_glove">Силовая перчатка</string>
+    <string name="hash_flippers">Ласты</string>
+    <string name="hash_moon_pearl">Лунная жемчужина</string>
+    <string name="hash_shield">Щит</string>
+    <string name="hash_mail">Костюм</string>
+    <string name="hash_heart">Сердце</string>
+    <string name="hash_map">Карта</string>
+    <string name="hash_compass">Компас</string>
+    <string name="hash_big_key">Большой ключ</string>
+
+    <string name="item_pool">Пул предметов</string>
+    <string name="item_functionality">Функциональность предметов</string>
+
+    <!-- Item Functionality / Pool additional -->
+    <string name="item_functionality_super_expert">Супер эксперт</string>
+    <string name="item_pool_crowd_control">Контроль толпы</string>
+
+    <string name="pseudoboots">Псевдосапоги</string>
+    <string name="pot_shuffle">Перемешивание горшков</string>
+
+    <string name="gameplay">Геймплей</string>
+    <string name="difficulty">Сложность</string>
+
+    <!-- Item Placement -->
+    <string name="item_placement">Размещение\nпредметов</string>
+    <string name="item_placement_basic">Базовое</string>
+    <string name="item_placement_advanced">Продвинутое</string>
+
+    <!-- Keysanity -->
+    <string name="dungeon_item_shuffle">Перемешивание предметов подземелий</string>
+    <string name="keysanity_standard">Стандарт</string>
+    <string name="keysanity_mc">Карты/Компасы</string>
+    <string name="keysanity_mcs">Карты/Компасы/Малые ключи</string>
+    <string name="keysanity_full">Кейсанити (Полный хаос)</string>
+
+    <!-- Language -->
+    <string name="language_english">Английский</string>
+    <string name="language_francais">Французский</string>
+    <string name="language_deutsch">Немецкий</string>
+    <string name="language_espanol">Испанский</string>
+
+    <!-- Medallion Location -->
+    <string name="medallion_location_turtle_rock">Медальон черепашьей скалы</string>
+    <string name="medallion_location_misery_mire">Медальон трясины страданий</string>
+
+    <!-- Menu Speed -->
+    <string name="menu_speed_slow">Медленно</string>
+    <string name="menu_speed_fast">Быстро</string>
+
+    <!-- Palette Algorithm -->
+    <string name="palette_algorithm_maseya">Масея</string>
+    <string name="palette_algorithm_grayscale">Оттенки серого</string>
+    <string name="palette_algorithm_negative">Негатив</string>
+    <string name="palette_algorithm_blackout">Затемнение</string>
+    <string name="palette_algorithm_classic">Классический</string>
+    <string name="palette_algorithm_dizzy">Головокружение</string>
+    <string name="palette_algorithm_sick">Тошнота</string>
+    <string name="palette_algorithm_puke">Блевотина</string>
+
+    <!-- Prize -->
+    <string name="prize_green_pendant">Зеленый кулон</string>
+    <string name="prize_red_pendant">Красный кулон</string>
+    <string name="prize_blue_pendant">Синий кулон</string>
+    <string name="prize_crystal_1">Кристалл 1</string>
+    <string name="prize_crystal_2">Кристалл 2</string>
+    <string name="prize_crystal_3">Кристалл 3</string>
+    <string name="prize_crystal_4">Кристалл 4</string>
+    <string name="prize_crystal_5">Кристалл 5</string>
+    <string name="prize_crystal_6">Кристалл 6</string>
+    <string name="prize_crystal_7">Кристалл 7</string>
+
+    <!-- Rom Mode -->
+    <string name="rom_mode_no_glitches">Без глитчей</string>
+    <string name="rom_mode_overworld_glitches">Глитчи внешнего мира</string>
+    <string name="rom_mode_major_glitches">Основные глитчи</string>
+    <string name="rom_mode_no_logic">Без логики</string>
+
+    <!-- Special Char -->
+    <string name="special_char_cursor">Курсор</string>
+    <string name="special_char_self">Себя</string>
+    <string name="special_char_link">Линк</string>
+    <string name="special_char_bird">Птица</string>
+    <string name="special_char_ankh">Анкх</string>
+    <string name="special_char_squigly">Волна</string>
+    <string name="special_char_heart_1">Сердце 1</string>
+    <string name="special_char_heart_2">Сердце 2</string>
+    <string name="special_char_heart_3">Сердце 3</string>
+    <string name="special_char_heart_4">Сердце 4</string>
+    <string name="special_char_var_1">Перем 1</string>
+    <string name="special_char_var_2">Перем 2</string>
+    <string name="special_char_var_3">Перем 3</string>
+    <string name="special_char_var_4">Перем 4</string>
+
+    <!-- Spoilers -->
+    <string name="spoilers_on">Вкл</string>
+    <string name="spoilers_off">Выкл</string>
+    <string name="spoilers_generate">Сгенерировать</string>
+    <string name="spoilers_mystery">Тайна</string>
+
+    <string name="mystery_game">Mystery Seed</string>
+    <string name="race_game">Race Seed</string>
+    <string name="race">Гонка</string>
+
+    <!-- Toggle -->
+    <string name="toggle_on">Да</string>
+    <string name="toggle_off">Нет</string>
+
+    <!-- Weapons -->
+    <string name="swords">Мечи</string>
+    <string name="weapons_randomized">Случайные</string>
+    <string name="weapons_assured">Гарантированные</string>
+    <string name="weapons_vanilla">Оригинальные</string>
+    <string name="weapons_swordless">Без меча</string>
+
+    <!-- World State -->
+    <string name="world_state">Состояние мира</string>
+    <string name="world_state_open">Открытый</string>
+    <string name="world_state_standard">Стандартный</string>
+    <string name="world_state_inverted">Инвертированный</string>
+    <string name="world_state_retro">Ретро</string>
+
+
+    <string name="all_logs">Все</string>
+    <string name="debug_logs">Отладка</string>
+    <string name="error_logs">Ошибки</string>
+    <string name="info_logs">Инфо</string>
+    <string name="verbose_logs">Подробно</string>
+    <string name="warn_logs">Предупреждения</string>
+    <string name="wtf_logs">Критично (WTF)</string>
+
+    <string name="generating_seed">Генерация сида.</string>
+    <string name="play_seed">Играть сид</string>
+    <string name="save_seed_success">Сид сохранен.</string>
+    <string name="save_seed_failed">Ошибка сохранения.</string>
+    <string name="generate_seed_failed">Ошибка генерации сида.</string>
+    <string name="generate_rom_failed">Ошибка генерации ROM.</string>
+    <string name="save_rom_failed">Ошибка сохранения ROM.</string>
+
+    <string name="logic">Логика</string>
+    <string name="logs">Логи</string>
+    <string name="logs_screen">Просмотр логов</string>
+    <string name="filter_log_tags">Фильтровать теги логов</string>
+</resources>

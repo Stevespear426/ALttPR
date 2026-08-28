@@ -133,7 +133,12 @@ fun RandomizerScreen(
                     value = settings.name,
                     onValueChange = { processEvent(RandomizerEvent.SetName(it)) },
                     modifier = Modifier.fillMaxWidth(),
-                    label = { Text(stringResource(Res.string.seed_name)) },
+                    label = {
+                        Text(
+                            text = stringResource(Res.string.seed_name),
+                            color = MaterialTheme.colorScheme.secondary
+                        )
+                    },
                     placeholder = { Text(stringResource(Res.string.seed_name)) },
                     singleLine = true,
                     shape = CircleShape,

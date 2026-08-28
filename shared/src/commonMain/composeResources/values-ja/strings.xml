@@ -1,0 +1,440 @@
+<resources>
+
+    <string name="ok">OK</string>
+    <string name="error_dialog">申し訳ありませんが、エラーが発生しました。\n後でやり直してください。</string>
+    <string name="unknown_error">不明なエラー</string>
+    <string name="retry">再試行</string>
+    <string name="edit">編集</string>
+    <string name="clear">クリア</string>
+    <string name="clear_app_data">アプリデータをクリア</string>
+    <string name="clear_app_data_message">ROM、シード、その他のデータを削除...</string>
+    <string name="open">%1$s を開く</string>
+    <string name="version">アプリバージョン</string>
+    <string name="need_help">ヘルプが必要ですか？</string>
+
+    <string name="alttp">A Link to the Past</string>
+
+    <string name="welcome_hero">ようこそ、ゲーマー！</string>
+    <string name="begin_journey">冒険を始めるには、まず元の %1$s ROMファイルを確認する必要があります</string>
+    <string name="select_base_rom">ベースROMを選択</string>
+    <string name="select_rom_legal">ランダムナイザーエンジンを有効にするには、合法的に所有している %1$s (Zelda no Densetsu: Kamigami no Triforce v1.0) のROMを選択してください。</string>
+    <string name="select_rom_file">ROMファイルを選択</string>
+
+    <string name="create_daily">デイリーを作成</string>
+
+    <string name="daily_challenge">デイリーチャレンジ</string>
+    <string name="quick_actions">クイックアクション</string>
+    <string name="recent_game">最近のゲーム</string>
+
+    <string name="create_random">ランダムチャレンジを作成</string>
+    <string name="randomizer">ランダムナイザー</string>
+    <string name="generate_game">通常シード</string>
+    <string name="generate_race">レースシード</string>
+
+    <string name="hash_code">ハッシュコード</string>
+    <string name="audio_visual">オーディオ &amp; ビジュアル</string>
+    <string name="gameplay_toggles">ゲームプレイの切り替え</string>
+    <string name="generated">生成済み</string>
+    <string name="generated_on">生成日時: %1$s</string>
+    <string name="permalink">パーマリンク: </string>
+    <string name="game_options">ゲームオプション</string>
+    <string name="seed_name">シード名</string>
+    <string name="ganon_count">ガノン: %1$s</string>
+    <string name="tower_count">塔: %1$s</string>
+    <string name="select_sprite">スプライトを選択</string>
+    <string name="search_sprites">スプライトを検索...</string>
+
+    <string name="no_seeds_found">保存されたシードはありません。\nゲームを始めましょう！</string>
+
+    <string name="customize">カスタマイズ</string>
+
+    <string name="gamemode_custom">カスタム</string>
+    <string name="gamemode_beginner">初心者</string>
+    <string name="gamemode_default">デフォルト</string>
+    <string name="gamemode_owg">OWG (Veetorpの好み)</string>
+    <string name="gamemode_crosskeys">クロスキーズ</string>
+    <string name="gamemode_super_quick">超クイック</string>
+    <string name="gamemode_nightmare">ナイトメア</string>
+    <string name="gamemode_daily_challenge">デイリーチャレンジ</string>
+
+    <string name="menu_speed_title">メニュー速度</string>
+    <string name="heart_speed_title">ハート速度</string>
+    <string name="heart_color_title">ハートの色</string>
+    <string name="background_music_title">BGM</string>
+    <string name="quick_swap_title">アイテムクイックスワップ</string>
+    <string name="reduce_flashing_title">フラッシュを軽減</string>
+    <string name="msu_resume_title">MSU-1 レジューム</string>
+    <string name="pallet_shuffle_title">パレットシャッフル</string>
+    <string name="shuffle_sfx_title">効果音シャッフル</string>
+
+    <string name="heart_color_red">赤</string>
+    <string name="heart_color_blue">青</string>
+    <string name="heart_color_green">緑</string>
+    <string name="heart_color_yellow">黄</string>
+
+    <string name="instant">インスタント</string>
+    <string name="normal">ノーマル</string>
+    <string name="half">半分</string>
+    <string name="double">2倍</string>
+    <string name="triple">3倍</string>
+    <string name="off">オフ</string>
+    <string name="quarter">4分の1</string>
+    <string name="quadruple">4倍</string>
+
+    <string name="dashboard">ダッシュボード</string>
+    <string name="generator">ジェネレーター</string>
+    <string name="library">ライブラリ</string>
+    <string name="settings">設定</string>
+    <string name="dashboard_title">ALttPR ダッシュボード</string>
+    <string name="generator_title">シードジェネレーター</string>
+    <string name="library_title">シードライブラリ</string>
+    <string name="settings_title">アプリ設定</string>
+    <string name="debug_mode">デバッグを有効化</string>
+    <string name="licences">サードパーティライセンス</string>
+    <string name="licences_message">使用しているライブラリを見る</string>
+    <string name="discord_title">Discordに参加</string>
+    <string name="discord_message">最新情報を入手し、サポートを受ける。</string>
+    <string name="source_code_title">プロジェクトのGitHub</string>
+    <string name="source_code_message">ソースコードの確認や貢献をする。</string>
+
+    <string name="mit">MIT</string>
+    <string name="apache">APACHE 2.0</string>
+    <string name="gnu">GNU</string>
+    <string name="custom">カスタム</string>
+    <string name="licence_version">v%1$s</string>
+    <string name="all_trademarks">すべての商標はそれぞれの所有者の財産です。</string>
+
+    <string name="select_preset">プリセットを選択</string>
+
+
+    <string name="hints">ヒント</string>
+
+    <!-- Accessibility -->
+    <string name="accessibility">アクセシビリティ</string>
+    <string name="accessibility_items">100% アイテム</string>
+    <string name="accessibility_locations">100% ロケーション</string>
+    <string name="accessibility_beatable">クリア可能のみ</string>
+
+    <!-- Boss Shuffle -->
+    <string name="boss_shuffle">ボスシャッフル</string>
+    <string name="boss_shuffle_none">なし</string>
+    <string name="boss_shuffle_simple">シンプル</string>
+    <string name="boss_shuffle_full">フル</string>
+    <string name="boss_shuffle_random">ランダム</string>
+
+    <!-- Bottle Api -->
+    <string name="bottle_empty">空のビン</string>
+    <string name="bottle_red_potion">赤いクスリ</string>
+    <string name="bottle_green_potion">緑のクスリ</string>
+    <string name="bottle_blue_potion">青いクスリ</string>
+    <string name="bottle_bee">ハチ</string>
+    <string name="bottle_fairy">妖精</string>
+    <string name="bottle_gold_bee">黄金のハチ</string>
+
+    <!-- Bottle Location -->
+    <string name="bottle_location_waterfall_fairy">滝の妖精</string>
+    <string name="bottle_location_pyramid_fairy">ピラミッドの妖精</string>
+
+    <!-- Clock Mode -->
+    <string name="clock_mode_off">オフ</string>
+    <string name="clock_mode_stopwatch">ストップウォッチ</string>
+    <string name="clock_mode_ohko">一撃死 (OHKO)</string>
+    <string name="clock_mode_continue">コンティニュー</string>
+    <string name="clock_mode_stop">ストップ</string>
+    <string name="clock_mode_end">エンド</string>
+
+    <!-- Compass Mode -->
+    <string name="compass_mode_on">オン</string>
+    <string name="compass_mode_off">オフ</string>
+    <string name="compass_mode_pickup">取得時</string>
+
+    <!-- Crystals -->
+    <string name="open_tower">塔を開く</string>
+    <string name="ganon_vulnerable">ガノン撃破可能</string>
+    <string name="crystals_zero">0個のクリスタル</string>
+    <string name="crystals_one">1個のクリスタル</string>
+    <string name="crystals_two">2個のクリスタル</string>
+    <string name="crystals_three">3個のクリスタル</string>
+    <string name="crystals_four">4個のクリスタル</string>
+    <string name="crystals_five">5個のクリスタル</string>
+    <string name="crystals_six">6個のクリスタル</string>
+    <string name="crystals_seven">7個のクリスタル</string>
+    <string name="crystals_random">ランダム</string>
+
+    <!-- District -->
+    <string name="district_big_chests">大きな宝箱</string>
+    <string name="district_bosses">ボス</string>
+    <string name="district_fetch_quests">おつかいクエスト</string>
+    <string name="district_water_locked">水路ロック</string>
+    <string name="district_death_mountain">デスマウンテン</string>
+    <string name="district_kakariko_village">カカリコ村</string>
+    <string name="district_hyrule_castle">ハイラル城</string>
+    <string name="district_eastern_palace">東の神殿</string>
+    <string name="district_desert_palace">砂漠の神殿</string>
+    <string name="district_tower_of_hera">ヘラの塔</string>
+    <string name="district_castle_tower">城の塔</string>
+    <string name="district_dark_palace">闇の神殿</string>
+    <string name="district_swamp_palace">沼の神殿</string>
+    <string name="district_skull_woods">ドクロの森</string>
+    <string name="district_thieves_town">盗賊の町</string>
+    <string name="district_ice_palace">氷の神殿</string>
+    <string name="district_misery_mire">ペインの沼</string>
+    <string name="district_turtle_rock">亀の岩</string>
+    <string name="district_ganons_tower_no_bk">ガノンの塔 (大キーなし)</string>
+    <string name="district_ganons_tower">ガノンの塔</string>
+
+    <!-- Drop -->
+    <string name="drop_random">ランダム</string>
+    <string name="drop_bee_swarm">ハチの群れ</string>
+    <string name="drop_good_bee">良いハチ</string>
+    <string name="drop_heart">ハート</string>
+    <string name="drop_green_rupee">緑ルピー</string>
+    <string name="drop_blue_rupee">青ルピー</string>
+    <string name="drop_red_rupee">赤ルピー</string>
+    <string name="drop_one_bomb">1個の爆弾</string>
+    <string name="drop_four_bombs">4個の爆弾</string>
+    <string name="drop_eight_bombs">8個の爆弾</string>
+    <string name="drop_small_magic">小マジック</string>
+    <string name="drop_full_magic">全マジック</string>
+    <string name="drop_five_arrows">5本の矢</string>
+    <string name="drop_ten_arrows">10本の矢</string>
+    <string name="drop_fairy">妖精</string>
+
+    <!-- Drop Byte -->
+    <string name="drop_byte_bee">ハチ</string>
+    <string name="drop_byte_good_bee">良いハチ</string>
+    <string name="drop_byte_heart">ハート</string>
+    <string name="drop_byte_one_rupee">1ルピー</string>
+    <string name="drop_byte_five_rupees">5ルピー</string>
+    <string name="drop_byte_twenty_rupees">20ルピー</string>
+    <string name="drop_byte_one_bomb">1個の爆弾</string>
+    <string name="drop_byte_four_bombs">4個の爆弾</string>
+    <string name="drop_byte_eight_bombs">8個の爆弾</string>
+    <string name="drop_byte_small_magic">小マジック</string>
+    <string name="drop_byte_large_magic">大マジック</string>
+    <string name="drop_byte_five_arrows">5本の矢</string>
+    <string name="drop_byte_ten_arrows">10本の矢</string>
+    <string name="drop_byte_fairy">妖精</string>
+
+    <!-- Enemy Damage -->
+    <string name="enemy_health">敵の体力</string>
+    <string name="enemy_damage">敵のダメージ</string>
+    <string name="enemy_damage_default">デフォルト</string>
+    <string name="enemy_damage_shuffled">シャッフル</string>
+    <string name="enemy_damage_random">ランダム</string>
+
+    <!-- Enemy Group -->
+    <string name="enemy_group_heart">ハート</string>
+    <string name="enemy_group_rupee">ルピー</string>
+    <string name="enemy_group_magic">マジック</string>
+    <string name="enemy_group_bomb">爆弾</string>
+    <string name="enemy_group_arrow">矢</string>
+    <string name="enemy_group_small_variety">小バラエティ</string>
+    <string name="enemy_group_big_variety">大バラエティ</string>
+
+    <!-- Enemy Health -->
+    <string name="enemy_health_default">デフォルト</string>
+    <string name="enemy_health_easy">簡単</string>
+    <string name="enemy_health_hard">難しい</string>
+    <string name="enemy_health_expert">エキスパート</string>
+
+    <!-- Enemy Shuffle -->
+    <string name="enemy_shuffle">敵シャッフル</string>
+    <string name="enemy_shuffle_none">なし</string>
+    <string name="enemy_shuffle_shuffled">シャッフル</string>
+    <string name="enemy_shuffle_random">ランダム</string>
+
+    <!-- Entrances -->
+    <string name="entrance_shuffle">入口シャッフル</string>
+    <string name="entrances_none">なし</string>
+    <string name="entrances_simple">シンプル</string>
+    <string name="entrances_restricted">制限付き</string>
+    <string name="entrances_full">フル</string>
+    <string name="entrances_crossed">クロス</string>
+    <string name="entrances_insanity">インサニティ</string>
+
+    <!-- Glitches -->
+    <string name="glitches_required">必要なバグ (Glitches)</string>
+    <string name="glitches_none">なし</string>
+    <string name="glitches_overworld">表世界バグ</string>
+    <string name="glitches_hybrid">ハイブリッド主要バグ</string>
+    <string name="glitches_major">主要バグ</string>
+    <string name="glitches_no_logic">ロジックなし</string>
+
+    <!-- Goals -->
+    <string name="goals">ゴール</string>
+    <string name="goals_defeat_ganon">ガノンを倒す</string>
+    <string name="goals_fast_ganon">ファストガノン</string>
+    <string name="goals_pedestal">マスターソード台座</string>
+    <string name="goals_dungeons">すべての神殿</string>
+    <string name="goals_triforce_hunt">トライフォースハント</string>
+    <string name="goals_ganonhunt">ガノンハント</string>
+    <string name="goals_completionist">コンプリート</string>
+
+    <!-- Hash -->
+    <string name="hash_bow">弓</string>
+    <string name="hash_boomerang">ブーメラン</string>
+    <string name="hash_hookshot">フックショット</string>
+    <string name="hash_bomb">爆弾</string>
+    <string name="hash_mushroom">キノコ</string>
+    <string name="hash_powder">魔法の粉</string>
+    <string name="hash_ice_rod">アイスロッド</string>
+    <string name="hash_pendant">ペンダント</string>
+    <string name="hash_bombos">ボンボス</string>
+    <string name="hash_ether">エエーテル</string>
+    <string name="hash_quake">クエイク</string>
+    <string name="hash_lantern">ランプ</string>
+    <string name="hash_hammer">ハンマー</string>
+    <string name="hash_shovel">スコップ</string>
+    <string name="hash_ocarina">オカリナ</string>
+    <string name="hash_bug_net">虫捕り網</string>
+    <string name="hash_book">ムドラの書</string>
+    <string name="hash_bottle">ビン</string>
+    <string name="hash_green_potion">緑のクスリ</string>
+    <string name="hash_somaria">ソマリアの杖</string>
+    <string name="hash_cape">魔法のマント</string>
+    <string name="hash_mirror">マジックミラー</string>
+    <string name="hash_boots">ペガサスの靴</string>
+    <string name="hash_glove">パワーグローブ</string>
+    <string name="hash_flippers">ゾーラのヒレ</string>
+    <string name="hash_moon_pearl">ムーンパール</string>
+    <string name="hash_shield">盾</string>
+    <string name="hash_mail">服</string>
+    <string name="hash_heart">ハート</string>
+    <string name="hash_map">マップ</string>
+    <string name="hash_compass">コンパス</string>
+    <string name="hash_big_key">大キー</string>
+
+    <string name="item_pool">アイテムプール</string>
+    <string name="item_functionality">アイテム機能</string>
+
+    <!-- Item Functionality / Pool additional -->
+    <string name="item_functionality_super_expert">スーパーエキスパート</string>
+    <string name="item_pool_crowd_control">クラウドコントロール</string>
+
+    <string name="pseudoboots">疑似ブーツ</string>
+    <string name="pot_shuffle">壺シャッフル</string>
+
+    <string name="gameplay">ゲームプレイ</string>
+    <string name="difficulty">難易度</string>
+
+    <!-- Item Placement -->
+    <string name="item_placement">アイテム\n配置</string>
+    <string name="item_placement_basic">ベーシック</string>
+    <string name="item_placement_advanced">アドバンス</string>
+
+    <!-- Keysanity -->
+    <string name="dungeon_item_shuffle">ダンジョンアイテムシャッフル</string>
+    <string name="keysanity_standard">スタンダード</string>
+    <string name="keysanity_mc">マップ/コンパス</string>
+    <string name="keysanity_mcs">マップ/コンパス/小キー</string>
+    <string name="keysanity_full">キーサニティ</string>
+
+    <!-- Language -->
+    <string name="language_english">英語</string>
+    <string name="language_francais">フランス語</string>
+    <string name="language_deutsch">ドイツ語</string>
+    <string name="language_espanol">スペイン語</string>
+
+    <!-- Medallion Location -->
+    <string name="medallion_location_turtle_rock">亀の岩のメダリオン</string>
+    <string name="medallion_location_misery_mire">ペインの沼のメダリオン</string>
+
+    <!-- Menu Speed -->
+    <string name="menu_speed_slow">遅い</string>
+    <string name="menu_speed_fast">速い</string>
+
+    <!-- Palette Algorithm -->
+    <string name="palette_algorithm_maseya">マセヤ</string>
+    <string name="palette_algorithm_grayscale">グレースケール</string>
+    <string name="palette_algorithm_negative">ネガティブ</string>
+    <string name="palette_algorithm_blackout">ブラックアウト</string>
+    <string name="palette_algorithm_classic">クラシック</string>
+    <string name="palette_algorithm_dizzy">めまい</string>
+    <string name="palette_algorithm_sick">病気</string>
+    <string name="palette_algorithm_puke">嘔吐</string>
+
+    <!-- Prize -->
+    <string name="prize_green_pendant">緑のペンダント</string>
+    <string name="prize_red_pendant">赤のペンダント</string>
+    <string name="prize_blue_pendant">青のペンダント</string>
+    <string name="prize_crystal_1">クリスタル 1</string>
+    <string name="prize_crystal_2">クリスタル 2</string>
+    <string name="prize_crystal_3">クリスタル 3</string>
+    <string name="prize_crystal_4">クリスタル 4</string>
+    <string name="prize_crystal_5">クリスタル 5</string>
+    <string name="prize_crystal_6">クリスタル 6</string>
+    <string name="prize_crystal_7">クリスタル 7</string>
+
+    <!-- Rom Mode -->
+    <string name="rom_mode_no_glitches">バグなし</string>
+    <string name="rom_mode_overworld_glitches">表世界バグ</string>
+    <string name="rom_mode_major_glitches">主要バグ</string>
+    <string name="rom_mode_no_logic">ロジックなし</string>
+
+    <!-- Special Char -->
+    <string name="special_char_cursor">カーソル</string>
+    <string name="special_char_self">自分</string>
+    <string name="special_char_link">リンク</string>
+    <string name="special_char_bird">鳥</string>
+    <string name="special_char_ankh">アンク</string>
+    <string name="special_char_squigly">うねうね</string>
+    <string name="special_char_heart_1">ハート 1</string>
+    <string name="special_char_heart_2">ハート 2</string>
+    <string name="special_char_heart_3">ハート 3</string>
+    <string name="special_char_heart_4">ハート 4</string>
+    <string name="special_char_var_1">変数 1</string>
+    <string name="special_char_var_2">変数 2</string>
+    <string name="special_char_var_3">変数 3</string>
+    <string name="special_char_var_4">変数 4</string>
+
+    <!-- Spoilers -->
+    <string name="spoilers_on">オン</string>
+    <string name="spoilers_off">オフ</string>
+    <string name="spoilers_generate">生成</string>
+    <string name="spoilers_mystery">ミステリー</string>
+
+    <string name="mystery_game">Mystery Seed</string>
+    <string name="race_game">Race Seed</string>
+    <string name="race">レース</string>
+
+    <!-- Toggle -->
+    <string name="toggle_on">はい</string>
+    <string name="toggle_off">いいえ</string>
+
+    <!-- Weapons -->
+    <string name="swords">剣</string>
+    <string name="weapons_randomized">ランダム化</string>
+    <string name="weapons_assured">確定</string>
+    <string name="weapons_vanilla">バニラ</string>
+    <string name="weapons_swordless">剣なし</string>
+
+    <!-- World State -->
+    <string name="world_state">ワールド状態</string>
+    <string name="world_state_open">オープン</string>
+    <string name="world_state_standard">スタンダード</string>
+    <string name="world_state_inverted">インバート</string>
+    <string name="world_state_retro">レトロ</string>
+
+
+    <string name="all_logs">すべて</string>
+    <string name="debug_logs">デバッグ</string>
+    <string name="error_logs">エラー</string>
+    <string name="info_logs">情報</string>
+    <string name="verbose_logs">詳細</string>
+    <string name="warn_logs">警告</string>
+    <string name="wtf_logs">致命的 (WTF)</string>
+
+    <string name="generating_seed">シードを生成中。</string>
+    <string name="play_seed">シードをプレイ</string>
+    <string name="save_seed_success">シードが保存されました。</string>
+    <string name="save_seed_failed">保存エラー。</string>
+    <string name="generate_seed_failed">シード生成エラー。</string>
+    <string name="generate_rom_failed">ROM生成エラー。</string>
+    <string name="save_rom_failed">ROM保存エラー。</string>
+
+    <string name="logic">ロジック</string>
+    <string name="logs">ログ</string>
+    <string name="logs_screen">ログを表示</string>
+    <string name="filter_log_tags">ログタグをフィルター</string>
+</resources>
