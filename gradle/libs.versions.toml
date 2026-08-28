@@ -1,8 +1,8 @@
 [versions]
 agp = "9.3.1"
-major = "1"
+major = "0"
 minor = "0"
-bug = "0"
+bug = "1"
 android-compileSdk = "37"
 android-minSdk = "28"
 android-targetSdk = "37"
@@ -25,7 +25,7 @@ koinCompiler = "1.1.0"
 koin = "4.2.2"
 ksp = "2.3.9"
 
-room = "3.0.1"
+room = "3.0.2"
 sqlite = "2.7.0"
 paging = "3.5.1"
 

@@ -110,7 +110,10 @@ fun UploadRomScreen(processEvent: (event: UploadRomEvent) -> Unit) {
         TextButton({
             urlHandler.openUri(GET_STARTED_URL)
         }) {
-            Text(stringResource(Res.string.need_help))
+            Text(
+                text = stringResource(Res.string.need_help),
+                color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
+            )
         }
     }
 }
