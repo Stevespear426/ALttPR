@@ -1,4 +1,4 @@
-# Unofficial ALTTPR Multiplatform Client
+# Unofficial ALttPR Multiplatform Client
 
 A Kotlin Multiplatform application for creating and managing **A Link to the Past Randomizer (ALTTPR)** seeds and custom sprites across **Android**, **iOS**, and **Desktop (JVM)** using Compose Multiplatform.
 
@@ -13,6 +13,8 @@ A Kotlin Multiplatform application for creating and managing **A Link to the Pas
 
 ## Useful Links
 
+- **Google Play Store:** [Download on Google Play](https://play.google.com/store/apps/details?id=com.stingers.alttpr)
+- **Apple TestFlight (iOS):** [Join the TestFlight Beta](https://testflight.apple.com/join/BVhXSRZn)
 - **Official Website:** [ALTTPR](https://alttpr.com/en)
 - **Randomizer Source Code & Logic:** [GitHub - sporchia/alttp_vt_randomizer](https://github.com/sporchia/alttp_vt_randomizer)
 - **Community Discord:** [ALTTPR Discord](https://discord.gg/alttprandomizer)
