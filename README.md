@@ -1,4 +1,4 @@
-# ALTTPR Multiplatform Client
+# Unofficial ALTTPR Multiplatform Client
 
 A Kotlin Multiplatform application for creating and managing **A Link to the Past Randomizer (ALTTPR)** seeds and custom sprites across **Android**, **iOS**, and **Desktop (JVM)** using Compose Multiplatform.
 

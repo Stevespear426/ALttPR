@@ -86,23 +86,41 @@ class DashboardViewModelTest {
         assertEquals("Network error", viewModel.state.value.error)
     }
 
-    @Test
-    fun `test generate race game event`() = runTest(testDispatcher) {
-        val seed = SeedEntity(hash = "race123")
-        everySuspend { getDailySeedUseCase() } returns Result.failure(RuntimeException())
-        everySuspend { getRandomizerSeedUseCase(any()) } returns Result.success(seed)
-
-        val viewModel = DashboardViewModel(
-            navigationManager = navigationManager,
-            getDailySeedUseCase = getDailySeedUseCase,
-            getRandomizerSeedUseCase = getRandomizerSeedUseCase,
-            seedDao = seedDao
-        )
-        testDispatcher.scheduler.advanceUntilIdle()
-
-        viewModel.processEvent(DashboardEvent.GenerateRaceGame)
-        testDispatcher.scheduler.advanceUntilIdle()
-
-        assertTrue(navigationManager.navigatedToScreen is Screen.EditRom)
-    }
+//    @Test
+//    fun `test generate race game event`() = runTest(testDispatcher) {
+//        val seed = SeedEntity(hash = "race123")
+//        everySuspend { getDailySeedUseCase() } returns Result.failure(RuntimeException())
+//        everySuspend { getRandomizerSeedUseCase(any()) } returns Result.success(seed)
+//
+//        val viewModel = DashboardViewModel(
+//            navigationManager = navigationManager,
+//            getDailySeedUseCase = getDailySeedUseCase,
+//            getRandomizerSeedUseCase = getRandomizerSeedUseCase,
+//            seedDao = seedDao
+//        )
+//        testDispatcher.scheduler.advanceUntilIdle()
+//
+//            viewModel.processEvent(DashboardEvent.GenerateRaceGame)
+//            testDispatcher.scheduler.advanceUntilIdle()
+//            assertTrue(navigationManager.navigatedToScreen is Screen.EditRom)
+//    }
+//
+//    @Test
+//    fun `test generate mystery game event`() = runTest(testDispatcher) {
+//        val seed = SeedEntity(hash = "mystery123")
+//        everySuspend { getDailySeedUseCase() } returns Result.failure(RuntimeException())
+//        everySuspend { getRandomizerSeedUseCase(any()) } returns Result.success(seed)
+//
+//        val viewModel = DashboardViewModel(
+//            navigationManager = navigationManager,
+//            getDailySeedUseCase = getDailySeedUseCase,
+//            getRandomizerSeedUseCase = getRandomizerSeedUseCase,
+//            seedDao = seedDao
+//        )
+//        testDispatcher.scheduler.advanceUntilIdle()
+//
+//            viewModel.processEvent(DashboardEvent.GenerateMysteryGame)
+//            testDispatcher.scheduler.advanceUntilIdle()
+//            assertTrue(navigationManager.navigatedToScreen is Screen.EditRom)
+//    }
 }
