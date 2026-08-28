@@ -66,7 +66,34 @@ actual object RomStorage {
 
     actual suspend fun clearShareRomFiles(): Result<Unit> {
         return try {
-            getShareRomDir().delete()
+            val dir = getShareRomDir()
+            if (dir.exists()) {
+                dir.listFiles()?.forEach { it.delete() }
+            }
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    actual suspend fun clearGeneratedSeedFiles(): Result<Unit> {
+        return try {
+            val dir = getGeneratedSeedsDir()
+            if (dir.exists()) {
+                dir.listFiles()?.forEach { it.delete() }
+            }
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    actual suspend fun clearSpriteFiles(): Result<Unit> {
+        return try {
+            val dir = getSpritesDir()
+            if (dir.exists()) {
+                dir.listFiles()?.forEach { it.delete() }
+            }
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)

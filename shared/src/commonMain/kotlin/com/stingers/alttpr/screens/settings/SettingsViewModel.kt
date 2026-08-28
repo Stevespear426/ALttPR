@@ -41,6 +41,9 @@ class SettingsViewModel(
         seedDao.deleteAllSeeds()
         loggerDao.deleteAllLogs()
         spriteDao.deleteAllSprites()
+        RomStorage.clearShareRomFiles()
+        RomStorage.clearGeneratedSeedFiles()
+        RomStorage.clearSpriteFiles()
     }
 }
 

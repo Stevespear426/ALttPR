@@ -11,6 +11,8 @@ expect object RomStorage {
     suspend fun saveShareRomBytes(filename: String, bytes: ByteArray): Result<Unit>
 
     suspend fun clearShareRomFiles(): Result<Unit>
+    suspend fun clearGeneratedSeedFiles(): Result<Unit>
+    suspend fun clearSpriteFiles(): Result<Unit>
 
     suspend fun saveGeneratedSeed(filename: String, bytes: ByteArray): Result<Unit>
     suspend fun getGeneratedSeedFile(filename: String): PlatformFile?

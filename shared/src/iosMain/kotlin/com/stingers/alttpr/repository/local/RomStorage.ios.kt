@@ -104,14 +104,60 @@ actual object RomStorage {
     @OptIn(ExperimentalForeignApi::class)
     actual suspend fun clearShareRomFiles(): Result<Unit> {
         return try {
-            val shareRomDir = getShareRomDir() ?: return Result.failure(IllegalStateException("Directory error"))
-            val path = shareRomDir.path ?: return Result.failure(IllegalStateException("Path error"))
             val fileManager = NSFileManager.defaultManager
+            val urls = fileManager.URLsForDirectory(NSDocumentDirectory, NSUserDomainMask)
+            val documentDirectory = urls.firstOrNull() as? NSURL ?: return Result.failure(IllegalStateException("Directory error"))
+            val appDir = documentDirectory.URLByAppendingPathComponent("alttpr") ?: return Result.failure(IllegalStateException("Directory error"))
+            val shareRomDir = appDir.URLByAppendingPathComponent("share_rom") ?: return Result.failure(IllegalStateException("Directory error"))
             
-            // Remove directory and recreate it
-            fileManager.removeItemAtPath(path, error = null)
-            fileManager.createDirectoryAtPath(path, withIntermediateDirectories = true, attributes = null, error = null)
+            shareRomDir.path?.let { p ->
+                if (fileManager.fileExistsAtPath(p)) {
+                    fileManager.removeItemAtPath(p, error = null)
+                }
+                fileManager.createDirectoryAtPath(p, withIntermediateDirectories = true, attributes = null, error = null)
+            }
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    @OptIn(ExperimentalForeignApi::class)
+    actual suspend fun clearGeneratedSeedFiles(): Result<Unit> {
+        return try {
+            val fileManager = NSFileManager.defaultManager
+            val urls = fileManager.URLsForDirectory(NSDocumentDirectory, NSUserDomainMask)
+            val documentDirectory = urls.firstOrNull() as? NSURL ?: return Result.failure(IllegalStateException("Directory error"))
+            val appDir = documentDirectory.URLByAppendingPathComponent("alttpr") ?: return Result.failure(IllegalStateException("Directory error"))
+            val generatedDir = appDir.URLByAppendingPathComponent("generated_seeds") ?: return Result.failure(IllegalStateException("Directory error"))
             
+            generatedDir.path?.let { p ->
+                if (fileManager.fileExistsAtPath(p)) {
+                    fileManager.removeItemAtPath(p, error = null)
+                }
+                fileManager.createDirectoryAtPath(p, withIntermediateDirectories = true, attributes = null, error = null)
+            }
+            Result.success(Unit)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    @OptIn(ExperimentalForeignApi::class)
+    actual suspend fun clearSpriteFiles(): Result<Unit> {
+        return try {
+            val fileManager = NSFileManager.defaultManager
+            val urls = fileManager.URLsForDirectory(NSDocumentDirectory, NSUserDomainMask)
+            val documentDirectory = urls.firstOrNull() as? NSURL ?: return Result.failure(IllegalStateException("Directory error"))
+            val appDir = documentDirectory.URLByAppendingPathComponent("alttpr") ?: return Result.failure(IllegalStateException("Directory error"))
+            val spritesDir = appDir.URLByAppendingPathComponent("sprites") ?: return Result.failure(IllegalStateException("Directory error"))
+            
+            spritesDir.path?.let { p ->
+                if (fileManager.fileExistsAtPath(p)) {
+                    fileManager.removeItemAtPath(p, error = null)
+                }
+                fileManager.createDirectoryAtPath(p, withIntermediateDirectories = true, attributes = null, error = null)
+            }
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
