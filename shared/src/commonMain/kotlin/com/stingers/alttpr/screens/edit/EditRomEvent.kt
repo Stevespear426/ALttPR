@@ -4,6 +4,7 @@ import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
 import com.stingers.alttpr.model.Sprite
+import com.stingers.alttpr.model.api.PaletteAlgorithm
 
 
 sealed interface EditRomEvent {
@@ -24,4 +25,7 @@ sealed interface EditRomEvent {
 
     data class SetMsuResume(val value: Boolean) : EditRomEvent
     data class SetSprite(val value: Sprite) : EditRomEvent
+    data class SetShuffleSfx(val value: Boolean) : EditRomEvent
+    data class SetPaletteShuffle(val value: Boolean) : EditRomEvent
+    data class SetPaletteAlgorithm(val value: PaletteAlgorithm) : EditRomEvent
 }

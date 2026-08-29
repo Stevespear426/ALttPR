@@ -345,7 +345,9 @@
     <string name="menu_speed_fast">Fast</string>
 
     <!-- Palette Algorithm -->
-    <string name="palette_algorithm_maseya">Maseya</string>
+    <string name="palette_algorithm_title">Palette Algorithm</string>
+    <string name="palette_algorithm_random">Random</string>
+    <string name="palette_algorithm_maseya">Maseya (Recommended)</string>
     <string name="palette_algorithm_grayscale">Grayscale</string>
     <string name="palette_algorithm_negative">Negative</string>
     <string name="palette_algorithm_blackout">Blackout</string>

@@ -4,6 +4,7 @@ import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
 import com.stingers.alttpr.model.SeedEntity
+import com.stingers.alttpr.model.api.PaletteAlgorithm
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.repository.local.RomPrefs
 import com.stingers.alttpr.repository.local.SeedDao
@@ -54,6 +55,9 @@ class EditRomViewModelTest {
         every { romPrefs.heartSpeed } returns flowOf(HeartSpeed.NORMAL)
         every { romPrefs.menuSpeed } returns flowOf(MenuSpeed.NORMAL)
         every { romPrefs.heartColor } returns flowOf(HeartColor.RED)
+        every { romPrefs.shuffleSfx } returns flowOf(false)
+        every { romPrefs.paletteShuffle } returns flowOf(false)
+        every { romPrefs.paletteAlgorithm } returns flowOf(PaletteAlgorithm.Maseya)
         every { getSavedSpriteUseCase.invoke() } returns flowOf(null)
     }
 

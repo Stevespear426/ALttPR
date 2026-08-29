@@ -24,6 +24,9 @@ open class GetPatchedRomBytesUseCase(
         val enableMusic = romPrefs.enableMusic.first()
         val msuResume = romPrefs.msuResume.first()
         val reduceFlashing = romPrefs.reduceFlashing.first()
+        val shuffleSfx = romPrefs.shuffleSfx.first()
+        val paletteShuffle = romPrefs.paletteShuffle.first()
+        val paletteAlgorithm = romPrefs.paletteAlgorithm.first()
         val spriteName = romPrefs.sprite.first()
 
         val spritesResult = alttprRepository.getSprites()
@@ -39,6 +42,9 @@ open class GetPatchedRomBytesUseCase(
             enableMusic = enableMusic,
             msuResume = msuResume,
             reduceFlashing = reduceFlashing,
+            shuffleSfx = shuffleSfx,
+            paletteShuffle = paletteShuffle,
+            paletteAlgorithm = paletteAlgorithm,
             sprite = selectedSprite
         )
 

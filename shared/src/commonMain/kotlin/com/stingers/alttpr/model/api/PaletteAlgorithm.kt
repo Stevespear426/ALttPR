@@ -9,6 +9,7 @@ import alttpr.shared.generated.resources.palette_algorithm_classic
 import alttpr.shared.generated.resources.palette_algorithm_dizzy
 import alttpr.shared.generated.resources.palette_algorithm_sick
 import alttpr.shared.generated.resources.palette_algorithm_puke
+import alttpr.shared.generated.resources.palette_algorithm_random
 import org.jetbrains.compose.resources.StringResource
 
 enum class PaletteAlgorithm(val title: StringResource, val value: String) {
@@ -20,4 +21,5 @@ enum class PaletteAlgorithm(val title: StringResource, val value: String) {
     Dizzy(Res.string.palette_algorithm_dizzy, "dizzy"),
     Sick(Res.string.palette_algorithm_sick, "sick"),
     Puke(Res.string.palette_algorithm_puke, "puke"),
+    Random(Res.string.palette_algorithm_random, "random"),
 }

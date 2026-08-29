@@ -15,9 +15,12 @@ import alttpr.shared.generated.resources.ic_reload
 import alttpr.shared.generated.resources.ic_save
 import alttpr.shared.generated.resources.menu_speed_title
 import alttpr.shared.generated.resources.msu_resume_title
+import alttpr.shared.generated.resources.pallet_shuffle_title
+import alttpr.shared.generated.resources.palette_algorithm_title
 import alttpr.shared.generated.resources.permalink
 import alttpr.shared.generated.resources.quick_swap_title
 import alttpr.shared.generated.resources.reduce_flashing_title
+import alttpr.shared.generated.resources.shuffle_sfx_title
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Arrangement.spacedBy
@@ -70,6 +73,7 @@ import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
 import com.stingers.alttpr.model.SeedEntity
+import com.stingers.alttpr.model.api.PaletteAlgorithm
 import com.stingers.alttpr.model.SpoilerMeta
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.platform.ic_back
@@ -321,6 +325,34 @@ fun EditRomScreen(
                         checked = reduceFlashing
                     ) {
                         processEvent(EditRomEvent.SetReduceFlashing(it))
+                    }
+                }
+                item {
+                    SwitchPreference(
+                        title = Res.string.shuffle_sfx_title,
+                        checked = shuffleSfx
+                    ) {
+                        processEvent(EditRomEvent.SetShuffleSfx(it))
+                    }
+                }
+
+                item {
+                    SwitchPreference(
+                        title = Res.string.pallet_shuffle_title,
+                        checked = paletteShuffle
+                    ) {
+                        processEvent(EditRomEvent.SetPaletteShuffle(it))
+                    }
+                }
+                if (paletteShuffle) {
+                    item {
+                        MenuPreference(
+                            Res.string.palette_algorithm_title,
+                            currentItem = paletteAlgorithm,
+                            items = PaletteAlgorithm.entries,
+                            titleResForItem = { it.title }) {
+                            processEvent(EditRomEvent.SetPaletteAlgorithm(it))
+                        }
                     }
                 }
 

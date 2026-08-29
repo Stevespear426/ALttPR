@@ -14,6 +14,7 @@ import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
 import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.Sprite
+import com.stingers.alttpr.model.api.PaletteAlgorithm
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.navigation.Screen
 import com.stingers.alttpr.repository.local.RomPrefs
@@ -54,6 +55,9 @@ class EditRomViewModel(
         romPrefs.heartSpeed,
         romPrefs.menuSpeed,
         romPrefs.heartColor,
+        romPrefs.shuffleSfx,
+        romPrefs.paletteShuffle,
+        romPrefs.paletteAlgorithm,
         getSavedSpriteUseCase(),
         seedDao.getSeedFlow(seed.hash)
     ) { quickSwap,
@@ -63,6 +67,9 @@ class EditRomViewModel(
         heartSpeed,
         menuSpeed,
         heartColor,
+        shuffleSfx,
+        paletteShuffle,
+        paletteAlgorithm,
         sprite,
         savedSeed ->
         EditRomState(
@@ -74,6 +81,9 @@ class EditRomViewModel(
             heartSpeed = heartSpeed,
             menuSpeed = menuSpeed,
             heartColor = heartColor,
+            shuffleSfx = shuffleSfx,
+            paletteShuffle = paletteShuffle,
+            paletteAlgorithm = paletteAlgorithm,
             selectedSprite = sprite,
             isSaved = savedSeed != null
         )
@@ -94,6 +104,9 @@ class EditRomViewModel(
                 is EditRomEvent.SetReduceFlashing -> romPrefs.setReduceFlashing(event.value)
                 is EditRomEvent.SetMsuResume -> romPrefs.setMsuResume(event.value)
                 is EditRomEvent.SetSprite -> romPrefs.setSprite(event.value.name)
+                is EditRomEvent.SetShuffleSfx -> romPrefs.setShuffleSfx(event.value)
+                is EditRomEvent.SetPaletteShuffle -> romPrefs.setPaletteShuffle(event.value)
+                is EditRomEvent.SetPaletteAlgorithm -> romPrefs.setPaletteAlgorithm(event.value)
                 is EditRomEvent.ExportRom -> exportRom()
                 is EditRomEvent.PlaySeed -> playRom()
                 is EditRomEvent.ReRollSeed -> rerollSeed()
@@ -152,6 +165,9 @@ data class EditRomState(
     val reduceFlashing: Boolean = false,
     val enableMusic: Boolean = true,
     val msuResume: Boolean = true,
+    val shuffleSfx: Boolean = false,
+    val paletteShuffle: Boolean = false,
+    val paletteAlgorithm: PaletteAlgorithm = PaletteAlgorithm.Maseya,
     val selectedSprite: Sprite? = null,
     val isSaved: Boolean = false
 )

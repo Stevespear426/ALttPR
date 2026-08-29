@@ -8,6 +8,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import com.stingers.alttpr.model.HeartColor
 import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
+import com.stingers.alttpr.model.api.PaletteAlgorithm
 import com.stingers.alttpr.utils.toEnumOrDefault
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -27,6 +28,9 @@ open class RomPrefs(
         val HEART_COLOR = stringPreferencesKey("heart_color")
         val MSU_RESUME = booleanPreferencesKey("msu_resume")
         val SPRITE = stringPreferencesKey("sprite")
+        val SHUFFLE_SFX = booleanPreferencesKey("shuffle_sfx")
+        val PALETTE_SHUFFLE = booleanPreferencesKey("palette_shuffle")
+        val PALETTE_ALGORITHM = stringPreferencesKey("palette_algorithm")
     }
 
     open val msuResume: Flow<Boolean> = dataStore.data
@@ -66,6 +70,20 @@ open class RomPrefs(
     open val sprite: Flow<String?> = dataStore.data
         .map { preferences -> preferences[PreferencesKeys.SPRITE] }
 
+    open val shuffleSfx: Flow<Boolean> = dataStore.data
+        .map { preferences ->
+            preferences[PreferencesKeys.SHUFFLE_SFX] ?: false
+        }
+
+    open val paletteShuffle: Flow<Boolean> = dataStore.data
+        .map { preferences ->
+            preferences[PreferencesKeys.PALETTE_SHUFFLE] ?: false
+        }
+
+    open val paletteAlgorithm: Flow<PaletteAlgorithm> = dataStore.data
+        .map { preferences ->
+            preferences[PreferencesKeys.PALETTE_ALGORITHM] ?: PaletteAlgorithm.Maseya.name
+        }.map { it.toEnumOrDefault(PaletteAlgorithm.Maseya) }
 
     open suspend fun setQuickSwap(quickSwap: Boolean) {
         dataStore.edit { preferences ->
@@ -112,6 +130,24 @@ open class RomPrefs(
     open suspend fun setSprite(name: String) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.SPRITE] = name
+        }
+    }
+
+    open suspend fun setShuffleSfx(shuffleSfx: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKeys.SHUFFLE_SFX] = shuffleSfx
+        }
+    }
+
+    open suspend fun setPaletteShuffle(paletteShuffle: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKeys.PALETTE_SHUFFLE] = paletteShuffle
+        }
+    }
+
+    open suspend fun setPaletteAlgorithm(paletteAlgorithm: PaletteAlgorithm) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKeys.PALETTE_ALGORITHM] = paletteAlgorithm.name
         }
     }
 }

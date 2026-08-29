@@ -6,7 +6,10 @@ import com.stingers.alttpr.model.HeartSpeed
 import com.stingers.alttpr.model.MenuSpeed
 import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.Sprite
+import com.stingers.alttpr.model.api.PaletteAlgorithm
 import com.stingers.alttpr.repository.local.RomStorage
+import com.stingers.alttpr.repository.palette.PaletteRandomizer
+import com.stingers.alttpr.repository.sfx.SfxRandomizer
 import io.github.vinceglb.filekit.PlatformFile
 import io.github.vinceglb.filekit.exists
 import io.github.vinceglb.filekit.readBytes
@@ -67,6 +70,9 @@ open class RomManager(
         enableMusic: Boolean = true,
         msuResume: Boolean = true,
         reduceFlashing: Boolean = false,
+        shuffleSfx: Boolean = false,
+        paletteShuffle: Boolean = false,
+        paletteAlgorithm: PaletteAlgorithm = PaletteAlgorithm.Maseya,
         sprite: Sprite? = null,
     ): ByteArray? = withContext(Dispatchers.IO) {
 
@@ -102,7 +108,12 @@ open class RomManager(
             }
         }
 
-        // 7. Apply UI settings values
+        // 7. Shuffle palettes
+        if (paletteShuffle) {
+            PaletteRandomizer.shufflePalette(currentRomBytes, seedEntity.hash, paletteAlgorithm)
+        }
+
+        // 8. Apply UI settings values
         val finalRomBytes = applySettings(
             romBytes = currentRomBytes,
             seedHash = seedEntity.hash,
@@ -116,7 +127,12 @@ open class RomManager(
         )
         if (finalRomBytes.isEmpty()) return@withContext null
 
-        // 8. Update checksum
+        // 9. Shuffle sound effects
+        if (shuffleSfx) {
+            SfxRandomizer.shuffleSfx(finalRomBytes, seedEntity.hash, seedEntity.meta?.build)
+        }
+
+        // 10. Update checksum
         return@withContext updateChecksum(finalRomBytes)
     }
 
