@@ -95,7 +95,7 @@ open class RomManager(
         if (sprite != null && sprite.name != "Link") {
             val spriteBytes = alttprRepository.getSpriteBytes(sprite)
             if (spriteBytes != null && spriteBytes.isNotEmpty()) {
-                val injected = injectSprite(currentRomBytes, spriteBytes)
+                val injected = injectSprite(currentRomBytes, spriteBytes, sprite)
                 if (injected.isNotEmpty()) {
                     currentRomBytes = injected
                 }
@@ -353,7 +353,7 @@ open class RomManager(
         return value
     }
 
-    open fun injectSprite(originalRom: ByteArray, spr: ByteArray): ByteArray {
+    open fun injectSprite(originalRom: ByteArray, spr: ByteArray, sprite: Sprite): ByteArray {
         if (spr.size < 0x7056) return originalRom
         val targetRom = originalRom.copyOf()
 
@@ -395,6 +395,8 @@ open class RomManager(
                     }
                 }
             }
+
+            injectSpriteAuthor(targetRom, sprite.author)
         } else {
             for (i in 0 until 0x7000) {
                 if (0x80000 + i < targetRom.size) {
@@ -417,8 +419,62 @@ open class RomManager(
         return targetRom
     }
 
+    /**
+     * Writes the sprite author's name into the two in-game credit font tables so builds new
+     * enough to display it (guarded below) show a "sprite by <author>" credit.
+     */
+    open fun injectSpriteAuthor(targetRom: ByteArray, author: String) {
+        if (author.isBlank()) return
+
+        val hasAuthorSupport = targetRom.size > 0x11803B &&
+                targetRom[0x118000] == 0x02.toByte() &&
+                targetRom[0x118001] == 0x37.toByte() &&
+                targetRom[0x11801E] == 0x02.toByte() &&
+                targetRom[0x11801F] == 0x37.toByte()
+        if (!hasAuthorSupport) return
+
+        val formattedAuthor = formatSpriteAuthor(author)
+        for (i in 0 until AUTHOR_NAME_LENGTH) {
+            val (menuByte, fileSelectByte) = encodeAuthorChar(formattedAuthor[i])
+            targetRom[0x118002 + i] = menuByte
+            targetRom[0x118020 + i] = fileSelectByte
+        }
+    }
+
+    open fun formatSpriteAuthor(name: String): String {
+        val truncated = name.take(AUTHOR_NAME_LENGTH)
+        val padding = (AUTHOR_NAME_LENGTH - truncated.length) / 2
+        var centered = " ".repeat(padding) + truncated + " ".repeat(padding)
+        if (centered.length == AUTHOR_NAME_LENGTH - 1) {
+            centered += " "
+        }
+        return centered.uppercase()
+    }
+
+    private fun encodeAuthorChar(char: Char): Pair<Byte, Byte> {
+        return AUTHOR_CHAR_MAP[char] ?: SPACE_BYTE_PAIR
+    }
+
     companion object {
         private const val EXPECTED_CRC32: UInt = 0x3322EFFCu
         private const val HEADER_SIZE = 512
+        private const val AUTHOR_NAME_LENGTH = 28
+
+        private val SPACE_BYTE_PAIR: Pair<Byte, Byte> = 0x9F.toByte() to 0x9F.toByte()
+
+        private val AUTHOR_CHAR_MAP: Map<Char, Pair<Byte, Byte>> = buildMap {
+            put(' ', SPACE_BYTE_PAIR)
+            "0123456789".forEachIndexed { i, c ->
+                put(c, (0x53 + i).toByte() to (0x79 + i).toByte())
+            }
+            "ABCDEFGHIJKLMNOPQRSTUVWXYZ".forEachIndexed { i, c ->
+                put(c, (0x5D + i).toByte() to (0x83 + i).toByte())
+            }
+            put('\'', 0xD9.toByte() to 0xEC.toByte())
+            put('.', 0xDC.toByte() to 0xEF.toByte())
+            put('/', 0xDB.toByte() to 0xEE.toByte())
+            put(':', 0xDD.toByte() to 0xF0.toByte())
+            put('_', 0xDE.toByte() to 0xF1.toByte())
+        }
     }
 }
