@@ -14,8 +14,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.stingers.alttpr.common.preferences.MenuPreference
-import com.stingers.alttpr.model.RandomizerGameMode
-import com.stingers.alttpr.model.RandomizerGameModel
+import com.stingers.alttpr.model.GameMode
+import com.stingers.alttpr.model.GameModel
 import com.stingers.alttpr.model.api.BossShuffle
 import com.stingers.alttpr.model.api.EnemyShuffle
 import com.stingers.alttpr.model.api.Entrances
@@ -26,7 +26,7 @@ import com.stingers.alttpr.theme.PreviewLightTheme
 
 @Composable
 fun GameplayScreen(
-    settings: RandomizerGameModel,
+    settings: GameModel,
     isCustom: Boolean = false,
     processEvent: (event: RandomizerEvent) -> Unit
 ) {
@@ -115,7 +115,7 @@ fun GameplayScreenLightPreview(
 ) {
     PreviewLightTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            GameplayScreen(state.settings, state.preset == RandomizerGameMode.CUSTOM) {}
+            GameplayScreen(state.settings, state.preset == GameMode.CUSTOM) {}
         }
     }
 }
@@ -127,7 +127,7 @@ fun GameplayScreenDarkPreview(
 ) {
     PreviewDarkTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            GameplayScreen(state.settings, state.preset == RandomizerGameMode.CUSTOM) {}
+            GameplayScreen(state.settings, state.preset == GameMode.CUSTOM) {}
         }
     }
 }

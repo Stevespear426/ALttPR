@@ -18,7 +18,7 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue
 
-class GetRandomizerSeedUseCaseTest {
+class GetCustomizerSeedUseCaseTest {
 
     private val appPrefs = mock<AppPrefs>().apply {
         every { debugMode } returns flowOf(false)
@@ -27,34 +27,34 @@ class GetRandomizerSeedUseCaseTest {
     private val logger = Logger(appPrefs, loggerDao)
     private val repository = mock<AlttprRepository>()
 
-    private val useCase = GetRandomizerSeedUseCase(
+    private val useCase = GetCustomizerSeedUseCase(
         logger = logger,
         repository = repository
     )
 
     @Test
-    fun `test get randomizer seed success`() = runTest {
+    fun `test get customizer seed success`() = runTest {
         val model = GameModel()
-        val expectedSeed = SeedEntity(hash = "rand123")
-        everySuspend { repository.generateRandomizerSeed(model) } returns expectedSeed
+        val expectedSeed = SeedEntity(hash = "custom123")
+        everySuspend { repository.generateCustomizerSeed(model) } returns expectedSeed
 
         val result = useCase(model)
 
         assertTrue(result.isSuccess)
         assertEquals(expectedSeed, result.getOrNull())
-        verifySuspend { repository.generateRandomizerSeed(model) }
+        verifySuspend { repository.generateCustomizerSeed(model) }
     }
 
     @Test
-    fun `test get randomizer seed failure`() = runTest {
+    fun `test get customizer seed failure`() = runTest {
         val model = GameModel()
         val exception = RuntimeException("Generation failed")
-        everySuspend { repository.generateRandomizerSeed(model) } throws exception
+        everySuspend { repository.generateCustomizerSeed(model) } throws exception
 
         val result = useCase(model)
 
         assertTrue(result.isFailure)
         assertEquals(exception, result.exceptionOrNull())
-        verifySuspend { repository.generateRandomizerSeed(model) }
+        verifySuspend { repository.generateCustomizerSeed(model) }
     }
 }

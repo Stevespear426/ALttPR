@@ -4,6 +4,7 @@ import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.navigation.Screen
 import com.stingers.alttpr.repository.local.SeedDao
+import com.stingers.alttpr.repository.usecase.GetCustomizerSeedUseCase
 import com.stingers.alttpr.repository.usecase.GetDailySeedUseCase
 import com.stingers.alttpr.repository.usecase.GetRandomizerSeedUseCase
 import dev.mokkery.answering.returns
@@ -38,6 +39,7 @@ class DashboardViewModelTest {
     }
     private val getDailySeedUseCase = mock<GetDailySeedUseCase>()
     private val getRandomizerSeedUseCase = mock<GetRandomizerSeedUseCase>()
+    private val getCustomizerSeedUseCase = mock<GetCustomizerSeedUseCase>()
     private val seedDao = mock<SeedDao>()
 
     @BeforeTest
@@ -60,6 +62,7 @@ class DashboardViewModelTest {
             navigationManager = navigationManager,
             getDailySeedUseCase = getDailySeedUseCase,
             getRandomizerSeedUseCase = getRandomizerSeedUseCase,
+            getCustomizerSeedUseCase = getCustomizerSeedUseCase,
             seedDao = seedDao
         )
         testDispatcher.scheduler.advanceUntilIdle()
@@ -77,6 +80,7 @@ class DashboardViewModelTest {
             navigationManager = navigationManager,
             getDailySeedUseCase = getDailySeedUseCase,
             getRandomizerSeedUseCase = getRandomizerSeedUseCase,
+            getCustomizerSeedUseCase = getCustomizerSeedUseCase,
             seedDao = seedDao
         )
         testDispatcher.scheduler.advanceUntilIdle()

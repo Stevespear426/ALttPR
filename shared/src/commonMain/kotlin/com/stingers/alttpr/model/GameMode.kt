@@ -2,6 +2,7 @@ package com.stingers.alttpr.model
 
 import alttpr.shared.generated.resources.Res
 import alttpr.shared.generated.resources.gamemode_beginner
+import alttpr.shared.generated.resources.gamemode_casual_boots
 import alttpr.shared.generated.resources.gamemode_crosskeys
 import alttpr.shared.generated.resources.gamemode_custom
 import alttpr.shared.generated.resources.gamemode_default
@@ -17,6 +18,7 @@ import com.stingers.alttpr.model.api.EnemyShuffle
 import com.stingers.alttpr.model.api.Entrances
 import com.stingers.alttpr.model.api.Glitches
 import com.stingers.alttpr.model.api.Goals
+import com.stingers.alttpr.model.api.Item
 import com.stingers.alttpr.model.api.ItemFunctionality
 import com.stingers.alttpr.model.api.ItemPlacement
 import com.stingers.alttpr.model.api.ItemPool
@@ -26,9 +28,9 @@ import com.stingers.alttpr.model.api.Weapons
 import com.stingers.alttpr.model.api.WorldState
 import org.jetbrains.compose.resources.StringResource
 
-enum class RandomizerGameMode(val title: StringResource) {
-    DEFAULT(Res.string.gamemode_default) {
-        override fun model() = RandomizerGameModel(
+enum class GameMode(val title: StringResource, val api: AlttprApi) {
+    DEFAULT(Res.string.gamemode_default, AlttprApi.RANDOMIZER) {
+        override fun model() = GameModel(
             glitches = Glitches.None,
             itemPlacement = ItemPlacement.Advanced,
             dungeonItems = Keysanity.Standard,
@@ -50,8 +52,8 @@ enum class RandomizerGameMode(val title: StringResource) {
             pseudoboots = false
         )
     },
-    BEGINNER(Res.string.gamemode_beginner) {
-        override fun model() = RandomizerGameModel(
+    BEGINNER(Res.string.gamemode_beginner, AlttprApi.RANDOMIZER) {
+        override fun model() = GameModel(
             glitches = Glitches.None,
             itemPlacement = ItemPlacement.Basic,
             dungeonItems = Keysanity.Standard,
@@ -73,8 +75,8 @@ enum class RandomizerGameMode(val title: StringResource) {
             pseudoboots = false
         )
     },
-    OWG(Res.string.gamemode_owg) {
-        override fun model() = RandomizerGameModel(
+    OWG(Res.string.gamemode_owg, AlttprApi.RANDOMIZER) {
+        override fun model() = GameModel(
             glitches = Glitches.Overworld,
             itemPlacement = ItemPlacement.Basic,
             dungeonItems = Keysanity.Standard,
@@ -96,8 +98,8 @@ enum class RandomizerGameMode(val title: StringResource) {
             pseudoboots = false
         )
     },
-    CROSSKEYS(Res.string.gamemode_crosskeys) {
-        override fun model() = RandomizerGameModel(
+    CROSSKEYS(Res.string.gamemode_crosskeys, AlttprApi.RANDOMIZER) {
+        override fun model() = GameModel(
             glitches = Glitches.None,
             itemPlacement = ItemPlacement.Advanced,
             dungeonItems = Keysanity.Full,
@@ -119,8 +121,8 @@ enum class RandomizerGameMode(val title: StringResource) {
             pseudoboots = false
         )
     },
-    SUPER_QUICK(Res.string.gamemode_super_quick) {
-        override fun model() = RandomizerGameModel(
+    SUPER_QUICK(Res.string.gamemode_super_quick, AlttprApi.RANDOMIZER) {
+        override fun model() = GameModel(
             glitches = Glitches.None,
             itemPlacement = ItemPlacement.Basic,
             dungeonItems = Keysanity.Standard,
@@ -142,8 +144,8 @@ enum class RandomizerGameMode(val title: StringResource) {
             pseudoboots = false
         )
     },
-    NIGHTMARE(Res.string.gamemode_nightmare) {
-        override fun model() = RandomizerGameModel(
+    NIGHTMARE(Res.string.gamemode_nightmare, AlttprApi.RANDOMIZER) {
+        override fun model() = GameModel(
             glitches = Glitches.None,
             itemPlacement = ItemPlacement.Advanced,
             dungeonItems = Keysanity.Full,
@@ -165,9 +167,34 @@ enum class RandomizerGameMode(val title: StringResource) {
             pseudoboots = false
         )
     },
-    CUSTOM(Res.string.gamemode_custom) {
-        override fun model() = RandomizerGameModel()
+    CASUAL_BOOTS(Res.string.gamemode_casual_boots, AlttprApi.CUSTOMIZER) {
+        override fun model() = GameModel(
+            glitches = Glitches.None,
+            itemPlacement = ItemPlacement.Advanced,
+            dungeonItems = Keysanity.Standard,
+            accessibility = Accessibility.Items,
+            goal = Goals.DefeatGanon,
+            towerCrystals = Crystals.Seven,
+            ganonCrystals = Crystals.Seven,
+            worldState = WorldState.Standard,
+            entrances = Entrances.None,
+            bossShuffle = BossShuffle.None,
+            enemyShuffle = EnemyShuffle.None,
+            potShuffle = Toggle.Off,
+            hints = Toggle.Off,
+            weapons = Weapons.Assured,
+            itemPool = ItemPool.Normal,
+            itemFunctionality = ItemFunctionality.Normal,
+            enemyDamage = EnemyDamage.Default,
+            enemyHealth = EnemyHealth.Default,
+            pseudoboots = false,
+            startingEquipment = setOf(Item.PegasusBoots),
+            notes = "Casual w/ Boots Start",
+        )
+    },
+    CUSTOM(Res.string.gamemode_custom, AlttprApi.RANDOMIZER) {
+        override fun model() = GameModel()
     };
 
-    abstract fun model(): RandomizerGameModel
+    abstract fun model(): GameModel
 }

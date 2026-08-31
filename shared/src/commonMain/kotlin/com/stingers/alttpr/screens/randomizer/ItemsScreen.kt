@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.stingers.alttpr.common.preferences.MenuPreference
-import com.stingers.alttpr.model.RandomizerGameMode
-import com.stingers.alttpr.model.RandomizerGameModel
+import com.stingers.alttpr.model.GameMode
+import com.stingers.alttpr.model.GameModel
 import com.stingers.alttpr.model.api.Accessibility
 import com.stingers.alttpr.model.api.Glitches
 import com.stingers.alttpr.model.api.ItemPlacement
@@ -23,7 +23,7 @@ import com.stingers.alttpr.theme.PreviewLightTheme
 
 @Composable
 fun ItemsScreen(
-    settings: RandomizerGameModel,
+    settings: GameModel,
     isCustom: Boolean = false,
     processEvent: (event: RandomizerEvent) -> Unit
 ) {
@@ -87,7 +87,7 @@ fun ItemsScreenLightPreview(
 ) {
     PreviewLightTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            ItemsScreen(state.settings, state.preset == RandomizerGameMode.CUSTOM) {}
+            ItemsScreen(state.settings, state.preset == GameMode.CUSTOM) {}
         }
     }
 }
@@ -99,7 +99,7 @@ fun ItemsScreenDarkPreview(
 ) {
     PreviewDarkTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            ItemsScreen(state.settings, state.preset == RandomizerGameMode.CUSTOM) {}
+            ItemsScreen(state.settings, state.preset == GameMode.CUSTOM) {}
         }
     }
 }

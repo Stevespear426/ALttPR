@@ -47,7 +47,7 @@ import com.stingers.alttpr.common.components.PageHeader
 import com.stingers.alttpr.common.components.PageLoadingView
 import com.stingers.alttpr.common.components.TabContentView
 import com.stingers.alttpr.common.preferences.MenuPreference
-import com.stingers.alttpr.model.RandomizerGameMode
+import com.stingers.alttpr.model.GameMode
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
 import org.jetbrains.compose.resources.painterResource
@@ -70,7 +70,7 @@ fun RandomizerScreen(
 ) {
     val urlHandler = LocalUriHandler.current
     with(state) {
-        val isCustom = preset == RandomizerGameMode.CUSTOM
+        val isCustom = preset == GameMode.CUSTOM
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = spacedBy(16.dp),
@@ -123,7 +123,7 @@ fun RandomizerScreen(
                 MenuPreference(
                     Res.string.select_preset,
                     currentItem = preset,
-                    items = RandomizerGameMode.entries,
+                    items = GameMode.entries,
                     titleResForItem = { it.title }) {
                     processEvent(RandomizerEvent.SetPreset(it))
                 }
@@ -181,7 +181,7 @@ class RandomizerStateParameterProvider : PreviewParameterProvider<RandomizerStat
         ),
         RandomizerState(
             loading = false,
-            preset = RandomizerGameMode.CUSTOM
+            preset = GameMode.CUSTOM
         ),
     )
 }

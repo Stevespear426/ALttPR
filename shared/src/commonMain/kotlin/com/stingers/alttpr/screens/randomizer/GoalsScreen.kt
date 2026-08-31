@@ -11,8 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.stingers.alttpr.common.preferences.MenuPreference
-import com.stingers.alttpr.model.RandomizerGameMode
-import com.stingers.alttpr.model.RandomizerGameModel
+import com.stingers.alttpr.model.GameMode
+import com.stingers.alttpr.model.GameModel
 import com.stingers.alttpr.model.api.Crystals
 import com.stingers.alttpr.model.api.Goals
 import com.stingers.alttpr.theme.PreviewDarkTheme
@@ -20,7 +20,7 @@ import com.stingers.alttpr.theme.PreviewLightTheme
 
 @Composable
 fun GoalsScreen(
-    settings: RandomizerGameModel,
+    settings: GameModel,
     isCustom: Boolean = false,
     processEvent: (event: RandomizerEvent) -> Unit
 ) {
@@ -71,7 +71,7 @@ fun GoalsScreenLightPreview(
 ) {
     PreviewLightTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            GoalsScreen(state.settings, state.preset == RandomizerGameMode.CUSTOM) {}
+            GoalsScreen(state.settings, state.preset == GameMode.CUSTOM) {}
         }
     }
 }
@@ -83,7 +83,7 @@ fun GoalsScreenDarkPreview(
 ) {
     PreviewDarkTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            GoalsScreen(state.settings, state.preset == RandomizerGameMode.CUSTOM) {}
+            GoalsScreen(state.settings, state.preset == GameMode.CUSTOM) {}
         }
     }
 }

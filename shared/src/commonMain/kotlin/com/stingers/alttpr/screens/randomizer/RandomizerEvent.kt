@@ -1,6 +1,6 @@
 package com.stingers.alttpr.screens.randomizer
 
-import com.stingers.alttpr.model.RandomizerGameMode
+import com.stingers.alttpr.model.GameMode
 import com.stingers.alttpr.model.api.Accessibility
 import com.stingers.alttpr.model.api.BossShuffle
 import com.stingers.alttpr.model.api.Crystals
@@ -25,7 +25,7 @@ sealed interface RandomizerEvent {
     object GenerateRace : RandomizerEvent
 
     data class SetName(val value: String) : RandomizerEvent
-    data class SetPreset(val value: RandomizerGameMode) : RandomizerEvent
+    data class SetPreset(val value: GameMode) : RandomizerEvent
     data class SetGlitches(val value: Glitches) : RandomizerEvent
     data class SetItemPlacement(val value: ItemPlacement) : RandomizerEvent
     data class SetDungeonItems(val value: Keysanity) : RandomizerEvent

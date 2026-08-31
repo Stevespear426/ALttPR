@@ -5,12 +5,15 @@ import alttpr.shared.generated.resources.mystery_game
 import alttpr.shared.generated.resources.race_game
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.stingers.alttpr.model.RandomizerGameMode
+import com.stingers.alttpr.model.AlttprApi
+import com.stingers.alttpr.model.GameMode
+import com.stingers.alttpr.model.GameModel
 import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.api.Spoilers
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.navigation.Screen
 import com.stingers.alttpr.repository.local.SeedDao
+import com.stingers.alttpr.repository.usecase.GetCustomizerSeedUseCase
 import com.stingers.alttpr.repository.usecase.GetDailySeedUseCase
 import com.stingers.alttpr.repository.usecase.GetRandomizerSeedUseCase
 import com.stingers.alttpr.utils.currentTimeInMillis
@@ -29,6 +32,7 @@ class DashboardViewModel(
     private val navigationManager: NavigationManager,
     private val getDailySeedUseCase: GetDailySeedUseCase,
     private val getRandomizerSeedUseCase: GetRandomizerSeedUseCase,
+    private val getCustomizerSeedUseCase: GetCustomizerSeedUseCase,
     private val seedDao: SeedDao
 ) : ViewModel() {
 
@@ -68,11 +72,12 @@ class DashboardViewModel(
     private suspend fun createMysterySeed() {
         _state.update { it.copy(loading = true, error = null) }
 
-        val randomMode = RandomizerGameMode.entries
-            .filterNot { it == RandomizerGameMode.CUSTOM }
+        val randomMode = GameMode.entries
+            .filterNot { it == GameMode.CUSTOM }
             .random()
 
-        getRandomizerSeedUseCase(
+        generateSeed(
+            randomMode.api,
             randomMode.model().copy(
                 spoilers = Spoilers.Mystery,
                 tournament = true,
@@ -100,18 +105,21 @@ class DashboardViewModel(
     private suspend fun createRaceSeed() {
         _state.update { it.copy(loading = true, error = null) }
 
-        val randomMode = RandomizerGameMode.entries
-            .filterNot { it == RandomizerGameMode.CUSTOM }
+        val randomMode = GameMode.entries
+            .filterNot { it == GameMode.CUSTOM }
             .random()
 
-        getRandomizerSeedUseCase(randomMode.model().copy(
-            tournament = true,
-            name = "${getString(Res.string.race_game)}-${
-                getDateString(
-                    currentTimeInMillis()
-                )
-            }"
-        ))
+        generateSeed(
+            randomMode.api,
+            randomMode.model().copy(
+                tournament = true,
+                name = "${getString(Res.string.race_game)}-${
+                    getDateString(
+                        currentTimeInMillis()
+                    )
+                }"
+            )
+        )
             .onSuccess { seed ->
                 _state.update { it.copy(loading = false) }
                 navigationManager.navigateTo(Screen.EditRom(seed))
@@ -124,6 +132,13 @@ class DashboardViewModel(
                     )
                 }
             }
+    }
+
+    private suspend fun generateSeed(api: AlttprApi, model: GameModel): Result<SeedEntity> {
+        return when (api) {
+            AlttprApi.RANDOMIZER -> getRandomizerSeedUseCase(model)
+            AlttprApi.CUSTOMIZER -> getCustomizerSeedUseCase(model)
+        }
     }
 
     private fun getRecentSeed() {

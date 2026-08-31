@@ -7,18 +7,18 @@ import com.stingers.alttpr.repository.AlttprRepository
 import org.koin.core.annotation.Factory
 
 @Factory
-open class GetRandomizerSeedUseCase(
+open class GetCustomizerSeedUseCase(
     private val logger: Logger,
     private val repository: AlttprRepository,
 ) {
 
     open suspend operator fun invoke(model: GameModel): Result<SeedEntity> = runCatching {
-        repository.generateRandomizerSeed(model)
+        repository.generateCustomizerSeed(model)
     }.onFailure { e ->
-        logger.e(TAG, "Failed to generate Seed", e)
+        logger.e(TAG, "Failed to generate customizer seed", e)
     }
 
     companion object {
-        private const val TAG = "GetRandomizerSeedUseCase"
+        private const val TAG = "GetCustomizerSeedUseCase"
     }
 }

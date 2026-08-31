@@ -11,6 +11,7 @@ import de.jensklingenberg.ktorfit.http.Body
 import de.jensklingenberg.ktorfit.http.Headers
 import de.jensklingenberg.ktorfit.http.Path
 import de.jensklingenberg.ktorfit.http.Url
+import com.stingers.alttpr.model.api.CustomizerSeedRequest
 import com.stingers.alttpr.model.api.GenerateSeedRequest
 import com.stingers.alttpr.model.api.GenerateSeedResponse
 
@@ -38,4 +39,8 @@ interface AlttprService {
     @POST("api/randomizer")
     @Headers("Accept: application/json", "Content-Type: application/json")
     suspend fun generateSeed(@Body request: GenerateSeedRequest): GenerateSeedResponse
+
+    @POST("api/customizer")
+    @Headers("Accept: application/json", "Content-Type: application/json")
+    suspend fun generateCustomizerSeed(@Body request: CustomizerSeedRequest): GenerateSeedResponse
 }

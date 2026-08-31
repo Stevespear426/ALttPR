@@ -1,9 +1,11 @@
 package com.stingers.alttpr.repository
 
 import com.stingers.alttpr.model.BasePatchInfoResponse
+import com.stingers.alttpr.model.GameModel
 import com.stingers.alttpr.model.DailyResponse
 import com.stingers.alttpr.model.SeedDetailsResponse
 import com.stingers.alttpr.model.Sprite
+import com.stingers.alttpr.model.api.GenerateSeedResponse
 import com.stingers.alttpr.repository.local.SeedDao
 import com.stingers.alttpr.repository.local.SpriteDao
 import com.stingers.alttpr.repository.remote.AlttprService
@@ -60,6 +62,28 @@ class AlttprRepositoryTest {
         assertEquals("no-logic", result.logic)
         verifySuspend { alttprService.getDaily() }
         verifySuspend { alttprService.getSeedPatch("dailyhash") }
+    }
+
+    @Test
+    fun `test generate customizer seed success`() = runTest {
+        val model = GameModel()
+        val response = GenerateSeedResponse(hash = "custhash")
+        val seedDetails = SeedDetailsResponse(
+            hash = "custhash",
+            logic = "no-logic",
+            patch = listOf(mapOf("1000" to listOf(1, 2)))
+        )
+
+        everySuspend { alttprService.generateCustomizerSeed(any()) } returns response
+        everySuspend { seedDao.getSeed("custhash") } returns null
+        everySuspend { alttprService.getSeedPatch("custhash") } returns seedDetails
+
+        val result = repository.generateCustomizerSeed(model)
+
+        assertEquals("custhash", result.hash)
+        assertEquals("no-logic", result.logic)
+        verifySuspend { alttprService.generateCustomizerSeed(any()) }
+        verifySuspend { alttprService.getSeedPatch("custhash") }
     }
 
     @Test

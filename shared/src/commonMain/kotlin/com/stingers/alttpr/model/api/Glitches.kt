@@ -6,7 +6,6 @@ import alttpr.shared.generated.resources.glitches_overworld
 import alttpr.shared.generated.resources.glitches_hybrid
 import alttpr.shared.generated.resources.glitches_major
 import alttpr.shared.generated.resources.glitches_no_logic
-import com.stingers.alttpr.model.RandomizerGameModel
 import org.jetbrains.compose.resources.StringResource
 
 enum class Glitches(val title: StringResource, val value: String) {

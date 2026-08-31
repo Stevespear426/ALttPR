@@ -1,8 +1,6 @@
 package com.stingers.alttpr.model.api
 
-import com.stingers.alttpr.model.RandomizerGameModel
-import com.stingers.alttpr.utils.currentTimeInMillis
-import com.stingers.alttpr.utils.getDateString
+import com.stingers.alttpr.model.GameModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -52,7 +50,7 @@ data class GenerateSeedRequest(
 ) {
 
     companion object {
-        fun getRequest(model: RandomizerGameModel): GenerateSeedRequest {
+        fun getRequest(model: GameModel): GenerateSeedRequest {
             with(model) {
                 return GenerateSeedRequest(
                     lang = lang?.value,

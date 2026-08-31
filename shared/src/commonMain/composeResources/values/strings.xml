@@ -55,6 +55,7 @@
     <string name="gamemode_crosskeys">Crosskeys</string>
     <string name="gamemode_super_quick">Super Quick</string>
     <string name="gamemode_nightmare">Nightmare</string>
+    <string name="gamemode_casual_boots">Casual Boots</string>
     <string name="gamemode_daily_challenge">DailyChallenge</string>
 
     <string name="menu_speed_title">Menu Speed</string>

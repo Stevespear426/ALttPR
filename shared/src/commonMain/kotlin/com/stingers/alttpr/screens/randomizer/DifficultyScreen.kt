@@ -15,8 +15,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
 import com.stingers.alttpr.common.preferences.MenuPreference
 import com.stingers.alttpr.common.preferences.SwitchPreference
-import com.stingers.alttpr.model.RandomizerGameMode
-import com.stingers.alttpr.model.RandomizerGameModel
+import com.stingers.alttpr.model.GameModel
+import com.stingers.alttpr.model.GameMode
 import com.stingers.alttpr.model.api.EnemyDamage
 import com.stingers.alttpr.model.api.EnemyHealth
 import com.stingers.alttpr.model.api.ItemFunctionality
@@ -27,7 +27,7 @@ import com.stingers.alttpr.theme.PreviewLightTheme
 
 @Composable
 fun DifficultyScreen(
-    settings: RandomizerGameModel,
+    settings: GameModel,
     isCustom: Boolean = false,
     processEvent: (event: RandomizerEvent) -> Unit
 ) {
@@ -115,7 +115,7 @@ fun DifficultyScreenLightPreview(
 ) {
     PreviewLightTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            DifficultyScreen(state.settings, state.preset == RandomizerGameMode.CUSTOM) {}
+            DifficultyScreen(state.settings, state.preset == GameMode.CUSTOM) {}
         }
     }
 }
@@ -127,7 +127,7 @@ fun DifficultyScreenDarkPreview(
 ) {
     PreviewDarkTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            DifficultyScreen(state.settings, state.preset == RandomizerGameMode.CUSTOM) {}
+            DifficultyScreen(state.settings, state.preset == GameMode.CUSTOM) {}
         }
     }
 }
