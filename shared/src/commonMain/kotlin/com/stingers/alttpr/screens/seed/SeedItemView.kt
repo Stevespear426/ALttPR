@@ -8,6 +8,7 @@ import alttpr.shared.generated.resources.ic_edit
 import alttpr.shared.generated.resources.ic_link
 import alttpr.shared.generated.resources.ic_play_arrow
 import alttpr.shared.generated.resources.ic_save
+import alttpr.shared.generated.resources.notes
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -43,6 +44,7 @@ import com.stingers.alttpr.model.SeedEntity
 import com.stingers.alttpr.model.SpoilerMeta
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
+import com.stingers.alttpr.utils.stripHtml
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.viewmodel.koinViewModel
@@ -105,8 +107,16 @@ fun SeedItemView(
                         style = MaterialTheme.typography.titleLargeEmphasized.copy(fontWeight = FontWeight.Bold)
                     )
 
+                    it.notes?.let {
+                        Text(
+                            text = stringResource(Res.string.notes, it.stripHtml()),
+                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                        )
+                    }
+
                     SeedMetaView(it)
                 }
+
             }
 
             HorizontalDivider(
@@ -204,6 +214,7 @@ class RomEntityParameterProvider : PreviewParameterProvider<SeedItemState> {
         patch = listOf(mapOf("1573397" to listOf(1, 2, 3, 4, 5))),
         meta = SpoilerMeta(
             name = "Daily Challenge: Aug 17",
+            notes = "Casual Boots Start",
             build = "2023-09-22",
             accessibility = "none",
             mode = "open",

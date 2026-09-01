@@ -72,9 +72,7 @@ class DashboardViewModel(
     private suspend fun createMysterySeed() {
         _state.update { it.copy(loading = true, error = null) }
 
-        val randomMode = GameMode.entries
-            .filterNot { it == GameMode.CUSTOM }
-            .random()
+        val randomMode = GameMode.entries.random()
 
         generateSeed(
             randomMode.api,
@@ -105,9 +103,7 @@ class DashboardViewModel(
     private suspend fun createRaceSeed() {
         _state.update { it.copy(loading = true, error = null) }
 
-        val randomMode = GameMode.entries
-            .filterNot { it == GameMode.CUSTOM }
-            .random()
+        val randomMode = GameMode.entries.random()
 
         generateSeed(
             randomMode.api,

@@ -2,33 +2,111 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "6320a1c187eb8e624675b4ea0d697309",
+    "identityHash": "3ff1e6d50542e8d205f53be4ad36f7e6",
     "entities": [
       {
-        "tableName": "seed",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hash` TEXT NOT NULL, `md5` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `localFileName` TEXT NOT NULL, `logic` TEXT, `generated` TEXT, `size` INTEGER NOT NULL, `patch` TEXT NOT NULL, `meta_name` TEXT, `meta_entryCrystalsGanon` TEXT, `meta_entryCrystalsTower` TEXT, `meta_worlds` INTEGER, `meta_itemPlacement` TEXT, `meta_itemPool` TEXT, `meta_itemFunctionality` TEXT, `meta_dungeonItems` TEXT, `meta_logic` TEXT, `meta_accessibility` TEXT, `meta_romMode` TEXT, `meta_goal` TEXT, `meta_build` TEXT, `meta_mode` TEXT, `meta_weapons` TEXT, `meta_worldId` INTEGER, `meta_tournament` INTEGER, `meta_size` INTEGER, `meta_hints` TEXT, `meta_spoilers` TEXT, `meta_allowQuickswap` INTEGER, `meta_pseudoboots` INTEGER, `meta_enemizerBossShuffle` TEXT, `meta_enemizerEnemyShuffle` TEXT, `meta_enemizerEnemyDamage` TEXT, `meta_enemizerEnemyHealth` TEXT, `meta_enemizerPotShuffle` TEXT, PRIMARY KEY(`hash`))",
+        "tableName": "LogEntity",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`type` TEXT NOT NULL, `tag` TEXT NOT NULL, `message` TEXT NOT NULL, `stacktrace` TEXT NOT NULL, `timestamp` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL)",
         "fields": [
           {
-            "fieldPath": "hash",
-            "columnName": "hash",
+            "fieldPath": "type",
+            "columnName": "type",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "md5",
-            "columnName": "md5",
+            "fieldPath": "tag",
+            "columnName": "tag",
             "affinity": "TEXT",
             "notNull": true
           },
           {
-            "fieldPath": "createdAt",
-            "columnName": "createdAt",
+            "fieldPath": "message",
+            "columnName": "message",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stacktrace",
+            "columnName": "stacktrace",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "timestamp",
+            "columnName": "timestamp",
             "affinity": "INTEGER",
             "notNull": true
           },
           {
-            "fieldPath": "localFileName",
-            "columnName": "localFileName",
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "LogSearchIndex",
+        "createSql": "CREATE VIRTUAL TABLE IF NOT EXISTS `${TABLE_NAME}` USING FTS5(`tag`, `message`, `stacktrace`, tokenize=`unicode61`, content=`LogEntity`)",
+        "fields": [
+          {
+            "fieldPath": "tag",
+            "columnName": "tag",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "message",
+            "columnName": "message",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "stacktrace",
+            "columnName": "stacktrace",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": false,
+          "columnNames": []
+        },
+        "ftsVersion": "FTS5",
+        "ftsOptions": {
+          "tokenizer": "unicode61",
+          "tokenizerArgs": [],
+          "contentTable": "LogEntity",
+          "languageIdColumnName": "",
+          "matchInfo": "FTS4",
+          "notIndexedColumns": [],
+          "prefixSizes": [],
+          "preferredOrder": "ASC",
+          "contentRowId": "",
+          "columnSize": true,
+          "detail": "FULL"
+        },
+        "contentSyncTriggers": [
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_LogSearchIndex_BEFORE_UPDATE BEFORE UPDATE ON `LogEntity` BEGIN DELETE FROM `LogSearchIndex` WHERE `rowid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_LogSearchIndex_BEFORE_DELETE BEFORE DELETE ON `LogEntity` BEGIN DELETE FROM `LogSearchIndex` WHERE `rowid`=OLD.`rowid`; END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_LogSearchIndex_AFTER_UPDATE AFTER UPDATE ON `LogEntity` BEGIN INSERT INTO `LogSearchIndex`(`rowid`, `tag`, `message`, `stacktrace`) VALUES (NEW.`rowid`, NEW.`tag`, NEW.`message`, NEW.`stacktrace`); END",
+          "CREATE TRIGGER IF NOT EXISTS room_fts_content_sync_LogSearchIndex_AFTER_INSERT AFTER INSERT ON `LogEntity` BEGIN INSERT INTO `LogSearchIndex`(`rowid`, `tag`, `message`, `stacktrace`) VALUES (NEW.`rowid`, NEW.`tag`, NEW.`message`, NEW.`stacktrace`); END"
+        ]
+      },
+      {
+        "tableName": "seed",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`hash` TEXT NOT NULL, `logic` TEXT, `generated` TEXT, `created` INTEGER NOT NULL, `updated` INTEGER NOT NULL, `lastPlayed` INTEGER, `completed` INTEGER, `favorite` INTEGER NOT NULL, `notes` TEXT NOT NULL, `size` INTEGER NOT NULL, `patch` TEXT NOT NULL, `md5` TEXT, `localFileName` TEXT, `meta_name` TEXT, `meta_notes` TEXT, `meta_entryCrystalsGanon` TEXT, `meta_entryCrystalsTower` TEXT, `meta_worlds` INTEGER, `meta_itemPlacement` TEXT, `meta_itemPool` TEXT, `meta_itemFunctionality` TEXT, `meta_dungeonItems` TEXT, `meta_logic` TEXT, `meta_accessibility` TEXT, `meta_romMode` TEXT, `meta_goal` TEXT, `meta_build` TEXT, `meta_mode` TEXT, `meta_weapons` TEXT, `meta_worldId` INTEGER, `meta_tournament` INTEGER, `meta_size` INTEGER, `meta_hints` TEXT, `meta_entranceShuffle` TEXT, `meta_spoilers` TEXT, `meta_allowQuickswap` INTEGER, `meta_pseudoboots` INTEGER, `meta_enemizerBossShuffle` TEXT, `meta_enemizerEnemyShuffle` TEXT, `meta_enemizerEnemyDamage` TEXT, `meta_enemizerEnemyHealth` TEXT, `meta_enemizerPotShuffle` TEXT, PRIMARY KEY(`hash`))",
+        "fields": [
+          {
+            "fieldPath": "hash",
+            "columnName": "hash",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -43,6 +121,40 @@
             "affinity": "TEXT"
           },
           {
+            "fieldPath": "created",
+            "columnName": "created",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updated",
+            "columnName": "updated",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "lastPlayed",
+            "columnName": "lastPlayed",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "completed",
+            "columnName": "completed",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "favorite",
+            "columnName": "favorite",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "notes",
+            "columnName": "notes",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
             "fieldPath": "size",
             "columnName": "size",
             "affinity": "INTEGER",
@@ -55,8 +167,23 @@
             "notNull": true
           },
           {
+            "fieldPath": "md5",
+            "columnName": "md5",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "localFileName",
+            "columnName": "localFileName",
+            "affinity": "TEXT"
+          },
+          {
             "fieldPath": "meta.name",
             "columnName": "meta_name",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.notes",
+            "columnName": "meta_notes",
             "affinity": "TEXT"
           },
           {
@@ -147,6 +274,11 @@
           {
             "fieldPath": "meta.hints",
             "columnName": "meta_hints",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "meta.entranceShuffle",
+            "columnName": "meta_entranceShuffle",
             "affinity": "TEXT"
           },
           {
@@ -258,7 +390,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '6320a1c187eb8e624675b4ea0d697309')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3ff1e6d50542e8d205f53be4ad36f7e6')"
     ]
   }
 }

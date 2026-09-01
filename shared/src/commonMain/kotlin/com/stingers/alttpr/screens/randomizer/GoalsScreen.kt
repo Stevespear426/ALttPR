@@ -21,7 +21,6 @@ import com.stingers.alttpr.theme.PreviewLightTheme
 @Composable
 fun GoalsScreen(
     settings: GameModel,
-    isCustom: Boolean = false,
     processEvent: (event: RandomizerEvent) -> Unit
 ) {
     with(settings) {
@@ -59,7 +58,7 @@ fun GoalsScreen(
                 }
             }
         }
-        RandomizerSettingsScreen(isCustom, settings)
+        RandomizerSettingsScreen(settings)
     }
 }
 
@@ -71,7 +70,7 @@ fun GoalsScreenLightPreview(
 ) {
     PreviewLightTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            GoalsScreen(state.settings, state.preset == GameMode.CUSTOM) {}
+            GoalsScreen(state.settings) {}
         }
     }
 }
@@ -83,7 +82,7 @@ fun GoalsScreenDarkPreview(
 ) {
     PreviewDarkTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            GoalsScreen(state.settings, state.preset == GameMode.CUSTOM) {}
+            GoalsScreen(state.settings) {}
         }
     }
 }

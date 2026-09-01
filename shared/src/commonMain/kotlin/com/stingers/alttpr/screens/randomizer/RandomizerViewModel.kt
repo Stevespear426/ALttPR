@@ -3,8 +3,8 @@ package com.stingers.alttpr.screens.randomizer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.stingers.alttpr.model.AlttprApi
-import com.stingers.alttpr.model.GameModel
 import com.stingers.alttpr.model.GameMode
+import com.stingers.alttpr.model.GameModel
 import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.navigation.Screen
 import com.stingers.alttpr.repository.usecase.GetCustomizerSeedUseCase
@@ -31,15 +31,9 @@ class RandomizerViewModel(
                 is RandomizerEvent.GenerateGame -> createRandomizerSeed()
                 is RandomizerEvent.GenerateRace -> createRandomizerSeed(true)
                 is RandomizerEvent.SetPreset -> {
-                    if (event.value == GameMode.CUSTOM) {
-                        _state.value = RandomizerState(
-                            preset = GameMode.CUSTOM,
-                            settings = _state.value.settings
-                        )
-                    } else {
-                        _state.value =
-                            RandomizerState(preset = event.value, settings = event.value.model())
-                    }
+                    _state.value =
+                        RandomizerState(preset = event.value, settings = event.value.model())
+
                 }
 
                 is RandomizerEvent.SetDungeonItems -> {
@@ -128,7 +122,7 @@ class RandomizerViewModel(
     private suspend fun createRandomizerSeed(tournament: Boolean? = null) {
         _state.update { it.copy(loading = true, error = null) }
 
-        when(state.value.preset.api) {
+        when (state.value.preset.api) {
             AlttprApi.RANDOMIZER -> {
                 getRandomizerSeedUseCase(state.value.settings.copy(tournament = tournament == true))
                     .onSuccess { seed ->
@@ -144,6 +138,7 @@ class RandomizerViewModel(
                         }
                     }
             }
+
             AlttprApi.CUSTOMIZER -> {
                 getCustomizerSeedUseCase(state.value.settings.copy(tournament = tournament == true))
                     .onSuccess { seed ->

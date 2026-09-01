@@ -15,6 +15,7 @@ import alttpr.shared.generated.resources.ic_reload
 import alttpr.shared.generated.resources.ic_save
 import alttpr.shared.generated.resources.menu_speed_title
 import alttpr.shared.generated.resources.msu_resume_title
+import alttpr.shared.generated.resources.notes
 import alttpr.shared.generated.resources.pallet_shuffle_title
 import alttpr.shared.generated.resources.palette_algorithm_title
 import alttpr.shared.generated.resources.permalink
@@ -79,6 +80,7 @@ import com.stingers.alttpr.navigation.NavigationManager
 import com.stingers.alttpr.platform.ic_back
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
+import com.stingers.alttpr.utils.stripHtml
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.koin.compose.koinInject
@@ -355,7 +357,14 @@ fun EditRomScreen(
                         }
                     }
                 }
-
+                seed.meta?.notes?.let {
+                    item {
+                        Text(
+                            text = stringResource(Res.string.notes, it.stripHtml()),
+                            style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                        )
+                    }
+                }
                 item {
                     Text(
                         text = stringResource(Res.string.generated_on, seed.getGeneratedDate()),

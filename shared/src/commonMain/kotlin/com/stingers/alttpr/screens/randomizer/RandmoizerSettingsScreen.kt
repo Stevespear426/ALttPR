@@ -9,7 +9,6 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun RandomizerSettingsScreen(
-    isCustom: Boolean = false,
     settings: List<@Composable () -> Unit>
 ) {
     Column(

@@ -1,5 +1,6 @@
 package com.stingers.alttpr.repository.local
 
+import androidx.room3.AutoMigration
 import androidx.room3.ColumnTypeConverters
 import androidx.room3.ConstructedBy
 import androidx.room3.DaoReturnTypeConverters
@@ -19,8 +20,10 @@ import com.stingers.alttpr.model.Sprite
         SeedEntity::class,
         Sprite::class
     ],
-    version = 1,
-    autoMigrations = [],
+    version = 2,
+    autoMigrations = [
+        AutoMigration(from = 1, to = 2)
+    ],
     exportSchema = true
 )
 @ColumnTypeConverters(Converters::class)

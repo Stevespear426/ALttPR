@@ -9,6 +9,7 @@
     <string name="clear_app_data">Clear App Data</string>
     <string name="clear_app_data_message">Wipe ROMs, Seeds, and other data...</string>
     <string name="open">Open %1$s</string>
+    <string name="notes">Notes: %1$s</string>
     <string name="version">App Version</string>
     <string name="need_help">Need Help?</string>
 
@@ -57,6 +58,46 @@
     <string name="gamemode_nightmare">Nightmare</string>
     <string name="gamemode_casual_boots">Casual Boots</string>
     <string name="gamemode_daily_challenge">DailyChallenge</string>
+
+    <string name="gamemode_ambrosia">Ambrosia</string>
+    <string name="gamemode_blitzmode">Fast Ganon, Open 4/4, Loaded Start</string>
+    <string name="gamemode_casual_boots_fast">Fast Ganon, Casual, Boots Start</string>
+    <string name="gamemode_open_boots">Open, Boots Start</string>
+    <string name="gamemode_open_boots_fast">Fast Ganon, Open, Boots Start</string>
+    <string name="gamemode_open_flute">Open, Pre-Activated Flute</string>
+    <string name="gamemode_standard_boots">Standard, Boots Start</string>
+    <string name="gamemode_all_dungeons_boots">All Dungeons, Boots Start</string>
+    <string name="gamemode_all_dungeons_keysanity_boots">All Dungeons Keysanity, Boots Start</string>
+    <string name="gamemode_casual_all_dungeons_boots">Casual All Dungeons, Boots Start</string>
+    <string name="gamemode_fadkeys">Fadkeys</string>
+    <string name="gamemode_fadkeys_gt">Fadkeys + GT</string>
+    <string name="gamemode_open_boots_mc">Open, MC Shuffle, Boots Start</string>
+    <string name="gamemode_tournament_all_dungeons_keysanity_boots">Tournament All Dungeons Keysanity, Boots Start</string>
+    <string name="gamemode_tournament_keysanity">Tournament Keysanity</string>
+    <string name="gamemode_eight_piece_hunt">8-Piece Hunt</string>
+    <string name="gamemode_goldrush">Goldrush (49/50)</string>
+    <string name="gamemode_goldrush_keysanity">Goldrush Keysanity</string>
+    <string name="gamemode_lightspeed">Lightspeed</string>
+    <string name="gamemode_triforce_hunt_30">Triforce Hunt, 30/40</string>
+    <string name="gamemode_triforce_hunt_40">Triforce Hunt, 40/50</string>
+    <string name="gamemode_invrosia">Invrosia</string>
+    <string name="gamemode_invrosia_boots">Invrosia, Boots Start</string>
+    <string name="gamemode_tournament_inverted_keysanity">Tournament Inverted Keysanity</string>
+    <string name="gamemode_inverted_vanilla">Inverted Vanilla</string>
+    <string name="gamemode_wtfrosia">Wtfrosia</string>
+    <string name="gamemode_enemizer_boots">Enemizer, Boots Start</string>
+    <string name="gamemode_tournament_mc_bossmizer">Tournament MC Bossmizer</string>
+    <string name="gamemode_black_friday_hell_seed">Black Friday Hell Seed</string>
+    <string name="gamemode_bot_testing">Bot Testing (SGLive Settings)</string>
+    <string name="gamemode_ladder_s12_open_pseudoboots">Ladder S12: Open + Pseudoboots</string>
+    <string name="gamemode_sgl_germany_open">SGL Germany Open</string>
+    <string name="gamemode_ladder_s7_potpourri">Ladder S7: Potpourri</string>
+    <string name="gamemode_saku_league_boots">Saku League, Boots Start</string>
+    <string name="gamemode_speedgaming_live_2022">SpeedGaming Live 2022</string>
+    <string name="gamemode_speedgaming_live_2021">SpeedGaming Live 2021</string>
+    <string name="gamemode_speedgaming_live_2023">SpeedGaming Live 2023</string>
+    <string name="gamemode_speedgaming_live_2024">SpeedGaming Live 2024</string>
+    <string name="gamemode_tournament_hard_item_pool">Tournament Hard Item Pool</string>
 
     <string name="menu_speed_title">Menu Speed</string>
     <string name="heart_speed_title">Heart Speed</string>

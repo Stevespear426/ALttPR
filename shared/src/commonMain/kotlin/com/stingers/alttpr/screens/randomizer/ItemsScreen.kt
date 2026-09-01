@@ -24,7 +24,6 @@ import com.stingers.alttpr.theme.PreviewLightTheme
 @Composable
 fun ItemsScreen(
     settings: GameModel,
-    isCustom: Boolean = false,
     processEvent: (event: RandomizerEvent) -> Unit
 ) {
     with(settings) {
@@ -75,7 +74,7 @@ fun ItemsScreen(
                 }
             }
         }
-        RandomizerSettingsScreen(isCustom, settings)
+        RandomizerSettingsScreen(settings)
     }
 }
 
@@ -87,7 +86,7 @@ fun ItemsScreenLightPreview(
 ) {
     PreviewLightTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            ItemsScreen(state.settings, state.preset == GameMode.CUSTOM) {}
+            ItemsScreen(state.settings) {}
         }
     }
 }
@@ -99,7 +98,7 @@ fun ItemsScreenDarkPreview(
 ) {
     PreviewDarkTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            ItemsScreen(state.settings, state.preset == GameMode.CUSTOM) {}
+            ItemsScreen(state.settings) {}
         }
     }
 }

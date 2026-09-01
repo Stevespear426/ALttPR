@@ -28,7 +28,6 @@ import com.stingers.alttpr.theme.PreviewLightTheme
 @Composable
 fun DifficultyScreen(
     settings: GameModel,
-    isCustom: Boolean = false,
     processEvent: (event: RandomizerEvent) -> Unit
 ) {
     with(settings) {
@@ -103,7 +102,7 @@ fun DifficultyScreen(
                 }
             }
         }
-        RandomizerSettingsScreen(isCustom, settings)
+        RandomizerSettingsScreen(settings)
     }
 }
 
@@ -115,7 +114,7 @@ fun DifficultyScreenLightPreview(
 ) {
     PreviewLightTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            DifficultyScreen(state.settings, state.preset == GameMode.CUSTOM) {}
+            DifficultyScreen(state.settings) {}
         }
     }
 }
@@ -127,7 +126,7 @@ fun DifficultyScreenDarkPreview(
 ) {
     PreviewDarkTheme {
         Surface(modifier = Modifier.fillMaxSize()) {
-            DifficultyScreen(state.settings, state.preset == GameMode.CUSTOM) {}
+            DifficultyScreen(state.settings) {}
         }
     }
 }

@@ -47,6 +47,7 @@ import com.stingers.alttpr.common.components.PageHeader
 import com.stingers.alttpr.common.components.PageLoadingView
 import com.stingers.alttpr.common.components.TabContentView
 import com.stingers.alttpr.common.preferences.MenuPreference
+import com.stingers.alttpr.model.AlttprApi
 import com.stingers.alttpr.model.GameMode
 import com.stingers.alttpr.theme.PreviewDarkTheme
 import com.stingers.alttpr.theme.PreviewLightTheme
@@ -70,7 +71,6 @@ fun RandomizerScreen(
 ) {
     val urlHandler = LocalUriHandler.current
     with(state) {
-        val isCustom = preset == GameMode.CUSTOM
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = spacedBy(16.dp),
@@ -150,22 +150,24 @@ fun RandomizerScreen(
                     ),
                 )
             }
-            item {
-                val tabs = listOf(
-                    stringResource(Res.string.goals),
-                    stringResource(Res.string.item_placement),
-                    stringResource(Res.string.gameplay),
-                    stringResource(Res.string.difficulty)
-                )
-                TabContentView(
-                    Modifier.fillMaxWidth().wrapContentSize(),
-                    tabs
-                ) { page ->
-                    when (page) {
-                        0 -> GoalsScreen(settings, isCustom, processEvent)
-                        1 -> ItemsScreen(settings, isCustom, processEvent)
-                        2 -> GameplayScreen(settings, isCustom, processEvent)
-                        3 -> DifficultyScreen(settings, isCustom, processEvent)
+            if (preset.api == AlttprApi.RANDOMIZER) {
+                item {
+                    val tabs = listOf(
+                        stringResource(Res.string.goals),
+                        stringResource(Res.string.item_placement),
+                        stringResource(Res.string.gameplay),
+                        stringResource(Res.string.difficulty)
+                    )
+                    TabContentView(
+                        Modifier.fillMaxWidth().wrapContentSize(),
+                        tabs
+                    ) { page ->
+                        when (page) {
+                            0 -> GoalsScreen(settings, processEvent)
+                            1 -> ItemsScreen(settings, processEvent)
+                            2 -> GameplayScreen(settings, processEvent)
+                            3 -> DifficultyScreen(settings, processEvent)
+                        }
                     }
                 }
             }
@@ -178,10 +180,6 @@ class RandomizerStateParameterProvider : PreviewParameterProvider<RandomizerStat
     override val values = sequenceOf(
         RandomizerState(
             loading = false
-        ),
-        RandomizerState(
-            loading = false,
-            preset = GameMode.CUSTOM
         ),
     )
 }

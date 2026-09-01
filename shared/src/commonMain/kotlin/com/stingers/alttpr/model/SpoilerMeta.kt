@@ -7,6 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class SpoilerMeta(
     @SerialName("name") val name: String? = null,
+    @SerialName("notes") val notes: String? = null,
     @SerialName("entry_crystals_ganon") val entryCrystalsGanon: String? = null,
     @SerialName("entry_crystals_tower") val entryCrystalsTower: String? = null,
     @SerialName("worlds") val worlds: Int? = null,

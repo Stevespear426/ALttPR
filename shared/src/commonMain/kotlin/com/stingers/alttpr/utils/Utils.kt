@@ -288,6 +288,28 @@ inline fun <T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, R> combine(
     }
 }
 
+private val HTML_TAG_REGEX = Regex("<[^>]*>")
+private val HTML_ENTITIES = mapOf(
+    "&amp;" to "&",
+    "&lt;" to "<",
+    "&gt;" to ">",
+    "&quot;" to "\"",
+    "&#39;" to "'",
+    "&apos;" to "'",
+    "&nbsp;" to " ",
+)
+
+// The randomizer API returns `notes` as a snippet of HTML (e.g. "<p>Casual w/ Boots Start</p>"),
+// but this app only ever renders it as plain text, so strip tags and decode entities rather than
+// showing the raw markup.
+fun String.stripHtml(): String {
+    var text = replace(Regex("(?i)<br\\s*/?>"), "\n")
+        .replace(Regex("(?i)</p>"), "\n")
+        .replace(HTML_TAG_REGEX, "")
+    HTML_ENTITIES.forEach { (entity, replacement) -> text = text.replace(entity, replacement) }
+    return text.trim()
+}
+
 fun getDateString(millis: Long): String {
     return runCatching {
         val instant = Instant.fromEpochMilliseconds(millis)
