@@ -169,7 +169,8 @@ kover {
                     "*_Factory*",
                     "*_Impl*",
                     "*.databinding.*",
-                    "*.BuildConfig"
+                    "*.BuildConfig",
+                    "*\$special\$\$inlined\$*"
                 )
             }
         }
